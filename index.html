@@ -106,51 +106,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
 
 
 
-/* ============ GSB Sözlü Sınav / Mülakat Denemesi ============ */
-.oral-badge{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:6px 10px;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;font-size:.78rem;font-weight:900}
-.oral-card{--tone:#15803d;--tone-soft:#f0fdf4;--tone-border:#bbf7d0;border:2px solid var(--tone-border);border-left:8px solid var(--tone);border-radius:20px;background:linear-gradient(180deg,#fff,var(--tone-soft));padding:20px;box-shadow:0 10px 30px rgba(15,23,42,.08)}
-.oral-card.tone-common{--tone:#15803d;--tone-soft:#f7fef9;--tone-border:#bbf7d0}.oral-card.tone-role{--tone:#1d4ed8;--tone-soft:#eff6ff;--tone-border:#bfdbfe}.oral-card.tone-open{--tone:#7c3aed;--tone-soft:#fbfaff;--tone-border:#ddd6fe}.oral-card.tone-general{--tone:#b45309;--tone-soft:#fffbeb;--tone-border:#fde68a}.oral-card.tone-it{--tone:#0369a1;--tone-soft:#f0f9ff;--tone-border:#bae6fd}.oral-card.tone-scenario{--tone:#b91c1c;--tone-soft:#fff7f7;--tone-border:#fecaca}
-.oral-single-wrap{max-width:880px;margin:0 auto;width:100%}.oral-progress{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}.oral-progress-left{font-weight:900;color:var(--ink)}.oral-progress-left span{color:var(--muted);font-weight:800}.oral-jump{display:flex;gap:6px;flex-wrap:wrap}.oral-dot{width:30px;height:30px;border-radius:999px;border:1px solid var(--line2);background:#fff;font-size:.78rem;font-weight:900;color:var(--muted)}.oral-dot.active{background:var(--ink);color:#fff;border-color:var(--ink)}.oral-dot.answered{border-color:#15803d;color:#15803d;background:#f0fdf4}.oral-dot.active.answered{background:#15803d;color:#fff;border-color:#15803d}
-.oral-q-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}.oral-q-no{font-weight:900;color:var(--tone);font-size:.98rem}.oral-q-type{color:var(--tone);font-size:.82rem;font-weight:900;text-align:right;background:#fff;border:1px solid var(--tone-border);border-radius:999px;padding:6px 10px}.oral-q-topic{color:#374151;font-size:.92rem;margin-top:3px;font-weight:900}.oral-q-section{color:var(--muted);font-size:.8rem;margin-top:1px;font-weight:800}
-.oral-question{font-size:1.22rem;line-height:1.7;font-weight:900;white-space:pre-line;margin:16px 0 16px;color:#111827;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:18px}.oral-answer{width:100%;min-height:132px;border:1.8px solid var(--line2);border-radius:14px;padding:13px 14px;outline:none;resize:vertical;line-height:1.58;font:inherit;background:#fff;color:var(--ink)}.oral-answer:focus{border-color:var(--tone);box-shadow:0 0 0 4px color-mix(in srgb,var(--tone) 16%,transparent)}
-.oral-help{margin-top:10px;color:#4b5563;font-size:.9rem;line-height:1.5;background:#fff;border:1px dashed var(--tone-border);border-radius:12px;padding:11px 13px}.oral-help b{color:#111827}.oral-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px}.oral-nav .btn{min-width:130px}.oral-nav-mid{font-size:.88rem;color:var(--muted);font-weight:900}.oral-result-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.oral-mini{border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:11px;text-align:center}.oral-mini b{display:block;font-size:1.2rem}.oral-mini span{font-size:.76rem;color:var(--muted);font-weight:900}
-.review-card.oral-ok{border-color:#bbf7d0;background:#f7fef9}.review-card.oral-partial{border-color:#ddd6fe;background:#fbfaff}.review-card.oral-zero{border-color:#fecaca;background:#fffafa}.oral-score-pill{display:inline-flex;border-radius:999px;padding:5px 9px;font-size:.76rem;font-weight:900;background:#eef2ff;color:#3730a3}.oral-score-pill.full{background:#dcfce7;color:#166534}.oral-score-pill.zero{background:#fee2e2;color:#991b1b}.oral-ideal{margin-top:10px;border:1px dashed var(--line2);border-radius:12px;background:#fff;padding:12px 14px;line-height:1.58}.oral-ideal b{font-weight:900}
-@media(max-width:640px){.oral-result-strip{grid-template-columns:repeat(2,1fr)}.oral-q-type{text-align:left}.oral-answer{min-height:150px}.oral-card{padding:16px;border-left-width:6px}.oral-question{font-size:1.1rem;padding:15px}.oral-dot{width:28px;height:28px}.oral-jump{max-height:72px;overflow:auto}.oral-nav .btn{flex:1;min-width:120px}.oral-nav-mid{width:100%;text-align:center;order:-1}}
-
-/* GSB sözlü sonuç kartları: sınav kartlarıyla uyumlu renkler */
-.result-box.oral-result-box{border-color:#bbf7d0;background:linear-gradient(180deg,#fff,#f7fef9)}
-.result-box.oral-result-box .result-kpi{background:#fff;border-width:2px;border-left-width:7px;box-shadow:0 8px 22px rgba(15,23,42,.05)}
-.result-kpi.oral-kpi-common{border-color:#bbf7d0;border-left-color:#15803d}.result-kpi.oral-kpi-common b{color:#15803d}
-.result-kpi.oral-kpi-open{border-color:#ddd6fe;border-left-color:#7c3aed}.result-kpi.oral-kpi-open b{color:#7c3aed}
-.result-kpi.oral-kpi-blank{border-color:#fde68a;border-left-color:#b45309}.result-kpi.oral-kpi-blank b{color:#b45309}
-.result-kpi.oral-kpi-score{border-color:#fecaca;border-left-color:#b91c1c;background:#fff7f7}.result-kpi.oral-kpi-score b{color:#b91c1c;font-size:2.05rem}
-.result-kpi.oral-kpi-it{border-color:#bae6fd;border-left-color:#0369a1}.result-kpi.oral-kpi-it b{color:#0369a1}
-.result-kpi.oral-kpi-scenario{border-color:#fecaca;border-left-color:#b91c1c}.result-kpi.oral-kpi-scenario b{color:#b91c1c}
-.oral-mini.mini-common{border-color:#bbf7d0;border-left:6px solid #15803d;background:#f7fef9}.oral-mini.mini-open{border-color:#ddd6fe;border-left:6px solid #7c3aed;background:#fbfaff}.oral-mini.mini-score{border-color:#fecaca;border-left:6px solid #b91c1c;background:#fff7f7}.oral-mini.mini-it{border-color:#bae6fd;border-left:6px solid #0369a1;background:#f0f9ff}
-
-
-/* GSB sözlü paket tanıtım overlay */
-.oral-promo-overlay{position:fixed;inset:0;z-index:9999;background:rgba(17,24,39,.76);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px}
-.oral-promo-overlay.show{display:flex}
-.oral-promo-modal{width:min(980px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:24px;box-shadow:0 28px 90px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.28);position:relative}
-.oral-promo-top{padding:20px 22px 14px;background:linear-gradient(135deg,#fff7f7,#f8fafc 52%,#eff6ff);border-bottom:1px solid var(--line)}
-.oral-promo-kicker{display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:#fff;border:1px solid #fecaca;color:#b91c1c;font-weight:900;font-size:.82rem;padding:7px 11px;margin-bottom:10px}
-.oral-promo-title{font-size:1.55rem;line-height:1.18;font-weight:900;letter-spacing:-.025em;color:#111827;margin:0}
-.oral-promo-desc{color:#4b5563;font-weight:700;margin-top:8px;line-height:1.55}
-.oral-promo-body{display:grid;grid-template-columns:1.22fr .78fr;gap:18px;padding:18px 22px 22px}
-.oral-promo-videoBox{border-radius:20px;overflow:hidden;background:#111827;border:1px solid #111827;box-shadow:0 16px 38px rgba(15,23,42,.18);position:relative}
-.oral-promo-videoBox video{display:block;width:100%;height:auto;max-height:54vh;object-fit:contain;background:#111827;cursor:pointer}
-.oral-promo-videoHint{position:absolute;left:12px;bottom:12px;background:rgba(17,24,39,.82);color:#fff;border-radius:999px;padding:7px 10px;font-size:.78rem;font-weight:900;pointer-events:none}
-.oral-promo-side{display:flex;flex-direction:column;gap:12px}
-.oral-promo-panel{border:1px solid #fecaca;background:#fff7f7;border-radius:18px;padding:15px 16px;color:#374151;line-height:1.55}
-.oral-promo-panel b{color:#991b1b;font-weight:900}
-.oral-promo-list{display:grid;gap:8px;margin-top:10px;font-size:.92rem;font-weight:800;color:#374151}
-.oral-promo-list span{display:flex;gap:8px;align-items:flex-start}.oral-promo-list span:before{content:'✓';color:#15803d;font-weight:900}
-.oral-promo-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
-.oral-promo-actions .btn{flex:1;min-width:180px}.oral-promo-buy{background:#b91c1c;color:#fff}.oral-promo-buy:hover{background:#991b1b;transform:translateY(-1px)}
-.oral-promo-close{position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:1.25rem;font-weight:900;color:#374151;display:grid;place-items:center;box-shadow:0 6px 18px rgba(15,23,42,.10)}
-.oral-promo-close:hover{color:#b91c1c;border-color:#fecaca}
-@media(max-width:760px){.oral-promo-overlay{padding:10px}.oral-promo-modal{border-radius:20px}.oral-promo-body{grid-template-columns:1fr;padding:14px}.oral-promo-top{padding:18px 16px 12px}.oral-promo-title{font-size:1.28rem}.oral-promo-desc{font-size:.93rem}.oral-promo-videoHint{font-size:.72rem}.oral-promo-actions .btn{width:100%;min-width:0}.oral-promo-videoBox video{max-height:45vh}}
 
 
 
@@ -731,62 +686,11 @@ Object.keys(EXAM_CONFIG).forEach(function(roleId){
   }
 });
 
-const GSB_ORAL_CONFIG = {
-  type: "oral",
-  duration: 60,
-  totalQuestions: 25,
-  rawMaxScore: 100,
-  scorePerQuestion: 4,
-  yollukUrl: "https://adaletsenakademi.com/wp-content/uploads/2026/06/yolluk_flash_kartlari.json",
-  mulakatUrl: "https://adaletsenakademi.com/wp-content/uploads/2026/05/mulakat_soru_cevap_havuzu.json",
-  generalCultureUrl: "https://adaletsenakademi.com/wp-content/uploads/2026/05/genel_kultur_flashkartlari.json",
-  roleShortUrl: "https://adaletsenakademi.com/wp-content/uploads/2026/06/gsb_gorev_niteligi_kisa_cevap.json",
-  scenarioUrl: "https://adaletsenakademi.com/wp-content/uploads/2026/05/mulakat_liyakat_temsil_senaryo_havuzu_FINAL.json",
-  aiEndpoint: "https://adaletsenakademi.com/wp-json/adaletsen/v1/mulakat-degerlendir",
-  promoVideoUrl: "https://res.cloudinary.com/dhy4tuzmq/video/upload/v1781522994/tan%C4%B1t%C4%B1m_videosu_we9oi7.mp4",
-  promoBuyUrl: "https://www.shopier.com/adaletsenakademi/47517685"
-};
 
-const GSB_COMMON_TOPICS = [
-  "DMK", "Anayasa", "Gençlik ve Spor Hizmetleri Kanunu", "Bilgi Edinme Kanunu", "Kararname",
-  "Disiplin Amirleri Cetveli", "Görevde Yükselme Yönetmeliği", "Taşra Yönergesi", "Harcırah Kanunu",
-  "Mal Bildirimi Kanunu", "Resmi Yazışma Yönetmeliği", "İş Sağlığı ve Güvenliği Kanunu",
-  "Kredi ve Yurtlar Kanunu", "Etik Davranış İlkeleri", "Protokol Kuralları", "Temel İlk Yardım"
-];
 
-const GSB_ROLE_TOPICS = {
-  yurt_mudur: ["Yurt Hizmetleri Yönetmeliği", "Özel ve Gece Hizmetleri", "Beslenme Yönetmeliği", "Yemekhane-Kantin Yönetmeliği", "Kamu Mali Yönetimi ve Kontrol Kanunu", "Kamu İhale Kanunu", "Kişisel Verileri Koruma Kanunu", "Memurların Yargılanması Kanunu", "İl İdaresi Kanunu", "Kamu İhale Sözleşmeleri"],
-  yurt_mudur_yard: ["Yurt Hizmetleri Yönetmeliği", "Özel ve Gece Hizmetleri", "Beslenme Yönetmeliği", "Yemekhane-Kantin Yönetmeliği", "Kamu Mali Yönetimi ve Kontrol Kanunu", "Kamu İhale Kanunu", "Kişisel Verileri Koruma Kanunu", "Memurların Yargılanması Kanunu", "İl İdaresi Kanunu", "Kamu İhale Sözleşmeleri"],
-  sube_mudur: ["Yurt Hizmetleri Yönetmeliği", "Bütçe ve Muhasebe Yönetmeliği", "Sporda Şiddet ve Düzensizlik", "Kamu Mali Yönetimi ve Kontrol Kanunu", "Kamu İhale Kanunu", "Spor Kulüpleri ve Federasyonları Kanunu", "Kişisel Verileri Koruma Kanunu", "Memurların Yargılanması Kanunu", "İl İdaresi Kanunu", "Kamu İhale Sözleşmeleri"],
-  sef: ["Yurt Hizmetleri Yönetmeliği", "Kamu İhale Sözleşmeleri", "Bütçe ve Muhasebe Yönetmeliği", "Sporda Şiddet ve Düzensizlik", "Kamu Mali Yönetimi ve Kontrol Kanunu", "Kamu İhale Kanunu", "Spor Kulüpleri ve Federasyonları Kanunu", "Kişisel Verileri Koruma Kanunu"],
-  genc_mudur: ["Kamp Liderleri Yönergesi", "Gençlik Merkezleri Yönetmeliği", "Kamu Mali Yönetimi ve Kontrol Kanunu", "Kamu İhale Kanunu", "Gençlik Kampları Yönetmeliği", "Kişisel Verileri Koruma Kanunu", "Memurların Yargılanması Kanunu", "Gençlik Liderleri Yönergesi", "İl İdaresi Kanunu", "Kamu İhale Sözleşmeleri"],
-  muhendis: ["Mühendisliğe Giriş"],
-  psikolog: ["Psikolojiye Giriş"],
-  diyetisyen: ["Beslenme İlkeleri"],
-  sosyal_calismaci: ["Sosyal Hizmete Giriş"],
-  fizyoterapist: ["Fizyoterapi ve Rehabilitasyon"],
-  avukat: ["İdari Yargılama Usulü Kanunu"],
-  mimar: ["Mimarlığa Giriş", "Mimarlık"]
-};
 
-const GSB_ONLY_COMMON_ROLES = new Set(["tekniker", "teknisyen", "yurt_yonetim_memuru", "genclik_hizmetleri_memuru", "memur"]);
-const GSB_ROLE_SHORT_SOURCE_ROLES = new Set(["psikolog", "muhendis", "diyetisyen", "sosyal_calismaci", "fizyoterapist", "avukat", "mimar"]);
 
-// Bazı GSB sözlü unvanlarında liyakat/temsil senaryosu havuzunda doğrudan unvana özel kayıt yoktu.
-// Bu unvanlarda kullanıcıya hata verdirmek yerine, aynı görev mantığına en yakın unvanın senaryoları kullanılır.
-const GSB_SCENARIO_FALLBACK_ROLE_MAP = {
-  tekniker: "yurt_mudur_yard",
-  teknisyen: "yurt_mudur_yard",
-  yurt_yonetim_memuru: "yurt_mudur_yard",
-  genclik_hizmetleri_memuru: "genc_mudur",
-  memur: "sef"
-};
 
-const GSB_SCENARIO_FALLBACK_LABELS = {
-  yurt_mudur_yard: "Yurt Müdür Yardımcısı",
-  genc_mudur: "Gençlik Merkezi Müdürü",
-  sef: "Şef"
-};
 
 function uniqueByQuestionId(list){
   const seen = new Set();
@@ -798,15 +702,6 @@ function uniqueByQuestionId(list){
   });
 }
 
-function scenarioPoolForRole(scenario, role){
-  const all = Array.isArray(scenario) ? scenario : [];
-  const direct = all.filter(q => (q.targets || []).includes(role));
-  const fallbackRole = GSB_SCENARIO_FALLBACK_ROLE_MAP[role] || "";
-  if(direct.length >= 2 || !fallbackRole) return {pool: direct, fallbackRole: "", fallbackLabel: ""};
-  const fallback = all.filter(q => (q.targets || []).includes(fallbackRole));
-  const merged = uniqueByQuestionId([...direct, ...fallback]);
-  return {pool: merged, fallbackRole, fallbackLabel: GSB_SCENARIO_FALLBACK_LABELS[fallbackRole] || fallbackRole};
-}
 
 let selectedMinistry = null;
 let currentMode = "exam";
@@ -849,31 +744,10 @@ const FINAL_PROMO_ROLE_PACKAGE_MAP = {
   "gib-gelir-uzmanligi-guy":"gib-uzman",
   "gib-vergi-dairesi-mudur-yardimciligi":"gib-vergi",
   "gib-vhki":"gib-vhki",
-  "adalet-yazi-isleri-mudurlugu":"ad-yazi",
-  "danistay-yazi-isleri-mudurlugu":"danistay-yaziisleri",
-  "danistay-zabit-katibi":"danistay-zabitkatibi",
-  "danistay-sef":"danistay-sef",
-  "yurt_mudur":"gsb-yurt-muduru",
-  "yurt_mudur_yard":"gsb-yurt-mudur-yardimcisi",
-  "sube_mudur":"gsb-sube-muduru",
-  "sef":"gsb-sef",
-  "genc_mudur":"gsb-genclik-merkezi-muduru",
-  "muhendis":"gsb-muhendis",
-  "psikolog":"gsb-psikolog",
-  "diyetisyen":"gsb-diyetisyen",
-  "sosyal_calismaci":"gsb-sosyal-calismaci",
-  "fizyoterapist":"gsb-fizyoterapist",
-  "avukat":"gsb-avukat",
-  "mimar":"gsb-mimar",
-  "tekniker":"gsb-ortak-konular",
-  "teknisyen":"gsb-ortak-konular",
-  "yurt_yonetim_memuru":"gsb-ortak-konular",
-  "genclik_hizmetleri_memuru":"gsb-ortak-konular",
-  "memur":"gsb-ortak-konular"
 };
 
 // Anasayfa HTML'indeki unvan bazlı paket modalı verilerinden alınmıştır: panel adı, soru sayısı, konu dağılımı, görsel ve satın alma linkleri.
-const FINAL_PROMO_COURSE_DATA = {"gsb-mulakat":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Sözlü Mülakat Hazırlık Platformu","panel":"GSB Sözlü Sınav Hazırlık Paneli","toplamSoru":0,"konuSayisi":0,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47517685","image":"","type":"mulakat","summary":"Yazılıyı geçtin, sıra sözlüde. Genel kültür ve güncel sorulardan komisyon karşısındaki ana kadar tüm mülakat sürecini; yapay zekâ destekli simülasyonla, tek panelden ve gerçek akışıyla provasını yap. Salonun önünden komisyon masasına oturana kadar her adımı önceden yaşa.","topics":[],"mulakatModules":[{"ad":"Genel Kültür & Güncel","d":"Güncel olaylar ve genel kültür sorularını flash kartlarla hızlıca tekrar et; komisyonun sık değindiği konulara hazır gir."},{"ad":"Mülakat Soru & Cevap","d":"Unvan ve konu bazlı mülakat soru-cevap havuzundan, gerçekte sorulan tarzdaki örnek sorularla çalış ve örnek cevapları incele."},{"ad":"Eğitim İçerikleri","d":"Mülakat Eğitim Merkezi'nde beden dili, hitabet ve sunum gibi başlıklarda ders içerikleriyle kendini geliştir."},{"ad":"Sözlü Sınav Simülasyonu","d":"Sınav salonu önünden komisyon karşısına kadar adım adım gerçek sınav akışını birebir yaşayarak prova yap."},{"ad":"Yapay Zekâ Komisyon Değerlendirmesi","d":"Sesli cevabın yapay zekâ ile metne çevrilir, kameradan beden dili ve görsel temsilin analiz edilir; cevapların komisyon gibi puanlanıp gelişim özeti çıkarılır."}]},"gsb-yurt-muduru":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Yurt Müdürü","panel":"Gençlik ve Spor Bakanlığı Yurt Müdürü Premium Paneli","toplamSoru":1944,"konuSayisi":26,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/cux98zd.png","type":"","summary":"","topics":[{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Kamu İhale Kanunu","soru":186},{"ad":"Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Yurt Hizmetleri Yönetmeliği","soru":79},{"ad":"Yemekhane Kantin ve Diğer İşletmeler Yönetmeliği","soru":75},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"Kişisel Verilerin Korunması Kanunu","soru":45},{"ad":"Özel ve Gece Hizmetleri Yönergesi","soru":38},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"Kamu İhale Sözleşmeleri Kanunu","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"Beslenme Yönetmeliği","soru":28},{"ad":"351 sayılı kredi ve yurtlar kanunu","soru":26},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":25}],"mulakatModules":[]},"gsb-yurt-mudur-yardimcisi":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Yurt Müdür Yardımcısı","panel":"Gençlik ve Spor Bakanlığı Yurt Müdür Yardımcısı Premium Paneli","toplamSoru":1944,"konuSayisi":26,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/3maks5n.png","type":"","summary":"","topics":[{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Kamu İhale Kanunu","soru":186},{"ad":"Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Yurt Hizmetleri Yönetmeliği","soru":79},{"ad":"Yemekhane Kantin ve Diğer İşletmeler Yönetmeliği","soru":75},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"Kişisel Verilerin Korunması Kanunu","soru":45},{"ad":"Özel ve Gece Hizmetleri Yönergesi","soru":38},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"Kamu İhale Sözleşmeleri Kanunu","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"Beslenme Yönetmeliği","soru":28},{"ad":"351 sayılı kredi ve yurtlar kanunu","soru":26},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":25}],"mulakatModules":[]},"gsb-sube-muduru":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Şube Müdürü","panel":"Gençlik ve Spor Bakanlığı Şube Müdürü Premium Paneli","toplamSoru":1944,"konuSayisi":26,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/aohj8xa.png","type":"","summary":"","topics":[{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Kamu İhale Kanunu","soru":186},{"ad":"Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Yurt Hizmetleri Yönetmeliği","soru":79},{"ad":"Yemekhane Kantin ve Diğer İşletmeler Yönetmeliği","soru":75},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"Kişisel Verilerin Korunması Kanunu","soru":45},{"ad":"Özel ve Gece Hizmetleri Yönergesi","soru":38},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"Kamu İhale Sözleşmeleri Kanunu","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"Beslenme Yönetmeliği","soru":28},{"ad":"351 sayılı kredi ve yurtlar kanunu","soru":26},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":25}],"mulakatModules":[]},"gsb-sef":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Şef","panel":"Gençlik ve Spor Bakanlığı Şef Premium Paneli","toplamSoru":1841,"konuSayisi":24,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/fx4gqt9.png","type":"","summary":"","topics":[{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Kamu İhale Kanunu","soru":186},{"ad":"Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Yurt Hizmetleri Yönetmeliği","soru":79},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"Kişisel Verilerin Korunması Kanunu","soru":45},{"ad":"Özel ve Gece Hizmetleri Yönergesi","soru":38},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"Kamu İhale Sözleşmeleri Kanunu","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"351 sayılı kredi ve yurtlar kanunu","soru":26},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":25}],"mulakatModules":[]},"gsb-genclik-merkezi-muduru":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Gençlik Merkezi Müdürü","panel":"Gençlik ve Spor Bakanlığı Gençlik Merkezi Müdürü Premium Paneli","toplamSoru":1706,"konuSayisi":22,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/cvvjw6j.png","type":"","summary":"","topics":[{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Kamu İhale Kanunu","soru":186},{"ad":"Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"Gönüllü Gençlik Liderliği Yönergesi","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"Gençlik ve Spor Bakanlığı Kamp Liderlerinin Seçimi, Eğitimi ile Çalışma Usul ve Esasları Hakkında Yönerge","soru":30},{"ad":"Gençlik Kampları Yönetmeliği","soru":28},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25},{"ad":"Gençlik Merkezleri Yönetmeliği","soru":20}],"mulakatModules":[]},"gsb-sosyal-calismaci":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Sosyal Çalışmacı","panel":"Gençlik ve Spor Bakanlığı Sosyal Çalışmacı Premium Paneli","toplamSoru":1624,"konuSayisi":17,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/5ywlyyo.png","type":"","summary":"","topics":[{"ad":"Sosyal Hizmete Giriş","soru":381},{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25}],"mulakatModules":[]},"gsb-fizyoterapist":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Fizyoterapist","panel":"Gençlik ve Spor Bakanlığı Fizyoterapist Premium Paneli","toplamSoru":2008,"konuSayisi":17,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/4nn01kb.png","type":"","summary":"","topics":[{"ad":"Fizyoterapi ve Rehabilitasyon","soru":765},{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25}],"mulakatModules":[]},"gsb-psikolog":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Psikolog","panel":"Gençlik ve Spor Bakanlığı Psikolog Premium Paneli","toplamSoru":1663,"konuSayisi":17,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/1ghglhv.png","type":"","summary":"","topics":[{"ad":"Psikolojiye Giriş","soru":420},{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25}],"mulakatModules":[]},"gsb-diyetisyen":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Diyetisyen","panel":"Gençlik ve Spor Bakanlığı Diyetisyen Premium Paneli","toplamSoru":1520,"konuSayisi":17,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/fnl3tuv.png","type":"","summary":"","topics":[{"ad":"Beslenme İlkeleri","soru":277},{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25}],"mulakatModules":[]},"gsb-muhendis":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Mühendis","panel":"Gençlik ve Spor Bakanlığı Mühendis Premium Paneli","toplamSoru":1717,"konuSayisi":17,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/ddsh0ze.png","type":"","summary":"","topics":[{"ad":"Mühendisliğe Giriş","soru":474},{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25}],"mulakatModules":[]},"gsb-ortak-konular":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Ortak Konular","panel":"Gençlik ve Spor Bakanlığı Ortak Konular Paneli","toplamSoru":1243,"konuSayisi":16,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"","type":"","summary":"","topics":[{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25}],"mulakatModules":[]},"gsb-mimar":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Mimar","panel":"Gençlik ve Spor Bakanlığı Mimar Premium Paneli","toplamSoru":1303,"konuSayisi":17,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/sejc389.png","type":"","summary":"","topics":[{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"Mimarlığa Giriş","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25}],"mulakatModules":[]},"gsb-avukat":{"ministry":"Gençlik ve Spor Bakanlığı","short":"GSB","ad":"Avukat","panel":"Gençlik ve Spor Bakanlığı Avukat Premium Paneli","toplamSoru":1508,"konuSayisi":17,"fiyat":"450 TL","url":"https://www.shopier.com/adaletsenakademi","image":"https://i.hizliresim.com/pe538cc.png","type":"","summary":"","topics":[{"ad":"İdari Yargılama Usulü Kanunu","soru":265},{"ad":"Devlet Memurları Kanunu","soru":261},{"ad":"Anayasa","soru":235},{"ad":"Harcırah Kanunu","soru":128},{"ad":"Gençlik ve Spor Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":65},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Protokol Kuralları","soru":60},{"ad":"Temel İlk Yardım","soru":60},{"ad":"İş Sağlığı ve Güvenliği Kanunu","soru":52},{"ad":"3289 Sayılı Gençlik ve Spor Hizmetleri Kanunu","soru":50},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":50},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":45},{"ad":"GSB Taşra Teşkilatı Yönergesi","soru":32},{"ad":"etik davranış ilkeleri","soru":30},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi (GSB)","soru":25},{"ad":"Gençlik ve Spor Bakanlığı Disiplin Amirleri Yönetmeliği","soru":25}],"mulakatModules":[]},"ic-seflik":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"Şeflik","panel":"İçişleri Bakanlığı Şeflik Ünvanı Premium Paneli","toplamSoru":3139,"konuSayisi":15,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825047","image":"https://i.hizliresim.com/djwvkzv.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"Valilik ve Kaymakamlık Birimleri Yönetmeliği","soru":140},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-sube":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"Şube Müdürlüğü","panel":"İçişleri Bakanlığı Şube Müdürlüğü Ünvanı Premium Paneli","toplamSoru":4597,"konuSayisi":27,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825087","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/giris-gorseli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"İl İdaresi Kanunu","soru":340},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"Memurların Yetiştirilmeleri ve Eğitimleri Hakkında Genel Yönetmelik","soru":180},{"ad":"Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"Valilik ve Kaymakamlık Birimleri Yönetmeliği","soru":140},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"İnternet Ortamında Yapılan Yayınların Düzenlenmesine Dair Usul ve Esaslar Hakkında Yönetmelik","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"İnternet Toplu Kullanım Sağlayıcıları Hakkında Yönetmelik","soru":100},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Tebligat Kanunu","soru":71},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"5651 Sayılı Kanun","soru":60},{"ad":"İçişleri Bakanlığı Merkez ve Taşra Teşkilatı Arşiv Hizmetleri Yönetmeliği","soru":60},{"ad":"Telekomünikasyon Kurumu Tarafından Erişim Sağlayıcılara ve Yer Sağlayıcılara Faaliyet Belgesi Verilmesine İlişkin Usul ve Esaslar Hakkında Yönetmelik","soru":60},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-uzman":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"Uzman","panel":"İçişleri Bakanlığı Uzman Kadrosu Premium Paneli","toplamSoru":3779,"konuSayisi":19,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825186","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgoreli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"İl İdaresi Kanunu","soru":340},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"Valilik ve Kaymakamlık Birimleri Yönetmeliği","soru":140},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-vhki":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"VHKİ","panel":"İçişleri Bakanlığı VHKİ Ünvanı Premium Paneli","toplamSoru":2999,"konuSayisi":14,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825263","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-nufus":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"İlçe Nüfus Müdürlüğü","panel":"İçişleri Bakanlığı İlçe Nüfus Müdürlüğü Ünvanı Premium Paneli","toplamSoru":6206,"konuSayisi":35,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47824950","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli-1.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu ve İlgili Mevzuat","soru":1501},{"ad":"4721 Sayılı Türk Medenî Kanunu","soru":810},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"İl İdaresi Kanunu","soru":340},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi, Ulusal Güvenlik","soru":284},{"ad":"Türkçe Dil Bilgisi ve Yazım ile İlgili Kurallar","soru":280},{"ad":"Türk Medenî Kanununun Velayet, Vesayet ve Miras Hükümlerinin Uygulanmasına İlişkin Tüzük","soru":140},{"ad":"5490 Sayılı Nüfus Hizmetleri Kanunu","soru":140},{"ad":"Valilik ve Kaymakamlık Birimleri Teşkilat, Görev ve Çalışma Yönetmeliği","soru":140},{"ad":"Evlendirme Yönetmeliği","soru":135},{"ad":"5326 Sayılı Kabahatler Kanunu","soru":130},{"ad":"Türk Vatandaşlığı Kanununun Uygulanmasına İlişkin Yönetmelik","soru":130},{"ad":"6245 Sayılı Harcırah Kanunu","soru":128},{"ad":"5901 Sayılı Türk Vatandaşlığı Kanunu","soru":120},{"ad":"Nüfus Hizmetleri Uygulama Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":119},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"7201 Sayılı Tebligat Kanunu","soru":71},{"ad":"Resmi Yazışmalarda Uygulanacak Usul ve Esaslar Hakkında Yönetmelik","soru":65},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Nüfus Kütüklerinin Yenilenmesine İlişkin Yönetmelik","soru":60},{"ad":"İçişleri Bakanlığı Merkez ve Taşra Teşkilatı Arşiv Hizmetleri Yönetmeliği","soru":60},{"ad":"Adres ve Numaralamaya İlişkin Yönetmelik","soru":55},{"ad":"Türkiye’de Oturan Yabancıların Nüfus Kayıtlarının Tutulması Hakkında Yönetmelik","soru":45},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38},{"ad":"Adres Kayıt Sistemi Yönetmeliği","soru":30},{"ad":"Kimlik Paylaşımı Sistemi Yönetmeliği","soru":30},{"ad":"4722 Sayılı Türk Medenî Kanununun Yürürlüğü ve Uygulama Şekli Hakkında Kanun","soru":20}],"mulakatModules":[]},"ic-ilceyazi":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"İlçe Yazı İşleri Müdürlüğü","panel":"İçişleri Bakanlığı İlçe Yazı İşleri Müdürlüğü Ünvanı Premium Paneli","toplamSoru":5752,"konuSayisi":36,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47824983","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli-2.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu ve İlgili Mevzuat","soru":1501},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"5393 Sayılı Belediye Kanunu","soru":440},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":340},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi, Ulusal Güvenlik","soru":284},{"ad":"Türkçe Dil Bilgisi ve Yazışma ile İlgili Kurallar","soru":280},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"442 sayılı Köy Kanunu","soru":160},{"ad":"Valilik ve Kaymakamlık Birimleri Teşkilat, Görev ve Çalışma Yönetmeliği","soru":140},{"ad":"5326 Sayılı Kabahatler Kanunu","soru":130},{"ad":"6245 Sayılı Harcırah Kanunu","soru":128},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"İnternet Ortamında Yapılan Yayınların Düzenlenmesine Dair Usul ve Esaslar Hakkında Yönetmelik","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"İnternet Toplu Kullanım Sağlayıcıları Hakkında Yönetmelik","soru":80},{"ad":"7201 Sayılı Tebligat Kanunu","soru":71},{"ad":"Resmî Yazışmalarda Uygulanacak Usul ve Esaslar Hakkında Yönetmelik","soru":65},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"İçişleri Bakanlığı Merkez ve Taşra Teşkilatı Arşiv Hizmetleri Yönetmeliği","soru":60},{"ad":"Telekomünikasyon Kurumu Tarafından Erişim Sağlayıcılara ve Yer Sağlayıcılara Faaliyet Belgesi Verilmesine İlişkin Usul ve Esaslar Hakkında Yönetmelik","soru":60},{"ad":"Sınır Anlaşmazlığı, Mülki Ayrılma ve Birleşme ile Köy Kurulması ve Kaldırılması Hakkında Yönetmelik","soru":60},{"ad":"Taşınmaz Mal Zilyetliğine Yapılan Tecavüzlerin Önlenmesi Hakkında Kanunun Uygulama Şekli ve Esaslarına Dair Yönetmelik","soru":50},{"ad":"Ulusal ve Resmî Bayramlar ile Mahallî Kurtuluş Günleri, Atatürk Günleri ve Tarihî Günlerde Yapılacak Tören ve Kutlamalar Yönetmeliği","soru":50},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"3091 sayılı Taşınmaz Mal Zilyetliğine Yapılan Tecavüzlerin Önlenmesi Hakkında Kanun","soru":40},{"ad":"İl ve İlçe İnsan Hakları Kurullarının Kuruluş, Görev ve Çalışma Esasları Hakkında Yönetmelik","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38},{"ad":"2429 sayılı Ulusal Bayram ve Genel Tatiller Hakkında Kanun","soru":30},{"ad":"2893 sayılı Türk Bayrağı Kanunu","soru":30},{"ad":"Eskimiş, Solmuş, Yırtılmış ve Kullanılamayacak Duruma Gelmiş Bayrakların Yok Edilmesi Usul ve Esaslarını Gösterir Yönetmelik","soru":20}],"mulakatModules":[]},"gib-uzman":{"ministry":"Gelir İdaresi Başkanlığı","short":"GİB","ad":"Gelir Uzman Yardımcılığı","panel":"Gelir İdaresi Başkanlığı Premium Paneli","toplamSoru":6159,"konuSayisi":25,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47438578","image":"https://i.hizliresim.com/hki7y5x.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1279},{"ad":"213 Sayılı Vergi Usul Kanunu","soru":643},{"ad":"193 Sayılı Gelir Vergisi Kanunu","soru":610},{"ad":"5520 Sayılı Kurumlar Vergisi Kanunu","soru":521},{"ad":"Vergi Daireleri İşlem Yönergesi","soru":340},{"ad":"492 Sayılı Harçlar Kanunu","soru":301},{"ad":"3065 Sayılı Katma Değer Vergisi Kanunu","soru":280},{"ad":"Genel Muhasebe, Muhasebe Uygulamaları ve Hesap Planları","soru":280},{"ad":"4734 Sayılı Kamu İhale Kanunu","soru":186},{"ad":"6183 Sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun","soru":170},{"ad":"5018 Sayılı Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"1319 Sayılı Emlak Vergisi Kanunu","soru":153},{"ad":"4 Sayılı Bakanlıklara Bağlı, İlgili, İlişkili Kurum ve Kuruluşlar ile Diğer Kurum ve Kuruluşların Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi","soru":150},{"ad":"4760 Sayılı Özel Tüketim Vergisi Kanunu","soru":145},{"ad":"197 Sayılı Motorlu Taşıtlar Vergisi Kanunu","soru":130},{"ad":"6245 Sayılı Harcırah Kanunu","soru":128},{"ad":"7338 Sayılı Veraset ve İntikal Vergisi Kanunu","soru":125},{"ad":"488 Sayılı Damga Vergisi Kanunu","soru":100},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi","soru":100},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Vergi Daireleri Kuruluş ve Görev Yönetmeliği","soru":99},{"ad":"3100 Sayılı Katma Değer Vergisi Mükelleflerinin Ödeme Kaydedici Cihazları Kullanma Mecburiyeti Hakkında Kanun","soru":50},{"ad":"6802 Sayılı Gider Vergileri Kanunu","soru":50},{"ad":"4735 Sayılı Kamu İhale Sözleşmeleri Kanunu","soru":32},{"ad":"210 Sayılı Değerli Kağıtlar Kanunu","soru":20}],"mulakatModules":[]},"gib-vergi":{"ministry":"Gelir İdaresi Başkanlığı","short":"GİB","ad":"Vergi Dairesi Müdür Yardımcılığı","panel":"Gelir İdaresi Başkanlığı Premium Paneli","toplamSoru":6159,"konuSayisi":25,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47438328","image":"https://i.hizliresim.com/lcbgiyp.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1279},{"ad":"213 Sayılı Vergi Usul Kanunu","soru":643},{"ad":"193 Sayılı Gelir Vergisi Kanunu","soru":610},{"ad":"5520 Sayılı Kurumlar Vergisi Kanunu","soru":521},{"ad":"Vergi Daireleri İşlem Yönergesi","soru":340},{"ad":"492 Sayılı Harçlar Kanunu","soru":301},{"ad":"3065 Sayılı Katma Değer Vergisi Kanunu","soru":280},{"ad":"Genel Muhasebe, Muhasebe Uygulamaları ve Hesap Planları","soru":280},{"ad":"4734 Sayılı Kamu İhale Kanunu","soru":186},{"ad":"6183 Sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun","soru":170},{"ad":"5018 Sayılı Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"1319 Sayılı Emlak Vergisi Kanunu","soru":153},{"ad":"4 Sayılı Bakanlıklara Bağlı, İlgili, İlişkili Kurum ve Kuruluşlar ile Diğer Kurum ve Kuruluşların Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi","soru":150},{"ad":"4760 Sayılı Özel Tüketim Vergisi Kanunu","soru":145},{"ad":"197 Sayılı Motorlu Taşıtlar Vergisi Kanunu","soru":130},{"ad":"6245 Sayılı Harcırah Kanunu","soru":128},{"ad":"7338 Sayılı Veraset ve İntikal Vergisi Kanunu","soru":125},{"ad":"488 Sayılı Damga Vergisi Kanunu","soru":100},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi","soru":100},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Vergi Daireleri Kuruluş ve Görev Yönetmeliği","soru":99},{"ad":"3100 Sayılı Katma Değer Vergisi Mükelleflerinin Ödeme Kaydedici Cihazları Kullanma Mecburiyeti Hakkında Kanun","soru":50},{"ad":"6802 Sayılı Gider Vergileri Kanunu","soru":50},{"ad":"4735 Sayılı Kamu İhale Sözleşmeleri Kanunu","soru":32},{"ad":"210 Sayılı Değerli Kağıtlar Kanunu","soru":20}],"mulakatModules":[]},"gib-vergi-sorubankasi":{"ministry":"Gelir İdaresi Başkanlığı","short":"GİB","ad":"Vergi Dairesi Müdür Yardımcılığı – Soru Bankası","panel":"Vergi Dairesi Müdür Yardımcılığı Online Soru Bankası","toplamSoru":2500,"konuSayisi":8,"fiyat":"990 TL","url":"https://www.shopier.com/adaletsenakademi/48289937","image":"https://i.hizliresim.com/nvmsz0y.png","type":"","summary":"","topics":[{"ad":"193 Sayılı Gelir Vergisi Kanunu","soru":180},{"ad":"213 Sayılı Vergi Usul Kanunu","soru":180},{"ad":"Vergi Daireleri İşlem Yönergesi","soru":160},{"ad":"5520 Sayılı Kurumlar Vergisi Kanunu","soru":140},{"ad":"Genel Muhasebe, Muhasebe Uygulamaları ve Hesap Planları","soru":150},{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":150},{"ad":"3065 Sayılı Katma Değer Vergisi Kanunu","soru":100},{"ad":"Diğer Konular","soru":740}],"mulakatModules":[]},"gib-vhki":{"ministry":"Gelir İdaresi Başkanlığı","short":"GİB","ad":"VHKİ","panel":"Gelir İdaresi Başkanlığı VHKİ Premium Paneli","toplamSoru":6159,"konuSayisi":25,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47824819","image":"https://i.hizliresim.com/hd9xeys.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1279},{"ad":"213 Sayılı Vergi Usul Kanunu","soru":643},{"ad":"193 Sayılı Gelir Vergisi Kanunu","soru":610},{"ad":"5520 Sayılı Kurumlar Vergisi Kanunu","soru":521},{"ad":"Vergi Daireleri İşlem Yönergesi","soru":340},{"ad":"492 Sayılı Harçlar Kanunu","soru":301},{"ad":"3065 Sayılı Katma Değer Vergisi Kanunu","soru":280},{"ad":"Genel Muhasebe, Muhasebe Uygulamaları ve Hesap Planları","soru":280},{"ad":"4734 Sayılı Kamu İhale Kanunu","soru":186},{"ad":"6183 Sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun","soru":170},{"ad":"5018 Sayılı Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"1319 Sayılı Emlak Vergisi Kanunu","soru":153},{"ad":"4 Sayılı Bakanlıklara Bağlı, İlgili, İlişkili Kurum ve Kuruluşlar ile Diğer Kurum ve Kuruluşların Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi","soru":150},{"ad":"4760 Sayılı Özel Tüketim Vergisi Kanunu","soru":145},{"ad":"197 Sayılı Motorlu Taşıtlar Vergisi Kanunu","soru":130},{"ad":"6245 Sayılı Harcırah Kanunu","soru":128},{"ad":"7338 Sayılı Veraset ve İntikal Vergisi Kanunu","soru":125},{"ad":"488 Sayılı Damga Vergisi Kanunu","soru":100},{"ad":"1 Sayılı Cumhurbaşkanlığı Teşkilatı Hakkında Cumhurbaşkanlığı Kararnamesi","soru":100},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Vergi Daireleri Kuruluş ve Görev Yönetmeliği","soru":99},{"ad":"3100 Sayılı Katma Değer Vergisi Mükelleflerinin Ödeme Kaydedici Cihazları Kullanma Mecburiyeti Hakkında Kanun","soru":50},{"ad":"6802 Sayılı Gider Vergileri Kanunu","soru":50},{"ad":"4735 Sayılı Kamu İhale Sözleşmeleri Kanunu","soru":32},{"ad":"210 Sayılı Değerli Kağıtlar Kanunu","soru":20}],"mulakatModules":[]},"danistay-yaziisleri":{"ministry":"Danıştay Başkanlığı","short":"Danıştay","ad":"Yazı İşleri Müdürü","panel":"Danıştay Yazı İşleri Müdürü Premium Paneli","toplamSoru":3903,"konuSayisi":15,"fiyat":"990 TL","url":"https://www.shopier.com/adaletsenakademi/48262729","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/yaziislerigirisgorseli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"Danıştay İçtüzüğü","soru":240},{"ad":"Danıştay Kanunu","soru":225},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi","soru":224},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"Halkla İlişkiler","soru":180},{"ad":"2576 Sayılı Kanun","soru":134},{"ad":"Tebligat Kanunu Yönetmeliği","soru":107},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Harçlar Kanunu İlgili Kısımlar","soru":80},{"ad":"Tebligat Kanunu","soru":71},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Elektronik Tebligat Yönetmeliği","soru":51}],"mulakatModules":[]},"danistay-zabitkatibi":{"ministry":"Danıştay Başkanlığı","short":"Danıştay","ad":"Zabıt Katibi","panel":"Danıştay Zabıt Katibi Premium Paneli","toplamSoru":3903,"konuSayisi":15,"fiyat":"990 TL","url":"https://www.shopier.com/adaletsenakademi/48262734","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/zabitkatibigirisgorseli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"Danıştay İçtüzüğü","soru":240},{"ad":"Danıştay Kanunu","soru":225},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi","soru":224},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"Halkla İlişkiler","soru":180},{"ad":"2576 Sayılı Kanun","soru":134},{"ad":"Tebligat Kanunu Yönetmeliği","soru":107},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Harçlar Kanunu İlgili Kısımlar","soru":80},{"ad":"Tebligat Kanunu","soru":71},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Elektronik Tebligat Yönetmeliği","soru":51}],"mulakatModules":[]},"ad-yazi":{"ministry":"Adalet Bakanlığı","short":"AB","ad":"Yazı İşleri Müdürü","panel":"Adalet Bakanlığı Yazı İşleri Premium Paneli","toplamSoru":9053,"konuSayisi":35,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47824856","image":"https://i.hizliresim.com/gbircgu.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"5271 Sayılı Ceza Muhakemesi Kanunu","soru":959},{"ad":"6100 Sayılı Hukuk Muhakemeleri Kanunu","soru":822},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"Belediye Kanunu","soru":440},{"ad":"İl İdaresi Kanunu","soru":340},{"ad":"BAM Yönetmelik Tamamı","soru":320},{"ad":"İl Özel İdaresi Kanunu","soru":320},{"ad":"BİM Yönetmelik Tamamı","soru":280},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"5235 Sayılı Kanun","soru":260},{"ad":"5275 Sayılı Ceza ve Güvenlik Tedbirlerinin İnfazı Hakkında Kanun","soru":250},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi (Adalet Bakanlığı İlgili Kısımlar)","soru":235},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi","soru":224},{"ad":"Adalet Bakanlığı Memur Sınav, Atama ve Nakil Yönetmeliği","soru":220},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"Adalet Bakanlığı Disiplin Yönetmeliği","soru":180},{"ad":"Halkla İlişkiler","soru":180},{"ad":"Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi (Adalet Bakanlığı Hariç)","soru":160},{"ad":"Adalet Bakanlığı Görevde Yükselme Yönetmeliği","soru":140},{"ad":"2576 Sayılı Kanun","soru":134},{"ad":"BAM Yönetmelik İlgili Kısımlar","soru":130},{"ad":"Etik Davranış İlkeleri","soru":118},{"ad":"Tebligat Kanunu Yönetmeliği","soru":107},{"ad":"Ulusal Yargı Ağı Bilişim Sistemi (UYAP)","soru":95},{"ad":"5070 Sayılı Elektronik İmza Kanunu","soru":80},{"ad":"Harçlar Kanunu İlgili Kısımlar","soru":80},{"ad":"Tebligat Kanunu","soru":71},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"SEGBİS ve e-Duruşma","soru":60},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"Elektronik Tebligat Yönetmeliği","soru":51},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"BİM Yönetmelik İlgili Kısımlar","soru":39}],"mulakatModules":[]}};
+const FINAL_PROMO_COURSE_DATA = {"ic-seflik":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"Şeflik","panel":"İçişleri Bakanlığı Şeflik Ünvanı Premium Paneli","toplamSoru":3139,"konuSayisi":15,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825047","image":"https://i.hizliresim.com/djwvkzv.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"Valilik ve Kaymakamlık Birimleri Yönetmeliği","soru":140},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-sube":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"Şube Müdürlüğü","panel":"İçişleri Bakanlığı Şube Müdürlüğü Ünvanı Premium Paneli","toplamSoru":4597,"konuSayisi":27,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825087","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/giris-gorseli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"İl İdaresi Kanunu","soru":340},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"Memurların Yetiştirilmeleri ve Eğitimleri Hakkında Genel Yönetmelik","soru":180},{"ad":"Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"Valilik ve Kaymakamlık Birimleri Yönetmeliği","soru":140},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"İnternet Ortamında Yapılan Yayınların Düzenlenmesine Dair Usul ve Esaslar Hakkında Yönetmelik","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"İnternet Toplu Kullanım Sağlayıcıları Hakkında Yönetmelik","soru":100},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Tebligat Kanunu","soru":71},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"5651 Sayılı Kanun","soru":60},{"ad":"İçişleri Bakanlığı Merkez ve Taşra Teşkilatı Arşiv Hizmetleri Yönetmeliği","soru":60},{"ad":"Telekomünikasyon Kurumu Tarafından Erişim Sağlayıcılara ve Yer Sağlayıcılara Faaliyet Belgesi Verilmesine İlişkin Usul ve Esaslar Hakkında Yönetmelik","soru":60},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-uzman":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"Uzman","panel":"İçişleri Bakanlığı Uzman Kadrosu Premium Paneli","toplamSoru":3779,"konuSayisi":19,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825186","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgoreli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"İl İdaresi Kanunu","soru":340},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"Valilik ve Kaymakamlık Birimleri Yönetmeliği","soru":140},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-vhki":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"VHKİ","panel":"İçişleri Bakanlığı VHKİ Ünvanı Premium Paneli","toplamSoru":2999,"konuSayisi":14,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825263","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-nufus":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"İlçe Nüfus Müdürlüğü","panel":"İçişleri Bakanlığı İlçe Nüfus Müdürlüğü Ünvanı Premium Paneli","toplamSoru":6206,"konuSayisi":35,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47824950","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli-1.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu ve İlgili Mevzuat","soru":1501},{"ad":"4721 Sayılı Türk Medenî Kanunu","soru":810},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"İl İdaresi Kanunu","soru":340},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi, Ulusal Güvenlik","soru":284},{"ad":"Türkçe Dil Bilgisi ve Yazım ile İlgili Kurallar","soru":280},{"ad":"Türk Medenî Kanununun Velayet, Vesayet ve Miras Hükümlerinin Uygulanmasına İlişkin Tüzük","soru":140},{"ad":"5490 Sayılı Nüfus Hizmetleri Kanunu","soru":140},{"ad":"Valilik ve Kaymakamlık Birimleri Teşkilat, Görev ve Çalışma Yönetmeliği","soru":140},{"ad":"Evlendirme Yönetmeliği","soru":135},{"ad":"5326 Sayılı Kabahatler Kanunu","soru":130},{"ad":"Türk Vatandaşlığı Kanununun Uygulanmasına İlişkin Yönetmelik","soru":130},{"ad":"6245 Sayılı Harcırah Kanunu","soru":128},{"ad":"5901 Sayılı Türk Vatandaşlığı Kanunu","soru":120},{"ad":"Nüfus Hizmetleri Uygulama Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":119},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"7201 Sayılı Tebligat Kanunu","soru":71},{"ad":"Resmi Yazışmalarda Uygulanacak Usul ve Esaslar Hakkında Yönetmelik","soru":65},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Nüfus Kütüklerinin Yenilenmesine İlişkin Yönetmelik","soru":60},{"ad":"İçişleri Bakanlığı Merkez ve Taşra Teşkilatı Arşiv Hizmetleri Yönetmeliği","soru":60},{"ad":"Adres ve Numaralamaya İlişkin Yönetmelik","soru":55},{"ad":"Türkiye’de Oturan Yabancıların Nüfus Kayıtlarının Tutulması Hakkında Yönetmelik","soru":45},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38},{"ad":"Adres Kayıt Sistemi Yönetmeliği","soru":30},{"ad":"Kimlik Paylaşımı Sistemi Yönetmeliği","soru":30},{"ad":"4722 Sayılı Türk Medenî Kanununun Yürürlüğü ve Uygulama Şekli Hakkında Kanun","soru":20}],"mulakatModules":[]},"ic-ilceyazi":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"İlçe Yazı İşleri Müdürlüğü","panel":"İçişleri Bakanlığı İlçe Yazı İşleri Müdürlüğü Ünvanı Premium Paneli","toplamSoru":5752,"konuSayisi":36,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47824983","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli-2.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu ve İlgili Mevzuat","soru":1501},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"5393 Sayılı Belediye Kanunu","soru":440},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":340},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi, Ulusal Güvenlik","soru":284},{"ad":"Türkçe Dil Bilgisi ve Yazışma ile İlgili Kurallar","soru":280},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"442 sayılı Köy Kanunu","soru":160},{"ad":"Valilik ve Kaymakamlık Birimleri Teşkilat, Görev ve Çalışma Yönetmeliği","soru":140},{"ad":"5326 Sayılı Kabahatler Kanunu","soru":130},{"ad":"6245 Sayılı Harcırah Kanunu","soru":128},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"İnternet Ortamında Yapılan Yayınların Düzenlenmesine Dair Usul ve Esaslar Hakkında Yönetmelik","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"İnternet Toplu Kullanım Sağlayıcıları Hakkında Yönetmelik","soru":80},{"ad":"7201 Sayılı Tebligat Kanunu","soru":71},{"ad":"Resmî Yazışmalarda Uygulanacak Usul ve Esaslar Hakkında Yönetmelik","soru":65},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"İçişleri Bakanlığı Merkez ve Taşra Teşkilatı Arşiv Hizmetleri Yönetmeliği","soru":60},{"ad":"Telekomünikasyon Kurumu Tarafından Erişim Sağlayıcılara ve Yer Sağlayıcılara Faaliyet Belgesi Verilmesine İlişkin Usul ve Esaslar Hakkında Yönetmelik","soru":60},{"ad":"Sınır Anlaşmazlığı, Mülki Ayrılma ve Birleşme ile Köy Kurulması ve Kaldırılması Hakkında Yönetmelik","soru":60},{"ad":"Taşınmaz Mal Zilyetliğine Yapılan Tecavüzlerin Önlenmesi Hakkında Kanunun Uygulama Şekli ve Esaslarına Dair Yönetmelik","soru":50},{"ad":"Ulusal ve Resmî Bayramlar ile Mahallî Kurtuluş Günleri, Atatürk Günleri ve Tarihî Günlerde Yapılacak Tören ve Kutlamalar Yönetmeliği","soru":50},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"3091 sayılı Taşınmaz Mal Zilyetliğine Yapılan Tecavüzlerin Önlenmesi Hakkında Kanun","soru":40},{"ad":"İl ve İlçe İnsan Hakları Kurullarının Kuruluş, Görev ve Çalışma Esasları Hakkında Yönetmelik","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38},{"ad":"2429 sayılı Ulusal Bayram ve Genel Tatiller Hakkında Kanun","soru":30},{"ad":"2893 sayılı Türk Bayrağı Kanunu","soru":30},{"ad":"Eskimiş, Solmuş, Yırtılmış ve Kullanılamayacak Duruma Gelmiş Bayrakların Yok Edilmesi Usul ve Esaslarını Gösterir Yönetmelik","soru":20}],"mulakatModules":[]}};
 const FINAL_PROMO_FULL_FEATURES = ["Mevzuattan Çalış — konu konu sınırsız çalışma","Test Modu — sınırsız test çözümü","Akademi Denemeleri — uzman hazırlığı denemeler","Benim Denemelerim — kişiye özel deneme oluşturma","DersTube — tüm video dersler","DersTube — tüm podcast içerikleri","Çıkmış sınav soruları","Flash Kart ile hızlı tekrar","İstatistik & gelişim takibi","Sınava kadar ücretsiz güncelleme","Haftalık deneme sınavlarına erişim dahil"];
 const FINAL_PROMO_MODULE_DETAILS = [{"t":"Mevzuattan Çalış","d":"Konuyu mevzuat/başlık bazında seç, ilgili sorularla konu konu çalış.","det":"Konuyu mevzuat ya da başlık bazında seçersin. Seçtiğin konunun PDF mevzuat metni ekranda açılır; hemen yanından da o konuya ait Akademi soruları, çıkmış sınav soruları, konu anlatım videosu ve podcast'e tek ekrandan ulaşırsın. Yani önce mevzuatı okur, sonra sayfadan ayrılmadan aynı konunun sorularını çözersin. Konu konu, sistemli ilerlemek için en pratik modül."},{"t":"Test & Çıkmış Sorular","d":"Sınırsız test çöz; çıkmış sınav sorularıyla gerçek formatta pratik yap.","det":"Tek bir konuya odaklanmak için konu bazlı test, tüm konulardan rastgele gelmesi için karışık test çözebilirsin — test hakkın sınırsız. Çıkmış sınav sorularıyla gerçek sınav formatında pratik yaparsın. Yanlış yaptığın sorular otomatik olarak 'Yanlışlarım'a, işaretlediklerin 'Favorilerim'e düşer; bunları istediğin zaman tekrar çözebilirsin. Her sorunun çözüm açıklaması mevcuttur."},{"t":"Akademi & Kişisel Denemeler","d":"Uzman hazırlığı Akademi Denemeleri ve kendi kriterinle oluşturduğun denemeler.","det":"İki tür deneme sunar. Akademi Denemeleri: uzmanlarca hazırlanmış, sınav formatına ve süresine birebir uygun hazır denemeler. Benim Denemelerim: konu, soru sayısı ve süre gibi kriterleri kendin belirleyip oluşturduğun kişisel denemeler. Her denemenin sonunda puanını, doğru/yanlış sayını ve soruların çözümlerini görürsün — gerçek sınav provası gibi."},{"t":"DersTube Akademi","d":"Konu anlatım videoları ve podcast içerikleri tek panelde, tek akışta.","det":"Konu anlatım videoları ve podcast içeriklerinin tamamı tek panelde, tek akışta toplanır. Konuyu seçer, videoyu izler ya da podcast'i dinlersin. Podcastler yolda, işte veya çalışırken arka planda dinlemeye uygundur; videolar ise konuyu sıfırdan anlatır. Okumaya vakit bulamadığın konuları dinleyerek de çalışabilirsin."},{"t":"Flash Kart","d":"Ezber kartlarıyla kısa sürede tekrar; kritik bilgileri kalıcı hale getir.","det":"Kritik bilgileri — özellikle süre, sayı, tarih ve oran gibi ezberlenmesi zor ayrıntıları — flash kartlarla hızlıca tekrar edersin. Kartı çevirip cevabı görür, hatırlayıp hatırlamadığını işaretler ve bir sonrakine geçersin. Kısa sürede çok sayıda bilgiyi pekiştirmek ve sınav öncesi son tekrar için idealdir."},{"t":"İstatistik & Gelişim Takibi","d":"Doğru/yanlış analizi, konu bazlı başarı oranı ve gelişim raporları.","det":"Çözdüğün her testin ve denemenin doğru/yanlış analizini, konu bazlı başarı oranını ve zaman içindeki gelişimini raporlar halinde görürsün. Hangi konuda güçlü, hangisinde zayıf olduğunu net biçimde görüp çalışmanı eksik kaldığın yerlere yönlendirirsin. Böylece sınava kadar gelişimini ölçerek ilerlersin."}];
 
@@ -886,14 +760,6 @@ const FINAL_PROMO_DEMO_FEATURES = [
 ];
 
 // Anasayfa linklerinde Danıştay Şef satın alma ürünü ayrıca tanımlı olduğu için,
-// konu dağılımı veri setinde ayrı kayıt yoksa Danıştay ortak paket verisiyle tamamlanır.
-if(!FINAL_PROMO_COURSE_DATA["danistay-sef"] && FINAL_PROMO_COURSE_DATA["danistay-yaziisleri"]){
-  FINAL_PROMO_COURSE_DATA["danistay-sef"] = Object.assign({}, FINAL_PROMO_COURSE_DATA["danistay-yaziisleri"], {
-    ad:"Şef",
-    panel:"Danıştay Şef Premium Paneli",
-    url:"https://www.shopier.com/adaletsenakademi/48262728"
-  });
-}
 
 
 function normalizeText(s){
@@ -973,8 +839,8 @@ function normalizeCloudResult(raw, fallbackPayload){
     answers: fallbackPayload.answers || [],
     reviewQuestions: fallbackPayload.reviewQuestions || [],
     examType: fallbackPayload.examType,
-    rawScore: fallbackPayload.examType === "oral" ? Number(r.rawScore || r.hamPuan || r.puan || fallbackPayload.rawScore || 0) : fallbackPayload.rawScore,
-    rawMaxScore: fallbackPayload.examType === "oral" ? (fallbackPayload.rawMaxScore || 100) : fallbackPayload.rawMaxScore,
+    rawScore: fallbackPayload.rawScore,
+    rawMaxScore: fallbackPayload.rawMaxScore,
     shortScore: fallbackPayload.shortScore,
     aiScore: fallbackPayload.aiScore,
     evaluations: fallbackPayload.evaluations || []
@@ -1258,9 +1124,7 @@ function updateWeekAvailability(){
     const weekNo = Number(opt.value);
     if(!weekNo) return;
     let enabled = weekNo <= 2;
-    if(selectedMinistry === "gsb_sozlu"){
-      enabled = weekNo <= 3;
-    }else if(roleId && roleCfg){
+    if(roleId && roleCfg){
       enabled = !!roleCfg["week" + weekNo];
     }else{
       enabled = weekNo === 1;
@@ -1332,10 +1196,6 @@ function updateSummary(){
   const summaryRoleCfg = EXAM_CONFIG[roleSelect.value] || {};
   const cfg = summaryRoleCfg["week" + weekSelect.value] || summaryRoleCfg.week1;
   let count = cfg ? " · " + cfg.total + " soru / " + cfg.duration + " dakika" : "";
-  if(selectedMinistry === "gsb_sozlu"){
-    count = " · 25 yazılı cevaplı soru / 60 dakika / 100 puan";
-    if(GSB_ONLY_COMMON_ROLES.has(roleSelect.value)) count += " · sadece ortak konular";
-  }
   summaryBox.innerHTML = '<b>' + modeLabel + '</b> · <b>' + ministryLabel + '</b> · <b>' + roleLabel + '</b> · ' + weekLabel + count;
 }
 
@@ -1428,9 +1288,7 @@ function renderExam(){
 
 function updateAnswered(){
   if(!activeExam) return;
-  const answered = activeExam.type === "oral"
-    ? activeExam.answers.filter(x => String(x || "").trim()).length
-    : activeExam.answers.filter(x => x !== null && x !== undefined).length;
+  const answered = activeExam.answers.filter(x => x !== null && x !== undefined).length;
   document.getElementById('answeredText').textContent = answered + "/" + activeExam.questions.length;
 }
 
@@ -1455,7 +1313,6 @@ function updateTimerText(){
 }
 
 
-function isGsbOralSelection(){ return selectedMinistry === "gsb_sozlu"; }
 
 function normalizeArray(data){
   if(Array.isArray(data)) return data;
@@ -1498,74 +1355,9 @@ function matchesAnyTopic(item, topics){
   });
 }
 
-function normalizeYollukCard(c, i){
-  const targets = Array.isArray(c.unvanlar) ? c.unvanlar.map(roleKey) : [];
-  return {
-    id: c.id || "YOLLUK_" + (i+1),
-    sourceType: "short",
-    evalType: "short",
-    section: "Yazılı sınav konularına ilişkin bilgi düzeyi",
-    topic: c.topic || c.konu || "YOLLUK",
-    altKonu: c.altKonu || "",
-    q: c.front || c.soru || c.q || "",
-    ideal: c.back || c.cevap || c.a || "",
-    etiket: c.etiket || "",
-    cevapAnahtari: Array.isArray(c.cevapAnahtari) ? c.cevapAnahtari : [],
-    kaynak: c.kaynak || "",
-    targets,
-    point: GSB_ORAL_CONFIG.scorePerQuestion
-  };
-}
 
-function normalizeGeneralCard(c, i){
-  return {
-    id: c.id || c.originalId || "GENEL_KULTUR_" + (i+1),
-    sourceType: "short",
-    evalType: "short",
-    section: "Genel kültür ve genel yetenek",
-    topic: c.kategori || c.topic || (c.onYuz && c.onYuz.baslik) || "Genel Kültür",
-    altKonu: c.altKonu || c.seviye || c.level || (c.onYuz && c.onYuz.altBaslik) || "",
-    q: c.soru || c.q || (c.onYuz && c.onYuz.metin) || "",
-    ideal: c.cevap || c.a || (c.arkaYuz && c.arkaYuz.metin) || "",
-    etiket: c.etiket || "",
-    point: GSB_ORAL_CONFIG.scorePerQuestion
-  };
-}
 
-function normalizeOpenQuestion(c, i){
-  const rawRole = c.unvan || c.role || "";
-  const targets = Array.isArray(c.hedefUnvanlar) ? c.hedefUnvanlar.map(roleKey) : (rawRole ? [roleKey(rawRole)] : []);
-  return {
-    id: c.id || c.originalId || "MULAKAT_" + (i+1),
-    sourceType: "open",
-    evalType: "ai",
-    section: c.modulBaslik || "Yazılı sınav konularına ilişkin bilgi düzeyi",
-    topic: c.konu || c.topic || "Mülakat Sorusu",
-    altKonu: c.altKonu || "",
-    q: c.soru || c.question || c.q || "",
-    ideal: c.idealCevap || c.cevap || c.answerText || c.ideal || "",
-    mistakes: c.kritikHatalar || c.kritikNoktalar || "",
-    targets,
-    point: GSB_ORAL_CONFIG.scorePerQuestion
-  };
-}
 
-function normalizeScenario(c, i){
-  const targets = Array.isArray(c.hedefUnvanlar) ? c.hedefUnvanlar.map(roleKey) : (c.unvan ? [roleKey(c.unvan)] : []);
-  return {
-    id: c.id || "LIYAKAT_" + (i+1),
-    sourceType: "scenario",
-    evalType: "ai",
-    section: "Liyakat, temsil kabiliyeti, tutum ve davranışların göreve uygunluğu",
-    topic: c.konu || c.kategori || "Liyakat / Temsil Senaryosu",
-    altKonu: c.altKonu || c.unvan || "",
-    q: c.soru || c.question || "",
-    ideal: c.idealCevap || c.cevap || c.ideal || "",
-    mistakes: c.kritikHatalar || "",
-    targets,
-    point: GSB_ORAL_CONFIG.scorePerQuestion
-  };
-}
 
 function isBilisımTopic(item){
   const n = normalizeText(topicText(item));
@@ -1608,413 +1400,20 @@ function jaccard(a,b){
   return inter / Math.max(A.size, B.size);
 }
 
-function scoreShortAnswer(q, answer){
-  const ans = String(answer || "").trim();
-  if(!ans) return {score:0, max:GSB_ORAL_CONFIG.scorePerQuestion, status:"blank", reason:"Cevap verilmedi."};
-  const na = normalizeText(ans);
-  const keys = buildAnswerKey(q);
-  if(keys.some(k => k && (na === k || na.includes(k) || (k.length > 8 && k.includes(na) && na.length > 2)))){
-    return {score:GSB_ORAL_CONFIG.scorePerQuestion, max:GSB_ORAL_CONFIG.scorePerQuestion, status:"correct", reason:"Cevap anahtarıyla eşleşti."};
-  }
-  const aNums = answerNumbers(ans), iNums = answerNumbers([q.ideal, q.etiket].join(" "));
-  if(aNums.length && iNums.length && aNums.some(x => iNums.includes(x))){
-    return {score:GSB_ORAL_CONFIG.scorePerQuestion, max:GSB_ORAL_CONFIG.scorePerQuestion, status:"correct", reason:"Sayı/süre/oran bilgisi doğru yakalandı."};
-  }
-  const sim = Math.max(jaccard(ans, q.ideal), jaccard(ans, q.etiket || ""));
-  if(sim >= 0.52){ return {score:GSB_ORAL_CONFIG.scorePerQuestion, max:GSB_ORAL_CONFIG.scorePerQuestion, status:"correct", reason:"Anlam ve anahtar ifadeler yeterli düzeyde örtüşüyor."}; }
-  return {score:0, max:GSB_ORAL_CONFIG.scorePerQuestion, status:"wrong", reason:"Cevap anahtarıyla yeterli eşleşme bulunamadı."};
-}
 
-function fallbackOpenEvaluation(q, answer){
-  if(!String(answer||"").trim()) return {score:0,max:GSB_ORAL_CONFIG.scorePerQuestion,status:"blank",reason:"Cevap verilmedi.",ai:false};
-  const sim = jaccard(answer, q.ideal);
-  let score = 0;
-  if(sim >= .70) score = 4; else if(sim >= .55) score = 3; else if(sim >= .40) score = 2; else if(sim >= .20) score = 1;
-  return {score, max:GSB_ORAL_CONFIG.scorePerQuestion, status:score>=GSB_ORAL_CONFIG.scorePerQuestion?"correct":(score>0?"partial":"wrong"), reason:"Grok bağlantısı kurulamadığı için yerel benzerlik motoruyla geçici puanlandı.", ai:false};
-}
 
-async function evaluateOpenAnswer(q, answer, index){
-  if(!String(answer||"").trim()) return {score:0,max:GSB_ORAL_CONFIG.scorePerQuestion,status:"blank",reason:"Cevap verilmedi.",ai:false};
-  const payload = {
-    soruId: q.id || "",
-    sira: index + 1,
-    konu: q.topic || "",
-    altKonu: q.altKonu || "",
-    soru: q.q || "",
-    adayCevabi: answer || "",
-    idealCevap: q.ideal || "",
-    kritikHatalar: q.mistakes || "",
-    puan: GSB_ORAL_CONFIG.scorePerQuestion,
-    degerlendirme: {}
-  };
-  try{
-    const res = await fetch(GSB_ORAL_CONFIG.aiEndpoint, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)});
-    const data = await res.json().catch(()=>null);
-    if(!res.ok || !data) throw new Error("AI endpoint yanıt vermedi.");
-    const r = data.result || data.data || data;
-    let raw = Number(r.score ?? r.puan ?? r.toplamPuan ?? r.total ?? 0);
-    if(raw > GSB_ORAL_CONFIG.scorePerQuestion) raw = Math.round(raw * GSB_ORAL_CONFIG.scorePerQuestion / (Number(r.max || r.maksimum || 25) || 25));
-    const score = Math.max(0, Math.min(GSB_ORAL_CONFIG.scorePerQuestion, Math.round(raw)));
-    return {
-      score, max:GSB_ORAL_CONFIG.scorePerQuestion, status:score>=GSB_ORAL_CONFIG.scorePerQuestion?"correct":(score>0?"partial":"wrong"), ai:true,
-      reason: r.komisyonYorumu || r.gerekce || r.reason || r.eksikNokta || "Grok destekli değerlendirme tamamlandı.",
-      strong: r.gucluYon || "", missing: r.eksikNokta || "", critical: r.kritikHata || ""
-    };
-  }catch(err){
-    return fallbackOpenEvaluation(q, answer);
-  }
-}
 
 
 function cleanTopicLabel(v){ return String(v || "").replace(/\s+/g," ").trim(); }
-function oralDisplayTopic(q){
-  const topic = cleanTopicLabel(q.topic || "");
-  const alt = cleanTopicLabel(q.altKonu || "");
-  if(topic && alt && normalizeText(topic) !== normalizeText(alt)) return topic + " / " + alt;
-  return topic || alt || "Konu bilgisi yok";
-}
-function decorateOral(q, meta){
-  return {
-    ...q,
-    simStage: meta.stage,
-    stageTitle: meta.stage,
-    displayTopic: meta.topic || oralDisplayTopic(q),
-    section: meta.section || q.section || "",
-    tone: meta.tone || "common",
-    answerGuide: meta.guide || "Cevabınızı kısa, açık ve mevzuata/konuya uygun şekilde yazınız.",
-    evalGuide: meta.eval || (q.evalType === "ai" ? "İdeal cevapla karşılaştırılarak Grok destekli puanlanır." : "Cevap anahtarına göre otomatik kontrol edilir.")
-  };
-}
-function topicNameFromList(item, topics){
-  const hay = normalizeText(topicText(item));
-  const found = (topics || []).find(t => {
-    const nt = normalizeText(t);
-    return nt && (hay.includes(nt) || nt.includes(hay));
-  });
-  return found || oralDisplayTopic(item);
-}
-function cloneAsAi(q){ return {...q, evalType:"ai", sourceType:"open"}; }
 
-async function buildGsbOralQuestions(payload){
-  const [yollukRaw, mulakatRaw, genelRaw, scenarioRaw, roleShortRaw] = await Promise.all([
-    loadJson(GSB_ORAL_CONFIG.yollukUrl),
-    loadJson(GSB_ORAL_CONFIG.mulakatUrl),
-    loadJson(GSB_ORAL_CONFIG.generalCultureUrl),
-    loadJson(GSB_ORAL_CONFIG.scenarioUrl),
-    loadJson(GSB_ORAL_CONFIG.roleShortUrl)
-  ]);
-  const role = roleKey(payload.role);
-  const used = new Set();
-  const yolluk = normalizeArray(yollukRaw).map(normalizeYollukCard).filter(x => x.q && x.ideal);
-  const roleShort = normalizeArray(roleShortRaw).map(normalizeYollukCard).filter(x => x.q && x.ideal);
-  const mulakat = normalizeArray(mulakatRaw).map(normalizeOpenQuestion).filter(x => x.q && x.ideal);
-  const genel = normalizeArray(genelRaw).map(normalizeGeneralCard).filter(x => x.q && x.ideal);
-  const scenario = normalizeArray(scenarioRaw).map(normalizeScenario).filter(x => x.q && x.ideal);
 
-  const roleTopics = GSB_ONLY_COMMON_ROLES.has(role) ? GSB_COMMON_TOPICS : (GSB_ROLE_TOPICS[role] || []);
-  const commonPool = yolluk.filter(q => matchesAnyTopic(q, GSB_COMMON_TOPICS));
 
-  let rolePool;
-  if(GSB_ONLY_COMMON_ROLES.has(role)){
-    rolePool = commonPool;
-  }else if(GSB_ROLE_SHORT_SOURCE_ROLES.has(role)){
-    rolePool = roleShort.filter(q => hasTarget(q, role) && matchesAnyTopic(q, roleTopics));
-  }else{
-    rolePool = yolluk.filter(q => matchesAnyTopic(q, roleTopics));
-  }
 
-  let q1 = pickUnique(commonPool, 5, used, "oral-common-short");
-  if(q1.length < 5) throw new Error("Ortak konular için yeterli kısa cevap sorusu bulunamadı. Bulunan: " + q1.length + "/5");
-  q1 = q1.map(q => decorateOral(q, {
-    stage:"Ortak yazılı bilgi",
-    topic: topicNameFromList(q, GSB_COMMON_TOPICS),
-    section:"Yazılı sınav konularına ilişkin bilgi düzeyi",
-    tone:"common",
-    guide:"Kısa ve net cevap yazın. Terim, sayı, süre veya kurum adı soruluyorsa sadece gerekli ifadeyi yazmanız yeterlidir.",
-    eval:"Cevap anahtarına göre otomatik değerlendirilir; büyük/küçük harf, noktalama ve basit yazım farkları tolere edilir."
-  }));
 
-  let q2 = pickUnique(rolePool, 5, used, "oral-role-short");
-  if(q2.length < 5) throw new Error((GSB_ONLY_COMMON_ROLES.has(role) ? "Ortak konular" : "Görevin niteliği") + " için yeterli kısa cevap sorusu bulunamadı. Bulunan: " + q2.length + "/5");
-  q2 = q2.map(q => decorateOral(q, {
-    stage: GSB_ONLY_COMMON_ROLES.has(role) ? "Ortak yazılı bilgi" : "Görevin niteliği",
-    topic: GSB_ONLY_COMMON_ROLES.has(role) ? topicNameFromList(q, GSB_COMMON_TOPICS) : topicNameFromList(q, roleTopics),
-    section:"Yazılı sınav konularına ilişkin bilgi düzeyi",
-    tone: GSB_ONLY_COMMON_ROLES.has(role) ? "common" : "role",
-    guide:"Bu soru seçtiğiniz unvanın sorumlu olduğu konu alanından gelir. Cevabı kısa, doğrudan ve kavramı karşılayacak şekilde yazın.",
-    eval:"Cevap anahtarıyla otomatik karşılaştırılır; anlamı bozmayan küçük yazım farkları tolere edilir."
-  }));
 
-  const commonOpenPool = mulakat.filter(q => matchesAnyTopic(q, GSB_COMMON_TOPICS));
-  const roleOpenPool = GSB_ONLY_COMMON_ROLES.has(role)
-    ? mulakat.filter(q => matchesAnyTopic(q, GSB_COMMON_TOPICS))
-    : mulakat.filter(q => matchesAnyTopic(q, roleTopics) || hasTarget(q, role));
 
-  let openCommon = pickUnique(commonOpenPool, 1, used, "oral-common-open");
-  if(!openCommon.length && commonPool.length) openCommon = [cloneAsAi(pickUnique(commonPool, 1, used, "oral-common-open-fallback")[0])].filter(Boolean);
-  let openRole = pickUnique(roleOpenPool, 1, used, "oral-role-open");
-  if(!openRole.length && rolePool.length) openRole = [cloneAsAi(pickUnique(rolePool, 1, used, "oral-role-open-fallback")[0])].filter(Boolean);
-  if(!openCommon.length || !openRole.length) throw new Error("Açık uçlu yazılı bilgi için ortak/görev niteliği dengesi kurulamadı.");
 
-  const q3a = openCommon.map(q => decorateOral(q, {
-    stage:"Açık uçlu yazılı bilgi",
-    topic: topicNameFromList(q, GSB_COMMON_TOPICS),
-    section:"Yazılı sınav konularına ilişkin bilgi düzeyi",
-    tone:"open",
-    guide:"Bu soruda yalnız sonuç değil, kısa gerekçe de önemlidir. 2-4 cümleyle konuya hâkim olduğunuzu gösterin.",
-    eval:"Grok destekli değerlendirme; ideal cevap, konu doğruluğu, eksik unsur ve ifade açıklığına göre 0-5 puan verir."
-  }));
-  const q3b = openRole.map(q => decorateOral(q, {
-    stage:"Açık uçlu yazılı bilgi",
-    topic: GSB_ONLY_COMMON_ROLES.has(role) ? topicNameFromList(q, GSB_COMMON_TOPICS) : topicNameFromList(q, roleTopics),
-    section:"Yazılı sınav konularına ilişkin bilgi düzeyi",
-    tone:"open",
-    guide:"Bu soru seçtiğiniz unvanın sorumlu olduğu alandan gelir. Tanımı, amacı, işlem akışını veya kritik ayrımı kısa biçimde açıklayın.",
-    eval:"Grok destekli değerlendirme; ideal cevapla karşılaştırır, eksik veya hatalı noktaları puana yansıtır."
-  }));
 
-  const itPool = genel.filter(isBilisimTopic);
-  const generalPool = genel.filter(q => !isBilisimTopic(q));
-  const q4 = pickUnique(generalPool.length ? generalPool : genel, 9, used, "oral-general").map(q => decorateOral(q, {
-    stage:"Genel kültür",
-    topic:"Genel Kültür" + (oralDisplayTopic(q) ? " / " + oralDisplayTopic(q) : ""),
-    section:"Genel kültür ve genel yetenek",
-    tone:"general",
-    guide:"Kısa cevap yazın. Kişi, olay, kavram, tarih veya yer soruluyorsa doğrudan cevabı vermeniz yeterlidir.",
-    eval:"Cevap anahtarına göre otomatik değerlendirilir."
-  }));
-  const q5 = pickUnique(itPool.length ? itPool : genel, 2, used, "oral-it").map(q => decorateOral(q, {
-    stage:"Bilişim teknolojileri",
-    topic:"Bilimsel ve Teknolojik Gelişmeler" + (oralDisplayTopic(q) ? " / " + oralDisplayTopic(q) : ""),
-    section:"Bilimsel ve teknolojik gelişmelere açıklık",
-    tone:"it",
-    guide:"Teknoloji, bilişim veya dijital kamu kavramı soruluyorsa kısa ve teknik karşılığı yazın.",
-    eval:"Cevap anahtarına göre otomatik değerlendirilir."
-  }));
-
-  let scenarioInfo = scenarioPoolForRole(scenario, role);
-  let scenarioPool = scenarioInfo.pool;
-  if(scenarioPool.length < 2){
-    const commonOrAny = scenario.filter(q => (q.targets || []).includes("ortak") || (q.targets || []).includes("tumu") || !(q.targets || []).length);
-    scenarioPool = uniqueByQuestionId([...scenarioPool, ...commonOrAny]);
-  }
-  if(scenarioPool.length < 2){
-    scenarioPool = uniqueByQuestionId([...scenarioPool, ...scenario]);
-  }
-  if(scenarioPool.length < 2){
-    throw new Error(payload.roleLabel + " için en az 2 liyakat/temsil senaryosu hazırlanamadı. Bulunan: " + scenarioPool.length + "/2");
-  }
-  const scenarioTopicPrefix = scenarioInfo.fallbackLabel
-    ? (payload.roleLabel || "Unvan") + " · " + scenarioInfo.fallbackLabel + " senaryo havuzu"
-    : (payload.roleLabel || "Unvan");
-  const q6 = pickUnique(scenarioPool, 2, used, "oral-scenario").map(q => decorateOral(q, {
-    stage:"Liyakat / temsil senaryosu",
-    topic: scenarioTopicPrefix + " / " + oralDisplayTopic(q),
-    section:"Liyakat, temsil kabiliyeti, tutum ve davranışların göreve uygunluğu",
-    tone:"scenario",
-    guide:"Komisyon karşısında cevap verir gibi yazın: önce tutumunuzu, sonra gerekçenizi, sonra çözüm/işlem adımınızı belirtin.",
-    eval:"Grok destekli değerlendirme; göreve uygunluk, temsil kabiliyeti, tutum, ikna ve muhakeme yönünden 0-5 puan verir."
-  }));
-
-  const all = [...q1, ...q2, ...q3a, ...q3b, ...q4, ...q5, ...q6].slice(0, 25);
-  if(all.length < 25) throw new Error("GSB sözlü deneme için yeterli soru bulunamadı. Bulunan: " + all.length + "/25");
-  return all.map((q, idx) => ({...q, order: idx + 1, point: GSB_ORAL_CONFIG.scorePerQuestion}));
-}
-
-async function startOralExam(){
-  const payload = currentPayload();
-  selectionSeedContext = [payload.ministry, payload.role, "week" + payload.week].join("|");
-  startBtn.classList.add('loading');
-  startBtn.textContent = "Sözlü deneme hazırlanıyor...";
-  try{
-    const questions = await buildGsbOralQuestions(payload);
-    activeExam = {type:"oral", payload, questions, answers:Array(questions.length).fill(""), currentIndex:0, duration:GSB_ORAL_CONFIG.duration, startedAt:new Date().toISOString(), promoShown:false};
-    showSection("exam");
-    renderOralExam();
-  }catch(err){
-    alert("GSB sözlü deneme hazırlanırken hata oluştu: " + err.message);
-  }finally{
-    startBtn.classList.remove('loading');
-    startBtn.textContent = currentMode === "exam" ? "Sınavı Başlat" : "Sonuçlarımı Gör";
-  }
-}
-
-function renderOralExam(){
-  const exam = activeExam;
-  document.getElementById('examTitle').textContent = "GSB Sözlü Sınav / Mülakat Denemesi";
-  document.getElementById('examInfo').textContent = exam.payload.fullName + " · " + exam.payload.roleLabel + " · " + exam.payload.weekLabel;
-  if(typeof exam.currentIndex !== "number") exam.currentIndex = 0;
-  renderOralQuestion();
-  updateAnswered();
-  startTimer(exam.duration * 60);
-}
-
-function shouldShowGsbOralPromoGate(currentIndex, targetIndex){
-  if(!activeExam || activeExam.type !== "oral") return false;
-  if(activeExam.promoShown) return false;
-  const current = Number(currentIndex || 0);
-  const target = Number(targetIndex || 0);
-  // 10. soru = index 9, 11. soru = index 10.
-  // Kullanıcı Sonraki butonuna, soru numarası butonuna veya başka bir geçişe bassa da 10 -> 11 eşiğinde tanıtım açılır.
-  return current < 10 && target >= 10;
-}
-
-function openGsbOralPromoGate(targetIndex){
-  if(!activeExam || activeExam.type !== "oral") return;
-  const target = Math.max(0, Math.min(Number(targetIndex) || 0, activeExam.questions.length - 1));
-  activeExam.promoShown = true;
-  showGsbOralPromoOverlay(() => {
-    if(!activeExam || activeExam.type !== "oral") return;
-    activeExam.currentIndex = target;
-    renderOralQuestion();
-  });
-}
-
-function goToOralQuestion(targetIndex){
-  if(!activeExam || activeExam.type !== "oral") return;
-  const target = Math.max(0, Math.min(Number(targetIndex) || 0, activeExam.questions.length - 1));
-  const current = Number(activeExam.currentIndex || 0);
-  if(shouldShowGsbOralPromoGate(current, target)){
-    openGsbOralPromoGate(target);
-    return;
-  }
-  activeExam.currentIndex = target;
-  renderOralQuestion();
-}
-
-function showGsbOralPromoOverlay(onReturn){
-  const existing = document.getElementById('gsbOralPromoOverlay');
-  if(existing) existing.remove();
-  const overlay = document.createElement('div');
-  overlay.className = 'oral-promo-overlay show';
-  overlay.id = 'gsbOralPromoOverlay';
-  overlay.setAttribute('role','dialog');
-  overlay.setAttribute('aria-modal','true');
-  overlay.setAttribute('aria-label','GSB sözlü mülakat paketi tanıtımı');
-  const buyUrl = GSB_ORAL_CONFIG.promoBuyUrl;
-  const videoUrl = GSB_ORAL_CONFIG.promoVideoUrl;
-  overlay.innerHTML = `
-    <div class="oral-promo-modal">
-      <button type="button" class="oral-promo-close" id="oralPromoClose" aria-label="Tanıtımı kapat">×</button>
-      <div class="oral-promo-top">
-        <div class="oral-promo-kicker">10. soruyu tamamladınız · Kısa ara</div>
-        <h2 class="oral-promo-title">Gençlik ve Spor Bakanlığı sözlü mülakatına daha güçlü hazırlanın</h2>
-        <p class="oral-promo-desc">Sözlü sınavda yalnız bilgi değil; ifade, muhakeme, temsil, özgüven ve göreve uygun tutum da değerlendirilir. Hazırlığınızı tamamlamak için AdaletSen Akademi sözlü mülakat paketimizi incelemeyi unutmayın.</p>
-      </div>
-      <div class="oral-promo-body">
-        <div class="oral-promo-videoBox" title="Mülakat paketini incelemek için videoya tıklayın">
-          <video id="oralPromoVideo" src="${escapeHtml(videoUrl)}" controls playsinline preload="metadata"></video>
-          <div class="oral-promo-videoHint">Videoya tıklayınca paket sayfası açılır</div>
-        </div>
-        <div class="oral-promo-side">
-          <div class="oral-promo-panel">
-            <b>GSB Sözlü Mülakat Paketi</b>
-            <div class="oral-promo-list">
-              <span>Yazılı konulara göre sözlü soru-cevap çalışması</span>
-              <span>Liyakat, temsil ve tutum senaryoları</span>
-              <span>Komisyon mantığına uygun cevap geliştirme</span>
-              <span>Genel kültür ve teknoloji başlıklarında pratik</span>
-            </div>
-          </div>
-          <div class="oral-promo-actions">
-            <button type="button" class="btn btn-out" id="oralPromoReturn">Sınava Dön</button>
-            <button type="button" class="btn oral-promo-buy" id="oralPromoBuy">Mülakat Paketini İncele</button>
-          </div>
-        </div>
-      </div>
-    </div>`;
-  document.body.appendChild(overlay);
-  const closeAndReturn = () => {
-    const v = overlay.querySelector('video');
-    if(v) { try{ v.pause(); }catch(e){} }
-    overlay.classList.remove('show');
-    overlay.remove();
-    if(typeof onReturn === 'function') onReturn();
-  };
-  const openBuy = () => window.open(buyUrl, '_blank', 'noopener');
-  overlay.querySelector('#oralPromoReturn').addEventListener('click', closeAndReturn);
-  overlay.querySelector('#oralPromoClose').addEventListener('click', closeAndReturn);
-  overlay.querySelector('#oralPromoBuy').addEventListener('click', openBuy);
-  const video = overlay.querySelector('#oralPromoVideo');
-  if(video){
-    video.addEventListener('click', openBuy);
-  }
-  overlay.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeAndReturn(); });
-  setTimeout(() => {
-    const v = overlay.querySelector('video');
-    if(v){ try{ v.play().catch(()=>{}); }catch(e){} }
-    const btn = overlay.querySelector('#oralPromoReturn');
-    if(btn) btn.focus({preventScroll:true});
-  }, 120);
-}
-
-function renderOralQuestion(){
-  const exam = activeExam;
-  if(!exam || exam.type !== "oral") return;
-  const idx = Math.max(0, Math.min(exam.currentIndex || 0, exam.questions.length - 1));
-  exam.currentIndex = idx;
-  const q = exam.questions[idx];
-  if(idx >= 10 && !exam.promoShown){
-    // Emniyet kilidi: Herhangi bir nedenle geçiş fonksiyonu atlanırsa 11. soru ekrana basılmadan overlay yine açılır.
-    openGsbOralPromoGate(idx);
-    return;
-  }
-  const answeredCount = exam.answers.filter(a => String(a || "").trim()).length;
-  const dots = exam.questions.map((qq, i) => '<button type="button" class="oral-dot '+(i===idx?'active ':'')+(String(exam.answers[i]||'').trim()?'answered':'')+'" data-jump="'+i+'" aria-label="'+(i+1)+'. soruya git">'+(i+1)+'</button>').join('');
-  const tone = q.tone || (q.evalType === "ai" ? "open" : "common");
-  questionList.innerHTML = `
-    <div class="oral-single-wrap">
-      <div class="oral-progress">
-        <div class="oral-progress-left">${idx+1}. soru <span>/ ${exam.questions.length} · ${answeredCount} cevaplandı</span></div>
-        <div class="oral-jump">${dots}</div>
-      </div>
-      <div class="oral-card tone-${escapeHtml(tone)}">
-        <div class="oral-q-head">
-          <div>
-            <div class="oral-q-no">${idx+1}. Soru · ${q.point || GSB_ORAL_CONFIG.scorePerQuestion} puan</div>
-            <div class="oral-q-topic">${escapeHtml(q.displayTopic || oralDisplayTopic(q))}</div>
-            <div class="oral-q-section">${escapeHtml(q.stageTitle || q.simStage || q.section || "")}</div>
-          </div>
-          <div class="oral-q-type">${q.evalType === "ai" ? "Açık uçlu · Grok" : "Kısa cevap · otomatik"}</div>
-        </div>
-        <div class="oral-help"><b>Nasıl cevaplamalı?</b> ${escapeHtml(q.answerGuide || "Cevabınızı açık ve anlaşılır biçimde yazınız.")}<br><b>Nasıl değerlendirilecek?</b> ${escapeHtml(q.evalGuide || "Cevabınız puanlama ölçütüne göre değerlendirilecektir.")}</div>
-        <div class="oral-question">${escapeHtml(q.q)}</div>
-        <textarea class="oral-answer" data-idx="${idx}" placeholder="Cevabınızı buraya yazınız...">${escapeHtml(exam.answers[idx] || "")}</textarea>
-        <div class="oral-nav">
-          <button class="btn btn-out" type="button" id="oralPrevBtn" ${idx===0?'disabled style="opacity:.55;cursor:not-allowed"':''}>← Önceki</button>
-          <div class="oral-nav-mid">${q.evalType === "ai" ? "Açık uçlu cevaplarda gerekçe ve işlem adımı puanı etkiler." : "Kısa cevaplarda doğrudan anahtar ifade yeterlidir."}</div>
-          <button class="btn btn-purple" type="button" id="oralNextBtn">${idx === exam.questions.length - 1 ? 'Son sorudasınız' : 'Sonraki →'}</button>
-        </div>
-      </div>
-    </div>`;
-  const textarea = questionList.querySelector('.oral-answer');
-  if(textarea){
-    textarea.focus({preventScroll:true});
-    textarea.addEventListener('input', () => {
-      activeExam.answers[idx] = textarea.value;
-      updateAnswered();
-      const activeDot = questionList.querySelector('.oral-dot[data-jump="'+idx+'"]');
-      if(activeDot) activeDot.classList.toggle('answered', !!String(textarea.value||'').trim());
-    });
-  }
-  const prev = document.getElementById('oralPrevBtn');
-  const next = document.getElementById('oralNextBtn');
-  if(prev) prev.addEventListener('click', () => { saveCurrentOralAnswer(); if(activeExam.currentIndex > 0) goToOralQuestion(activeExam.currentIndex - 1); });
-  if(next) next.addEventListener('click', () => {
-    saveCurrentOralAnswer();
-    if(!activeExam || activeExam.type !== "oral") return;
-    const current = Number(activeExam.currentIndex || 0);
-    const target = current + 1;
-    if(current < activeExam.questions.length - 1) goToOralQuestion(target);
-  });
-  questionList.querySelectorAll('.oral-dot').forEach(btn => btn.addEventListener('click', () => { saveCurrentOralAnswer(); goToOralQuestion(Number(btn.dataset.jump)); }));
-}
-
-function saveCurrentOralAnswer(){
-  if(!activeExam || activeExam.type !== "oral") return;
-  const ta = questionList.querySelector('.oral-answer');
-  if(ta) activeExam.answers[Number(ta.dataset.idx)] = ta.value;
-}
 
 
 function finalPromoFormatNumber(value){
@@ -2369,70 +1768,8 @@ function renderResultPromoSection(record){
 }
 
 
-async function finishOralExam(auto){
-  if(!activeExam) return;
-  if(!auto && !confirm("Sözlü denemeyi bitirmek istediğinize emin misiniz?")) return;
-  clearInterval(timerId);
-  document.getElementById('finishExamBtn').classList.add('loading');
-  document.getElementById('finishExamBtn').textContent = "Cevaplar değerlendiriliyor...";
-  const evaluations = [];
-  for(let i=0;i<activeExam.questions.length;i++){
-    const q = activeExam.questions[i];
-    const ans = activeExam.answers[i] || "";
-    if(q.evalType === "ai") evaluations.push(await evaluateOpenAnswer(q, ans, i));
-    else evaluations.push(scoreShortAnswer(q, ans));
-  }
-  const rawScore = evaluations.reduce((a,e)=>a+(Number(e.score)||0),0);
-  const blank = evaluations.filter(e=>e.status === "blank").length;
-  const correct = evaluations.filter(e=>Number(e.score) >= GSB_ORAL_CONFIG.scorePerQuestion).length;
-  const wrong = evaluations.length - correct - blank;
-  const shortScore = evaluations.reduce((a,e,i)=>a+(activeExam.questions[i].evalType === "short" ? Number(e.score)||0 : 0),0);
-  const aiScore = evaluations.reduce((a,e,i)=>a+(activeExam.questions[i].evalType === "ai" ? Number(e.score)||0 : 0),0);
-  const score = Math.round(rawScore * 100) / 100;
-  const result = {correct, wrong, blank, total:activeExam.questions.length, score};
-  const record = {
-    ...activeExam.payload,
-    ...result,
-    examType:"oral",
-    rawScore,
-    rawMaxScore:GSB_ORAL_CONFIG.rawMaxScore,
-    shortScore,
-    aiScore,
-    answers: activeExam.answers.slice(),
-    evaluations,
-    reviewQuestions: activeExam.questions,
-    finishedAt:new Date().toISOString(),
-    durationSeconds: activeExam.duration * 60 - remainingSeconds,
-    rankTurkey:null,
-    participantCount:null
-  };
-  safeStoreResult(activeExam.payload, record);
-  renderResult(record);
-  showFinishPromoOverlay(record);
-  document.getElementById('finishExamBtn').classList.remove('loading');
-  document.getElementById('finishExamBtn').textContent = "Sınavı Bitir";
-  setCloudStatus("warn", "Sözlü deneme sonucu Google Sheet'e kaydediliyor...");
-  try{
-    const cloud = await saveResultToCloud(record);
-    if(cloud && cloud.ok){
-      let updated = normalizeCloudResult(cloud, record);
-      if(!updated.rankTurkey || !updated.participantCount){
-        try{ await sleepMs(600); const lookup = await fetchResultFromCloud(record); if(lookup && lookup.ok) updated = normalizeCloudResult(lookup, updated); }catch(e){}
-      }
-      updated.answers = record.answers; updated.reviewQuestions = record.reviewQuestions; updated.evaluations = record.evaluations; updated.examType = "oral";
-      safeStoreResult(activeExam.payload, updated);
-      renderResult(updated);
-      setCloudStatus("ok", "Sözlü deneme sonucu Sheet'e kaydedildi.");
-    }else{
-      setCloudStatus("warn", "Sonuç cihazda saklandı; Sheet cevabı beklenen formatta dönmedi.");
-    }
-  }catch(err){
-    setCloudStatus("err", "Sonuç cihazda saklandı; Sheet bağlantısına ulaşılamadı: " + err.message);
-  }
-}
 
 async function startExam(){
-  if(isGsbOralSelection()) return startOralExam();
   const payload = currentPayload();
   selectionSeedContext = [payload.ministry, payload.role, "week" + payload.week].join("|");
   const roleCfg = EXAM_CONFIG[payload.role];
@@ -2491,50 +1828,8 @@ function getReviewQuestionsFromRecord(record){
 }
 
 
-function renderOralReview(record){
-  const holder = document.getElementById('reviewSection');
-  const questions = getReviewQuestionsFromRecord(record);
-  const answers = Array.isArray(record.answers) ? record.answers : [];
-  const evaluations = Array.isArray(record.evaluations) ? record.evaluations : [];
-  if(!questions.length){
-    holder.innerHTML = record && record.reviewNotice
-      ? record.reviewNotice
-      : '<div class="review-head"><div><h3>Sözlü Deneme Cevap Kâğıdı</h3><p>Bu sonuçta soru detayları bulunamadı.</p></div></div>';
-    return;
-  }
-  const rows = questions.map((q, idx) => {
-    const ev = evaluations[idx] || {score:0,max:GSB_ORAL_CONFIG.scorePerQuestion,status:"blank",reason:"Değerlendirme bulunamadı."};
-    const st = ev.status === "correct" ? "oral-ok" : (Number(ev.score)>0 ? "oral-partial" : "oral-zero");
-    const pill = Number(ev.score) >= GSB_ORAL_CONFIG.scorePerQuestion ? "full" : (Number(ev.score) <= 0 ? "zero" : "");
-    return `
-      <div class="review-card ${st}">
-        <div class="review-meta">
-          <div>
-            <span class="review-no">${idx + 1}. Soru</span>
-            <span class="oral-score-pill ${pill}">${Number(ev.score)||0}/4 puan</span>
-          </div>
-          <div class="review-topic">${escapeHtml((q.stageTitle || q.simStage || q.section || "") + (q.displayTopic ? " · " + q.displayTopic : (q.topic ? " · " + q.topic : "")))}</div>
-        </div>
-        <div class="review-q">${escapeHtml(q.q)}</div>
-        <div class="oral-ideal"><b>Adayın cevabı:</b><br>${escapeHtml(answers[idx] || "Cevap verilmedi.")}</div>
-        <div class="oral-ideal"><b>İdeal cevap / cevap anahtarı:</b><br>${escapeHtml(q.ideal || "İdeal cevap bulunamadı.")}${q.etiket ? '<br><b>Kısa anahtar:</b> '+escapeHtml(q.etiket) : ''}</div>
-        <div class="solution-box"><b>Değerlendirme:</b> ${escapeHtml(ev.reason || "")}${ev.strong ? '<br><b>Güçlü yön:</b> '+escapeHtml(ev.strong) : ''}${ev.missing ? '<br><b>Eksik nokta:</b> '+escapeHtml(ev.missing) : ''}${ev.critical ? '<br><b>Kritik hata:</b> '+escapeHtml(ev.critical) : ''}</div>
-      </div>
-    `;
-  }).join("");
-  holder.innerHTML = `
-    <div class="review-head">
-      <div>
-        <h3>Sözlü Deneme Cevap Kâğıdı</h3>
-        <p>Her soru için aday cevabı, ideal cevap ve puanlama notu aşağıdadır.</p>
-      </div>
-    </div>
-    <div class="review-list">${rows}</div>
-  `;
-}
 
 function renderReview(record){
-  if(record && record.examType === "oral") return renderOralReview(record);
   const holder = document.getElementById('reviewSection');
   if(!holder) return;
 
@@ -2612,7 +1907,6 @@ function calculateResult(exam){
 }
 
 async function finishExam(auto){
-  if(activeExam && activeExam.type === "oral") return finishOralExam(auto);
   if(!activeExam) return;
   if(!auto && !confirm("Sınavı bitirmek istediğinize emin misiniz?")) return;
   clearInterval(timerId);
@@ -2658,54 +1952,27 @@ async function finishExam(auto){
 }
 
 function renderResult(record){
-  const isOral = record && record.examType === "oral";
-  const resultBox = document.querySelector('.result-box');
-  if(resultBox) resultBox.classList.toggle('oral-result-box', !!isOral);
-  const kpiIds = ['resCorrect','resWrong','resBlank','resScore','resRank','resParticipants'];
-  const kpiClasses = ['oral-kpi-common','oral-kpi-open','oral-kpi-blank','oral-kpi-score','oral-kpi-it','oral-kpi-scenario'];
-  kpiIds.forEach((id, i) => {
-    const parent = document.getElementById(id)?.closest('.result-kpi');
-    if(!parent) return;
-    kpiClasses.forEach(cls => parent.classList.remove(cls));
-    if(isOral) parent.classList.add(kpiClasses[i]);
-  });
-  document.getElementById('resultTitle').textContent = isOral ? "GSB Sözlü Deneme Sonucu" : "Sınav Sonucu";
+  document.getElementById('resultTitle').textContent = "Sınav Sonucu";
   document.getElementById('resultSub').textContent = record.fullName + " · " + record.ministryLabel + " · " + record.roleLabel + " · " + record.weekLabel;
   const correctLabel = document.getElementById('resCorrect')?.nextElementSibling;
   const wrongLabel = document.getElementById('resWrong')?.nextElementSibling;
   const blankLabel = document.getElementById('resBlank')?.nextElementSibling;
   const scoreLabel = document.getElementById('resScore')?.nextElementSibling;
-  if(correctLabel) correctLabel.textContent = isOral ? "Tam Puanlı" : "Doğru";
-  if(wrongLabel) wrongLabel.textContent = isOral ? "Eksik/Puanlı" : "Yanlış";
+  if(correctLabel) correctLabel.textContent = "Doğru";
+  if(wrongLabel) wrongLabel.textContent = "Yanlış";
   if(blankLabel) blankLabel.textContent = "Boş";
-  if(scoreLabel) scoreLabel.textContent = isOral ? "100'lük Puan" : "Puan";
+  if(scoreLabel) scoreLabel.textContent = "Puan";
   document.getElementById('resCorrect').textContent = record.correct;
   document.getElementById('resWrong').textContent = record.wrong;
   document.getElementById('resBlank').textContent = record.blank;
-  document.getElementById('resScore').textContent = isOral ? (Number(record.score || 0).toFixed(2).replace(/\.00$/, '') + ' / 100') : record.score;
+  document.getElementById('resScore').textContent = record.score;
   const rank = record.rankTurkey || record.rank || record.turkiyeSirasi || null;
   const count = record.participantCount || record.totalParticipants || record.katilimciSayisi || null;
   document.getElementById('resRank').textContent = rank ? String(rank) : "—";
   const participantEl = document.getElementById('resParticipants');
   if(participantEl) participantEl.textContent = count ? String(count) : "—";
   const noteBox = document.querySelector('.result-note');
-  if(noteBox && record.examType !== "oral"){
-    noteBox.innerHTML = DEFAULT_RESULT_NOTE_HTML;
-  }
-  if(noteBox && record.examType === "oral"){
-    const raw = record.rawScore != null ? record.rawScore : (record.score != null ? record.score : "—");
-    const rawMax = record.rawMaxScore || GSB_ORAL_CONFIG.rawMaxScore || 100;
-    const shortScore = record.shortScore != null ? record.shortScore : "—";
-    const aiScore = record.aiScore != null ? record.aiScore : "—";
-    noteBox.innerHTML = '<b style="color:var(--ink)">Sözlü deneme özeti:</b>' +
-      '<div class="oral-result-strip">' +
-      '<div class="oral-mini mini-score"><b>' + raw + '/' + rawMax + '</b><span>100 üzerinden puan</span></div>' +
-      '<div class="oral-mini mini-common"><b>' + shortScore + '</b><span>Kısa cevap puanı</span></div>' +
-      '<div class="oral-mini mini-open"><b>' + aiScore + '</b><span>Grok/açık uçlu puanı</span></div>' +
-      '<div class="oral-mini mini-it"><b>' + (Number(record.score) >= 70 ? 'Başarılı' : '70 altı') + '</b><span>Başarı eşiği</span></div>' +
-      '</div>' +
-      '<div style="color:var(--muted);font-size:.92rem;line-height:1.6">Kısa cevaplı sorular sistem tarafından, açık uçlu sorular ise Grok destekli değerlendirme endpointiyle puanlanır. Grok bağlantısı kurulamazsa geçici yerel değerlendirme uygulanır.</div>';
-  }
+  if(noteBox) noteBox.innerHTML = DEFAULT_RESULT_NOTE_HTML;
   renderReview(record);
   renderResultPromoSection(record);
   showSection("result");
@@ -2719,7 +1986,7 @@ async function showMyResult(){
     startBtn.textContent = "Sonuç aranıyor...";
     const cloud = await fetchResultFromCloud(payload);
     if(cloud && cloud.ok && cloud.result){
-      const basePayload = isGsbOralSelection() ? {...payload, examType:"oral", rawMaxScore:100} : payload;
+      const basePayload = payload;
       const record = normalizeCloudResult(cloud, basePayload);
       renderResult(record);
       setCloudStatus("ok", "Sonuç Google Sheet üzerinden getirildi.");
@@ -2862,7 +2129,6 @@ function findLocalReview(item){
 
 function showSheetResult(item){
   const fullName = ((item.ad || "") + " " + (item.soyad || "")).trim();
-  const isOralItem = normalizeText(item.bakanlik || "").includes("GENCLIK VE SPOR") || normalizeText(item.bakanlik || "").includes("GSB") || normalizeText(item.bakanlik || "").includes("SOZLU") || normalizeText(item.bakanlik || "").includes("MULAKAT") || normalizeText(item.unvan || "").includes("YURT") || normalizeText(item.unvan || "").includes("PSIKOLOG") || normalizeText(item.unvan || "").includes("MUHENDIS") || normalizeText(item.unvan || "").includes("DIYETISYEN") || normalizeText(item.unvan || "").includes("FIZYOTERAPIST") || normalizeText(item.unvan || "").includes("MIMAR");
   const record = {
     ministryLabel: item.bakanlik || "",
     roleLabel: item.unvan || "",
@@ -2876,10 +2142,7 @@ function showSheetResult(item){
     rankTurkey: item.rankTurkey || null,
     participantCount: item.participantCount || null,
     answers: [],
-    reviewQuestions: [],
-    examType: isOralItem ? "oral" : undefined,
-    rawScore: isOralItem ? Number(item.puan || 0) : undefined,
-    rawMaxScore: isOralItem ? 100 : undefined
+    reviewQuestions: []
   };
 
   // Sınav çözüm kâğıdı (soru/şık/çözüm) Sheet'te tutulmaz; yalnız bu cihazın yerel kaydında olabilir.
@@ -2895,8 +2158,8 @@ function showSheetResult(item){
     record.aiScore = local.aiScore != null ? local.aiScore : undefined;
   } else {
     record.reviewNotice =
-      '<div class="review-head"><div><h3>' + (record.examType === "oral" ? 'Sözlü Deneme Cevap Kâğıdı' : 'Sınav Çözüm Kâğıdı') + '</h3>' +
-      '<p>' + (record.examType === "oral" ? 'Sözlü denemede yazdığınız cevaplar, ideal cevaplar ve Grok değerlendirme notları yalnızca sınava girdiğiniz cihazda saklanır. ' : 'İşaretlediğiniz cevapları, doğru/yanlış durumunu ve soru çözümlerini içeren sınav cevap kâğıdı yalnızca sınavı çözdüğünüz cihazda saklanır. ') +
+      '<div class="review-head"><div><h3>' + ('Sınav Çözüm Kâğıdı') + '</h3>' +
+      '<p>' + 'İşaretlediğiniz cevapları, doğru/yanlış durumunu ve soru çözümlerini içeren sınav cevap kâğıdı yalnızca sınavı çözdüğünüz cihazda saklanır. ' +
       'Bu detayları görmek için lütfen sınava girdiğiniz cihaz ve tarayıcıdan sonuç sorgulaması yapın. ' +
       'Yukarıdaki puan, Türkiye sırası ve katılımcı sayısı güncel olarak görüntülenir.</p></div></div>';
   }
