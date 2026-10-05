@@ -167,7 +167,11 @@ body{background:var(--bg)}
 .exam-head{background:linear-gradient(90deg,#800000,#a00000);color:#fff;border-bottom:0}.exam-head p{color:rgba(255,255,255,.8)}.exam-head .metric{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:#fff}.exam-head .metric span{color:rgba(255,255,255,.8)}
 .result-title{color:var(--bordo)}
 @media(max-width:640px){.hero{padding:24px 0 74px}.entry-head,.exam-entry .form-area{padding-left:16px;padding-right:16px}.offer-body{padding:14px}.offer-modal .offer-card{margin:12px 12px 0}.site-brand small{display:none}.site-link{font-size:.8rem;padding:7px 10px}.seal{flex-basis:40px;width:40px;height:40px}}
+.katex{font-size:1.15em}
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
 <div id="landingTop">
@@ -918,6 +922,18 @@ function showSection(name){
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
+// Matematik ifadeleri (\( ... \)) KaTeX ile çizilir; KaTeX yüklenemezse metin olduğu gibi kalır.
+function renderMath(el){
+  if(!el || typeof window.renderMathInElement !== "function") return;
+  try {
+    window.renderMathInElement(el, {
+      delimiters: [{left:"\\(", right:"\\)", display:false}, {left:"\\[", right:"\\]", display:true}],
+      throwOnError: false
+    });
+  } catch(e) {}
+}
+window.addEventListener('load', () => { setTimeout(() => renderMath(document.getElementById('questionList')), 0); });
+
 function visualChartSvg(v){
   if(!v || !Array.isArray(v.labels) || !Array.isArray(v.datasets) || !v.datasets.length) return "";
   const W = 640, H = 340, L = 56, R = 16, T = 40, B = 64;
@@ -1024,6 +1040,7 @@ function renderExam(){
   });
 
   updateAnswered();
+  renderMath(questionList);
   startTimer(exam.duration * 60);
 }
 
@@ -1280,6 +1297,7 @@ function renderReview(record){
     </div>
     <div class="review-list">${rows}</div>
   `;
+  renderMath(holder);
 }
 
 function calculateResult(exam){
