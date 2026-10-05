@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AdaletSen Akademi — Deneme Sınavları</title>
-<meta name="description" content="İçişleri Bakanlığı ve Gelir İdaresi Başkanlığı deneme sınavları için sade seçim ekranı." />
+<title>İçişleri Bakanlığı Haftalık Deneme Sınavı — AdaletSen Akademi</title>
+<meta name="description" content="İçişleri Bakanlığı görevde yükselme ve unvan değişikliği için ücretsiz haftalık deneme sınavı. Her Pazartesi yeni sınav, Türkiye geneli sıralama, çözümlü cevap kâğıdı." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -109,71 +109,88 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
 
 
 /* ============ Sınav bitişi iki paketli tanıtım overlay ============ */
-.final-promo-overlay{position:fixed;inset:0;z-index:10000;background:rgba(17,24,39,.78);backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:18px}
-.final-promo-overlay.show{display:flex}
-.final-promo-modal{width:min(1260px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:24px;box-shadow:0 30px 90px rgba(0,0,0,.38);border:1px solid rgba(255,255,255,.28);position:relative}
-.final-promo-top{padding:22px 24px 16px;background:linear-gradient(135deg,#fff 0%,#faf5ff 45%,#eff6ff 100%);border-bottom:1px solid var(--line)}
-.final-promo-kicker{display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:#fff;border:1px solid #ddd6fe;color:#6d28d9;font-weight:900;font-size:.82rem;padding:7px 11px;margin-bottom:10px}
-.final-promo-title{font-size:clamp(1.35rem,3vw,1.82rem);line-height:1.15;font-weight:900;letter-spacing:-.03em;color:#111827;margin:0;max-width:920px}
-.final-promo-desc{color:#4b5563;font-weight:700;margin-top:9px;line-height:1.55;max-width:940px}
-.final-promo-close{position:absolute;right:12px;top:12px;width:39px;height:39px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:1.25rem;font-weight:900;color:#374151;display:grid;place-items:center;box-shadow:0 6px 18px rgba(15,23,42,.10);z-index:3}
-.final-promo-close:hover{color:#6d28d9;border-color:#ddd6fe}
-.final-promo-grid{display:grid;grid-template-columns:.72fr 1.55fr;gap:16px;padding:18px 22px 22px;align-items:stretch}
-.final-plan{position:relative;border:1.5px solid var(--line);border-radius:20px;background:#fff;padding:18px;display:flex;flex-direction:column;min-height:100%;box-shadow:0 10px 26px rgba(15,23,42,.06);overflow:hidden}
-.final-plan.demo{background:linear-gradient(180deg,#fff,#f8fafc)}
-.final-demo-visual{margin:4px 0 14px;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;box-shadow:0 10px 22px rgba(15,23,42,.08);background:#fff}.final-demo-visual img{display:block;width:100%;height:auto}.final-demo-badge{display:inline-flex;align-items:center;gap:6px;margin-top:10px;border-radius:999px;background:#fee2e2;color:#b91c1c;padding:6px 10px;font-size:.74rem;font-weight:900}
-.final-plan.full{border:2px solid #a855f7;background:linear-gradient(180deg,#fff,#faf5ff);box-shadow:0 18px 42px rgba(124,58,237,.16)}
-.final-plan.full:before{content:'EN AVANTAJLI SEÇENEK';position:absolute;top:14px;right:-38px;background:#a435f0;color:#fff;font-size:.62rem;font-weight:900;letter-spacing:.12em;padding:6px 44px;transform:rotate(35deg);box-shadow:0 8px 18px rgba(124,58,237,.26);z-index:2}
-.final-plan-head{padding-right:34px}.final-plan-label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:#6b7280;margin-bottom:4px}.final-plan.full .final-plan-label{color:#7e22ce}
-.final-plan h3{font-size:1.2rem;line-height:1.22;font-weight:900;color:#111827;margin:0}.final-price{display:flex;align-items:flex-end;gap:8px;margin:12px 0 6px}.final-price b{font-size:2rem;line-height:1;font-weight:900;color:#111827}.final-price span{color:#6b7280;font-weight:800;margin-bottom:3px}.final-plan.full .final-price b{color:#7e22ce}
-.final-plan-copy{color:#4b5563;font-weight:700;font-size:.94rem;line-height:1.52;margin-bottom:12px}.final-advantage{border:1px solid #e9d5ff;background:#f5f3ff;color:#5b21b6;border-radius:14px;padding:11px 12px;font-weight:900;font-size:.9rem;line-height:1.45;margin:10px 0 12px}
-.final-feature-list{display:grid;gap:8px;margin:10px 0 16px}.final-feature-list span{display:flex;gap:8px;align-items:flex-start;color:#374151;font-size:.9rem;font-weight:800;line-height:1.42}.final-feature-list span:before{content:'✓';flex:none;color:#15803d;font-weight:900}
-.final-course-hero{display:grid;grid-template-columns:112px 1fr;gap:14px;align-items:center;margin-bottom:12px;padding-right:36px}.final-course-img{height:74px;border-radius:15px;overflow:hidden;background:#111827;border:1px solid rgba(17,24,39,.08);box-shadow:0 10px 22px rgba(15,23,42,.12)}.final-course-img img{width:100%;height:100%;object-fit:cover;display:block}.final-course-img.placeholder{display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#5b21b6,#a435f0);font-weight:900;font-size:.82rem;text-align:center;padding:10px}.final-course-title{font-size:1.23rem;font-weight:900;line-height:1.18;color:#111827;margin:0}.final-course-panel{color:#6b7280;font-weight:800;font-size:.88rem;margin-top:4px;line-height:1.35}.final-course-price{display:flex;align-items:flex-end;gap:8px;margin-top:8px}.final-course-price b{font-size:2rem;line-height:1;font-weight:900;color:#7e22ce}.final-course-price span{font-size:.82rem;color:#6b7280;font-weight:900;margin-bottom:3px}
-.final-course-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0 10px}.final-stat{background:#fff;border:1px solid #e9d5ff;border-radius:12px;padding:10px;text-align:center}.final-stat b{display:block;font-size:1.08rem;font-weight:900;color:#111827;line-height:1}.final-stat span{display:block;font-size:.7rem;color:#6b7280;font-weight:900;margin-top:5px}.final-stat.highlight{background:#f5f3ff}.final-stat.highlight b{color:#7e22ce}
-.final-course-layout{display:grid;grid-template-columns:1.35fr .85fr;gap:12px;margin-top:8px}.final-rich-block{background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:12px;min-width:0}.final-rich-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:9px}.final-rich-head b{font-weight:900;color:#111827}.final-rich-head small{font-size:.72rem;color:#6b7280;font-weight:900}.final-topic-lead{border:1px solid #e9d5ff;background:#faf5ff;border-radius:13px;padding:10px 11px;margin-bottom:10px;line-height:1.42}.final-topic-lead b{display:block;color:#581c87;font-weight:900;font-size:.9rem}.final-topic-lead span{display:block;color:#4b5563;font-weight:800;font-size:.78rem;margin-top:3px}.final-topic-list{display:grid;gap:8px;max-height:340px;overflow:auto;padding-right:6px}.final-topic-row{display:grid;gap:5px;border-bottom:1px solid #f3f4f6;padding-bottom:7px}.final-topic-row:last-child{border-bottom:0;padding-bottom:0}.final-topic-top{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:baseline}.final-topic-index{width:22px;height:22px;border-radius:999px;background:#f5f3ff;color:#7e22ce;display:inline-grid;place-items:center;font-size:.68rem;font-weight:900;flex:none}.final-topic-name{font-size:.84rem;font-weight:850;color:#374151;line-height:1.24}.final-topic-count{font-size:.78rem;font-weight:900;color:#7e22ce;white-space:nowrap}.final-topic-bar{height:5px;background:#f3f4f6;border-radius:999px;overflow:hidden}.final-topic-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#7e22ce,#a435f0)}.final-topic-more-note{margin-top:8px;font-size:.72rem;color:#6b7280;font-weight:800;text-align:right}
-.final-module-list{display:grid;gap:7px;max-height:190px;overflow:auto;padding-right:4px}.final-module-item{display:flex;gap:8px;align-items:flex-start;font-size:.8rem;font-weight:800;color:#374151;line-height:1.32}.final-module-item:before{content:'✓';flex:none;width:18px;height:18px;border-radius:999px;background:#ecfdf5;color:#15803d;display:grid;place-items:center;font-size:.72rem;font-weight:900}.final-module-detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.final-module-detail{border:1px solid #ede9fe;background:#fff;border-radius:12px;padding:10px;line-height:1.35}.final-module-detail b{display:block;font-size:.79rem;color:#4c1d95;font-weight:900;margin-bottom:3px}.final-module-detail span{font-size:.74rem;color:#4b5563;font-weight:700}
-.final-mulakat-list{display:grid;gap:8px}.final-mulakat-item{border:1px solid #ede9fe;background:#fff;border-radius:12px;padding:10px}.final-mulakat-item b{display:block;font-size:.82rem;color:#4c1d95;font-weight:900}.final-mulakat-item span{display:block;font-size:.76rem;color:#4b5563;font-weight:700;line-height:1.4;margin-top:3px}.final-empty-note{color:#6b7280;font-weight:800;font-size:.82rem;line-height:1.45}
-.final-plan-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}.final-plan-actions .btn{flex:1;min-width:170px}.final-demo-buy{background:#111827;color:#fff}.final-demo-buy:hover{background:#000;transform:translateY(-1px)}.final-full-buy{background:#a435f0;color:#fff}.final-full-buy:hover{background:#8710d8;transform:translateY(-1px)}
-.final-promo-bottom{display:flex;justify-content:center;padding:0 22px 22px}.final-result-btn{color:#374151;border-color:var(--line2);background:#fff}.final-result-btn:hover{border-color:#a435f0;color:#8710d8}
-.result-promo-section{margin-top:26px;border:1.5px solid #e5e7eb;border-radius:22px;background:linear-gradient(180deg,#fff,#f8fafc);overflow:hidden;box-shadow:0 14px 36px rgba(15,23,42,.08)}.result-promo-head{padding:18px 20px 14px;background:linear-gradient(135deg,#fff7f7,#fff 48%,#faf5ff);border-bottom:1px solid #e5e7eb}.result-promo-kicker{display:inline-flex;align-items:center;gap:7px;border-radius:999px;background:#fff;border:1px solid #fecaca;color:#b91c1c;font-size:.78rem;font-weight:900;padding:6px 10px;margin-bottom:8px}.result-promo-title{font-size:1.28rem;font-weight:900;line-height:1.2;color:#111827;margin:0}.result-promo-desc{color:#4b5563;font-weight:700;font-size:.92rem;line-height:1.5;margin-top:6px}.result-promo-section .final-promo-grid{padding:16px 18px 18px}.result-promo-section .final-plan{box-shadow:0 8px 22px rgba(15,23,42,.06)}
-@media(max-width:980px){.final-promo-grid{grid-template-columns:1fr}.final-course-layout{grid-template-columns:1fr 1fr}.final-module-detail-grid{grid-template-columns:1fr 1fr}.final-course-stats{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:640px){.final-promo-overlay{padding:10px}.final-promo-modal{border-radius:20px}.final-promo-grid{grid-template-columns:1fr;padding:14px}.final-promo-top{padding:18px 16px 13px}.final-promo-desc{font-size:.92rem}.final-plan{padding:16px;border-radius:18px}.final-plan.full:before{font-size:.56rem;right:-42px}.final-price b{font-size:1.75rem}.final-plan-actions .btn{width:100%;min-width:0}.final-promo-bottom{padding:0 14px 16px}.final-result-btn{width:100%}.final-course-hero{grid-template-columns:1fr;padding-right:34px}.final-course-img{height:118px}.final-course-layout{grid-template-columns:1fr}.final-course-stats{grid-template-columns:repeat(2,1fr)}.final-module-detail-grid{grid-template-columns:1fr}.final-topic-list,.final-module-list{max-height:none}}
 
 .q-visual{margin:12px 0;text-align:center}.q-chart{width:100%;max-width:640px;height:auto;background:#fff;border:1px solid var(--line);border-radius:12px}.q-opt-visual{margin-top:8px}.q-opt-visual svg{width:100%;max-width:420px;height:auto;border:1px solid var(--line);border-radius:10px}
+/* ===== Yeni giriş sayfası + paket tanıtımı ===== */
+.site-head{background:#fff;border-bottom:1px solid var(--line)}.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.site-brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.08rem;letter-spacing:-.01em}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--purple),#6d28d9);color:#fff;display:grid;place-items:center;font-weight:900}
+.site-link{font-weight:800;font-size:.92rem;color:var(--purple-d)}.site-link:hover{text-decoration:underline}
+.hero{background:radial-gradient(1000px 420px at 85% -10%,rgba(164,53,240,.55),transparent 60%),linear-gradient(135deg,#17122b,#2d1b69 62%,#4c1d95);color:#fff;padding:40px 0 92px}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 14px;font-weight:800;font-size:.8rem;letter-spacing:.06em}
+.hero-pill i{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 4px rgba(74,222,128,.25)}
+.hero h1{font-size:clamp(1.75rem,5vw,2.8rem);line-height:1.12;font-weight:900;letter-spacing:-.025em;margin:16px 0 10px;max-width:760px}
+.hero p{font-size:1.08rem;color:rgba(255,255,255,.82);max-width:640px;font-weight:600}
+.hero-points{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.hero-points li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px 13px;font-weight:800;font-size:.9rem}.hero-points li:before{content:"✓";color:#4ade80;margin-right:7px}
+.main{padding:0 0 12px}.landing-pull{margin-top:-62px;position:relative}
+.entry-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;padding:22px 22px 0}
+.entry-head h2{font-size:1.45rem;font-weight:900;letter-spacing:-.015em}.entry-head p{color:var(--muted);font-weight:600;margin-top:3px}
+.week-badge{background:var(--purple-l);color:var(--purple-d);border-radius:12px;padding:8px 14px;font-weight:900;text-align:center;line-height:1.25}.week-badge small{display:block;font-weight:700;color:#6b21a8;font-size:.76rem}
+.exam-entry .form-area{display:block;border-top:0;background:#fff;padding:18px 22px 22px}
+.exam-entry .form-grid{grid-template-columns:1fr}.exam-entry .candidate-area{display:block;margin-top:14px;border-top:0;padding-top:0}
+.exam-entry .start-wrap{margin-top:16px}.exam-entry .start-wrap .btn{width:100%;min-height:54px;font-size:1.08rem}
+.free-note{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:.88rem;font-weight:700;color:#166534;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 12px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:22px 0}
+.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.step b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--purple);color:#fff;margin-bottom:9px}.step h4{font-weight:900}.step p{color:var(--muted);font-size:.9rem;font-weight:600}
+.section-title{font-size:1.4rem;font-weight:900;letter-spacing:-.015em;margin:28px 0 4px}.section-sub{color:var(--muted);font-weight:600;margin-bottom:14px}
+.offer-card{position:relative;border:2px solid #c084fc;border-radius:20px;background:linear-gradient(180deg,#fff,#faf5ff);box-shadow:0 14px 36px rgba(124,58,237,.14);overflow:hidden}
+.offer-ribbon{background:linear-gradient(90deg,#7e22ce,#a435f0);color:#fff;font-weight:900;font-size:.76rem;letter-spacing:.12em;padding:8px 18px}
+.offer-body{padding:18px 20px 20px;display:grid;gap:16px}
+.offer-top{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.offer-img{width:76px;height:76px;border-radius:16px;object-fit:cover;background:#fff;border:1px solid #e9d5ff}.offer-ph{width:76px;height:76px;border-radius:16px;background:linear-gradient(135deg,#7e22ce,#a435f0);color:#fff;display:grid;place-items:center;font-weight:900;text-align:center;font-size:.62rem;line-height:1.15;padding:4px}
+.offer-title{flex:1;min-width:200px}.offer-eyebrow{font-size:.74rem;letter-spacing:.12em;font-weight:900;color:#7e22ce;text-transform:uppercase}.offer-title h3{font-size:1.28rem;line-height:1.2;font-weight:900;margin-top:2px}
+.offer-price{text-align:right}.offer-price b{display:block;font-size:2rem;line-height:1;font-weight:900;color:#6b21a8}.offer-price span{font-size:.8rem;color:var(--muted);font-weight:700}
+.offer-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}.offer-stat{background:#fff;border:1px solid #e9d5ff;border-radius:12px;padding:10px;text-align:center}.offer-stat b{display:block;font-size:1.3rem;font-weight:900;color:#6b21a8}.offer-stat span{font-size:.78rem;font-weight:700;color:var(--muted)}
+.offer-cols{display:grid;grid-template-columns:1.1fr 1fr;gap:14px}@media(max-width:760px){.offer-cols{grid-template-columns:1fr}.offer-price{text-align:left}}
+.offer-block{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.offer-block h4{font-size:.95rem;font-weight:900;margin-bottom:10px}
+.topic-row{margin-bottom:9px}.topic-row div{display:flex;justify-content:space-between;gap:10px;font-size:.84rem;font-weight:700}.topic-row em{font-style:normal;color:#6b21a8;white-space:nowrap}.topic-bar{height:6px;border-radius:99px;background:#f3e8ff;margin-top:4px;overflow:hidden}.topic-bar i{display:block;height:100%;background:linear-gradient(90deg,#a435f0,#7e22ce);border-radius:99px}
+.offer-list{list-style:none;display:grid;gap:8px}.offer-list li{display:flex;gap:8px;font-size:.88rem;font-weight:700;color:#374151}.offer-list li:before{content:"✓";color:#15803d;font-weight:900}
+.offer-cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.offer-cta .btn{flex:1;min-width:200px;min-height:52px;font-size:1.02rem}.offer-guar{font-size:.8rem;color:var(--muted);font-weight:700;flex-basis:100%}
+.btn-buy{background:linear-gradient(135deg,#a435f0,#7e22ce);color:#fff;box-shadow:0 8px 20px rgba(124,58,237,.3)}.btn-buy:hover{filter:brightness(1.06)}
+.offer-generic{border:1.5px dashed #c084fc;border-radius:18px;background:#faf5ff;padding:20px}
+.community{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:26px 0;border-radius:18px;padding:20px 22px;background:linear-gradient(135deg,#052e16,#14532d);color:#fff}
+.community b{font-size:1.15rem;font-weight:900;display:block}.community span{color:rgba(255,255,255,.82);font-weight:600;font-size:.93rem}
+.btn-wa{background:#25D366;color:#073b1d}.btn-wa:hover{filter:brightness(1.05)}
+.offer-overlay{position:fixed;inset:0;z-index:9999;background:rgba(15,10,30,.72);backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;padding:18px;overflow:auto}.offer-overlay.show{display:flex}
+.offer-modal{position:relative;width:min(860px,100%);background:#fff;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.4);margin:auto}
+.offer-modal-top{padding:22px 24px 6px}.offer-modal-top h2{font-size:1.5rem;font-weight:900;letter-spacing:-.02em;line-height:1.2}.offer-modal-top p{color:var(--muted);font-weight:600;margin-top:6px}
+.offer-modal .offer-card{margin:14px 20px 0;box-shadow:none}.offer-modal-bottom{padding:14px 20px 20px;text-align:center}
+.offer-x{position:absolute;right:14px;top:14px;width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid var(--line);font-size:1.3rem;line-height:1}
+.score-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.score-strip span{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-weight:800;font-size:.9rem}
+.result-offer{margin-top:26px}
+@media(max-width:640px){.hero{padding:28px 0 80px}.entry-head,.exam-entry .form-area{padding-left:16px;padding-right:16px}.offer-body{padding:16px}.offer-modal-top{padding:20px 18px 4px}.offer-modal .offer-card{margin:12px 12px 0}.offer-price b{font-size:1.7rem}}
 </style>
 </head>
 <body>
+<div id="landingTop">
+<header class="site-head"><div class="wrap">
+  <a class="site-brand" href="https://adaletsenakademi.com" target="_blank" rel="noopener"><span class="logo-mark">A</span>AdaletSen Akademi</a>
+  <a class="site-link" href="https://adaletsenakademi.com/#courses" target="_blank" rel="noopener">Tüm hazırlık paketleri →</a>
+</div></header>
+<section class="hero"><div class="wrap">
+  <span class="hero-pill"><i></i>ÜCRETSİZ · HER PAZARTESİ YENİ SINAV</span>
+  <h1>İçişleri Bakanlığı Haftalık Deneme Sınavı</h1>
+  <p>Resmî sınav dağılımına göre hazırlanan denemeyi çöz, Türkiye geneli sıralamandaki yerini gör, çözümlü cevap kâğıdınla eksiklerini kapat.</p>
+  <ul class="hero-points"><li>Tamamen ücretsiz</li><li>Türkiye sıralaması</li><li>Çözümlü cevap kâğıdı</li><li>Her hafta yeni sorular</li></ul>
+</div></section>
+</div>
 <main class="main" id="secim">
   <div class="wrap">
-    <a href="https://adaletsenakademi.com" target="_blank" rel="noopener" id="topBanner" class="site-banner" style="display:block;max-width:720px;margin:2px auto 16px">
-      <img src="https://i.hizliresim.com/n013xrj.png" alt="AdaletSen Akademi" loading="lazy" style="width:100%;height:auto;display:block;border-radius:var(--r-lg);box-shadow:var(--sh)">
-    </a>
-    <section class="choice-box">
-      <div class="choice-head">
-        <h2>Deneme sınavı seçimi</h2>
-        <p>Önce işlem türünü seçin, ardından kurum, unvan ve hafta bilgileriyle devam edin.</p>
+    <div id="landingWrap">
+    <section class="choice-box exam-entry landing-pull">
+      <div class="entry-head">
+        <div>
+          <h2>Bu haftanın sınavına katıl</h2>
+          <p>Unvanını seç, adını yaz ve sınavı başlat. Üyelik veya ödeme gerekmez.</p>
+        </div>
+        <div class="week-badge" id="weekBadge">1. Hafta<small>—</small></div>
       </div>
-
-      <div class="ministry-grid">
-        <button class="ministry-card icisleri" type="button" data-ministry="icisleri" aria-label="İçişleri Bakanlığı denemeleri">
-          <div class="ministry-top">
-            <div class="ministry-logo-wrap">
-              <img class="ministry-logo" referrerpolicy="no-referrer" src="https://upload.wikimedia.org/wikipedia/commons/3/34/InteriorMinistryTR.png" alt="İçişleri Bakanlığı logosu">
-            </div>
-            <div class="ministry-chevron">›</div>
-          </div>
-          <h3>İçişleri Bakanlığı</h3>
-          <p>Şeflik, VHKİ, uzmanlık, şube müdürlüğü, ilçe nüfus, ilçe yazı işleri, bilgisayar mühendisliği, elektrik-elektronik mühendisliği, inşaat mühendisliği, tekniker-teknisyen, programcı ve sosyolog için deneme sınavları.</p>
-          <div class="ministry-meta"><span>12 unvan</span><span>1-3. hafta aktif</span></div>
-        </button>
-      </div>
-
-      <div class="form-area" id="formArea">
+      <div class="form-area show" id="formArea">
         <div class="form-grid">
           <div class="field">
             <label for="roleSelect">Unvan seç</label>
             <select id="roleSelect">
-              <option value="">Önce kurum seçiniz</option>
+              <option value="">Unvanını seç</option>
             </select>
           </div>
           <div class="field" style="display:none">
@@ -182,11 +199,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
               <option value="1">1. Hafta Deneme Sınavı</option>
             </select>
           </div>
-          <div class="start-wrap">
-            <button class="btn btn-purple" id="startBtn" type="button">Sınavı Başlat</button>
-          </div>
         </div>
-
         <div class="candidate-area show" id="candidateArea">
           <div class="candidate-grid">
             <div class="field">
@@ -199,10 +212,30 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
             </div>
           </div>
         </div>
-
-        <div class="summary" id="summaryBox">Kurum seçildiğinde seçim özeti burada görünecek.</div>
+        <div class="summary" id="summaryBox">Unvanını seçerek başla.</div>
+        <div class="start-wrap">
+          <button class="btn btn-purple" id="startBtn" type="button">Sınavı Başlat</button>
+        </div>
+        <div class="free-note">🎁 Deneme sınavları ücretsizdir. Sonuçlar Türkiye geneli sıralamaya otomatik eklenir.</div>
       </div>
     </section>
+
+    <div class="steps">
+      <div class="step"><b>1</b><h4>Unvanını seç</h4><p>Sınav, seçtiğin unvanın resmî konu dağılımına göre hazırlanır.</p></div>
+      <div class="step"><b>2</b><h4>Denemeyi çöz</h4><p>Gerçek sınav süresinde, soru sayısı ve konu ağırlığı resmî dağılıma uygun.</p></div>
+      <div class="step"><b>3</b><h4>Sıralamanı gör</h4><p>Puanını, doğru/yanlış analizini ve Türkiye sıralamanı anında öğren.</p></div>
+      <div class="step"><b>4</b><h4>Eksiklerini kapat</h4><p>Çözümlü cevap kâğıdını incele, unvanına özel hazırlık paketiyle devam et.</p></div>
+    </div>
+
+    <h2 class="section-title">Sınavı geçmek için hazırlığını tamamla</h2>
+    <p class="section-sub">Haftalık deneme ücretsiz; konu anlatımı, sınırsız test ve video dersleri ise unvanına özel hazırlık paketinde.</p>
+    <div id="landingOffer"></div>
+
+    <div class="community">
+      <div><b>Yeni sınavdan ilk sen haberdar ol</b><span>Her Pazartesi yayınlanan denemeler ve duyurular akademi WhatsApp grubunda.</span></div>
+      <a class="btn btn-wa" href="https://chat.whatsapp.com/G4jxcQtr8t60o45vRBBhPp" target="_blank" rel="noopener">WhatsApp Grubuna Katıl</a>
+    </div>
+    </div>
 
     <section class="exam-screen" id="examScreen">
       <div class="exam-shell">
@@ -237,20 +270,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
           <div class="result-kpi"><b id="resParticipants">—</b><span>Katılımcı</span></div>
         </div>
         <div class="result-note" style="margin-top:14px;padding:15px 16px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);color:var(--muted);font-size:.92rem;line-height:1.62">
-          Şu an ekranda görülen <b style="color:var(--ink)">Türkiye Sırası</b> ve <b style="color:var(--ink)">Katılımcı Sayısı</b> bu ana aittir. AdaletSen Akademi tarafından her hafta bir deneme sınavı yapılmakta ve deneme sınavları sürekli yayında kalmaktadır. Bu nedenle sıralamanızı ve katılımcı sayınızı daha sonra <b style="color:var(--ink)">“Sonuçlarımı Gör”</b> ekranından tekrar kontrol edebilirsiniz.
-          <div style="margin-top:10px">AdaletSen Akademi'yi takip etmek ve yayınlanacak yeni sınav tarihlerini görmek için akademi WhatsApp grubumuza katılabilirsiniz.</div>
-          <a href="https://chat.whatsapp.com/G4jxcQtr8t60o45vRBBhPp" target="_blank" rel="noopener" class="btn" style="margin-top:13px;background:#25D366;color:#fff">
-            <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.257.59 4.46 1.71 6.402L3.2 28.8l6.57-1.687a12.74 12.74 0 0 0 6.233 1.6h.005c7.06 0 12.8-5.74 12.8-12.8 0-3.42-1.332-6.635-3.75-9.052A12.71 12.71 0 0 0 16.003 3.2zm0 23.04h-.004a10.6 10.6 0 0 1-5.4-1.48l-.387-.23-4.003 1.028 1.067-3.903-.252-.4a10.56 10.56 0 0 1-1.62-5.625c0-5.86 4.77-10.63 10.63-10.63 2.84 0 5.51 1.107 7.518 3.116a10.56 10.56 0 0 1 3.112 7.52c0 5.86-4.77 10.63-10.63 10.63zm5.83-7.96c-.32-.16-1.89-.933-2.183-1.04-.293-.107-.507-.16-.72.16-.213.32-.826 1.04-1.013 1.253-.187.213-.373.24-.693.08-.32-.16-1.35-.498-2.57-1.587-.95-.847-1.59-1.893-1.777-2.213-.187-.32-.02-.493.14-.653.144-.143.32-.373.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.72-1.733-.987-2.373-.26-.624-.524-.54-.72-.55l-.613-.01c-.213 0-.56.08-.853.4-.293.32-1.12 1.093-1.12 2.667 0 1.573 1.147 3.093 1.307 3.307.16.213 2.253 3.44 5.46 4.823.763.33 1.36.527 1.825.674.766.244 1.464.21 2.016.127.615-.092 1.89-.773 2.157-1.52.267-.747.267-1.387.187-1.52-.08-.133-.293-.213-.613-.373z"/></svg>
-            WhatsApp Grubuna Katıl
-          </a>
+          <b style="color:var(--ink)">Türkiye Sırası</b> ve <b style="color:var(--ink)">Katılımcı Sayısı</b> sınava girdiğiniz ana aittir; yeni katılımcılar çözdükçe sıralama değişebilir. Her Pazartesi yeni bir deneme sınavı yayınlanır.
         </div>
         <div class="notice" id="rankNotice">Türkiye geneli sıralama Google Sheet üzerinden alınır. Bağlantı kurulamazsa sonuç yine cihazda saklanır.</div>
         <div id="cloudStatus" class="cloud-status warn">Sheet bağlantısı hazır.</div>
         <div class="review-section" id="reviewSection"></div>
         <div id="resultPromoSection"></div>
         <div class="result-actions">
-          <button class="btn btn-purple" type="button" id="newExamBtn">Yeni Sınav Seç</button>
-          <button class="btn btn-out" type="button" id="showSelectBtn">Sonuçlarımı Gör</button>
+          <button class="btn btn-purple" type="button" id="newExamBtn">Ana Sayfaya Dön</button>
         </div>
       </div>
     </section>
@@ -389,6 +416,7 @@ let CURRENT_WEEK = computeCurrentWeek();
 function applyCurrentWeek(){
   weekSelect.innerHTML = '<option value="' + CURRENT_WEEK + '">' + CURRENT_WEEK + '. Hafta Deneme Sınavı</option>';
   weekSelect.value = String(CURRENT_WEEK);
+  renderWeekBadge();
   updateSummary();
 }
 window.addEventListener('load', applyCurrentWeek);
@@ -465,8 +493,6 @@ let activeExam = null;
 let timerId = null;
 let remainingSeconds = 0;
 
-const cards = Array.from(document.querySelectorAll('.ministry-card'));
-const modeTabs = Array.from(document.querySelectorAll('.mode-tab'));
 const formArea = document.getElementById('formArea');
 const roleSelect = document.getElementById('roleSelect');
 const weekSelect = document.getElementById('weekSelect');
@@ -481,35 +507,7 @@ const questionList = document.getElementById('questionList');
 const DEFAULT_RESULT_NOTE_HTML = document.querySelector('.result-note')?.innerHTML || '';
 
 /* ============ Sınav bitişi paket tanıtımı ayarları ============ */
-const FINAL_PROMO_SETTINGS = {
-  demoPrice: "549 TL",
-  fullPrice: "990 TL",
-  priceGapText: "441 TL farkla",
-  // Deneme Sınavı Paketi Shopier linki
-  demoPackageUrl: "https://www.shopier.com/adaletsenakademi/48412076"
-};
 
-const FINAL_PROMO_ROLE_PACKAGE_MAP = {
-  "icisleri_seflik":"ic-seflik",
-  "icisleri_vhki":"ic-vhki",
-  "icisleri_uzman":"ic-uzman",
-  "icisleri_sube_mudurlugu":"ic-sube",
-  "icisleri_ilce_nufus_mudurlugu":"ic-nufus",
-  "icisleri_ilce_yazi_isleri_mudurlugu":"ic-ilceyazi"
-};
-
-// Anasayfa HTML'indeki unvan bazlı paket modalı verilerinden alınmıştır: panel adı, soru sayısı, konu dağılımı, görsel ve satın alma linkleri.
-const FINAL_PROMO_COURSE_DATA = {"ic-seflik":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"Şeflik","panel":"İçişleri Bakanlığı Şeflik Ünvanı Premium Paneli","toplamSoru":3139,"konuSayisi":15,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825047","image":"https://i.hizliresim.com/djwvkzv.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"Valilik ve Kaymakamlık Birimleri Yönetmeliği","soru":140},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-sube":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"Şube Müdürlüğü","panel":"İçişleri Bakanlığı Şube Müdürlüğü Ünvanı Premium Paneli","toplamSoru":4597,"konuSayisi":27,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825087","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/giris-gorseli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"İl İdaresi Kanunu","soru":340},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"Memurların Yetiştirilmeleri ve Eğitimleri Hakkında Genel Yönetmelik","soru":180},{"ad":"Kamu Mali Yönetimi ve Kontrol Kanunu","soru":167},{"ad":"Valilik ve Kaymakamlık Birimleri Yönetmeliği","soru":140},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"İnternet Ortamında Yapılan Yayınların Düzenlenmesine Dair Usul ve Esaslar Hakkında Yönetmelik","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"İnternet Toplu Kullanım Sağlayıcıları Hakkında Yönetmelik","soru":100},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Tebligat Kanunu","soru":71},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"5651 Sayılı Kanun","soru":60},{"ad":"İçişleri Bakanlığı Merkez ve Taşra Teşkilatı Arşiv Hizmetleri Yönetmeliği","soru":60},{"ad":"Telekomünikasyon Kurumu Tarafından Erişim Sağlayıcılara ve Yer Sağlayıcılara Faaliyet Belgesi Verilmesine İlişkin Usul ve Esaslar Hakkında Yönetmelik","soru":60},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-uzman":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"Uzman","panel":"İçişleri Bakanlığı Uzman Kadrosu Premium Paneli","toplamSoru":3779,"konuSayisi":19,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825186","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgoreli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"İl İdaresi Kanunu","soru":340},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"Valilik ve Kaymakamlık Birimleri Yönetmeliği","soru":140},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-vhki":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"VHKİ","panel":"İçişleri Bakanlığı VHKİ Ünvanı Premium Paneli","toplamSoru":2999,"konuSayisi":14,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47825263","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu","soru":1321},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"Türkçe Dil Bilgisi","soru":280},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"Resmi Yazışma Yönetmeliği","soru":65},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik","soru":60},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38}],"mulakatModules":[]},"ic-nufus":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"İlçe Nüfus Müdürlüğü","panel":"İçişleri Bakanlığı İlçe Nüfus Müdürlüğü Ünvanı Premium Paneli","toplamSoru":6206,"konuSayisi":35,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47824950","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli-1.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu ve İlgili Mevzuat","soru":1501},{"ad":"4721 Sayılı Türk Medenî Kanunu","soru":810},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"İl İdaresi Kanunu","soru":340},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi, Ulusal Güvenlik","soru":284},{"ad":"Türkçe Dil Bilgisi ve Yazım ile İlgili Kurallar","soru":280},{"ad":"Türk Medenî Kanununun Velayet, Vesayet ve Miras Hükümlerinin Uygulanmasına İlişkin Tüzük","soru":140},{"ad":"5490 Sayılı Nüfus Hizmetleri Kanunu","soru":140},{"ad":"Valilik ve Kaymakamlık Birimleri Teşkilat, Görev ve Çalışma Yönetmeliği","soru":140},{"ad":"Evlendirme Yönetmeliği","soru":135},{"ad":"5326 Sayılı Kabahatler Kanunu","soru":130},{"ad":"Türk Vatandaşlığı Kanununun Uygulanmasına İlişkin Yönetmelik","soru":130},{"ad":"6245 Sayılı Harcırah Kanunu","soru":128},{"ad":"5901 Sayılı Türk Vatandaşlığı Kanunu","soru":120},{"ad":"Nüfus Hizmetleri Uygulama Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":119},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"7201 Sayılı Tebligat Kanunu","soru":71},{"ad":"Resmi Yazışmalarda Uygulanacak Usul ve Esaslar Hakkında Yönetmelik","soru":65},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"Nüfus Kütüklerinin Yenilenmesine İlişkin Yönetmelik","soru":60},{"ad":"İçişleri Bakanlığı Merkez ve Taşra Teşkilatı Arşiv Hizmetleri Yönetmeliği","soru":60},{"ad":"Adres ve Numaralamaya İlişkin Yönetmelik","soru":55},{"ad":"Türkiye’de Oturan Yabancıların Nüfus Kayıtlarının Tutulması Hakkında Yönetmelik","soru":45},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38},{"ad":"Adres Kayıt Sistemi Yönetmeliği","soru":30},{"ad":"Kimlik Paylaşımı Sistemi Yönetmeliği","soru":30},{"ad":"4722 Sayılı Türk Medenî Kanununun Yürürlüğü ve Uygulama Şekli Hakkında Kanun","soru":20}],"mulakatModules":[]},"ic-ilceyazi":{"ministry":"İçişleri Bakanlığı","short":"İB","ad":"İlçe Yazı İşleri Müdürlüğü","panel":"İçişleri Bakanlığı İlçe Yazı İşleri Müdürlüğü Ünvanı Premium Paneli","toplamSoru":5752,"konuSayisi":36,"fiyat":"","url":"https://www.shopier.com/adaletsenakademi/47824983","image":"https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli-2.png","type":"","summary":"","topics":[{"ad":"657 Sayılı Devlet Memurları Kanunu ve İlgili Mevzuat","soru":1501},{"ad":"Türkiye Cumhuriyeti Anayasası","soru":625},{"ad":"5393 Sayılı Belediye Kanunu","soru":440},{"ad":"5442 Sayılı İl İdaresi Kanunu","soru":340},{"ad":"Atatürk İlkeleri ve İnkılap Tarihi, Ulusal Güvenlik","soru":284},{"ad":"Türkçe Dil Bilgisi ve Yazışma ile İlgili Kurallar","soru":280},{"ad":"2577 Sayılı İdari Yargılama Usulü Kanunu","soru":200},{"ad":"442 sayılı Köy Kanunu","soru":160},{"ad":"Valilik ve Kaymakamlık Birimleri Teşkilat, Görev ve Çalışma Yönetmeliği","soru":140},{"ad":"5326 Sayılı Kabahatler Kanunu","soru":130},{"ad":"6245 Sayılı Harcırah Kanunu","soru":128},{"ad":"İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği","soru":120},{"ad":"İçişleri Bakanlığı Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği","soru":120},{"ad":"İnternet Ortamında Yapılan Yayınların Düzenlenmesine Dair Usul ve Esaslar Hakkında Yönetmelik","soru":120},{"ad":"Devlet Memurları Disiplin Yönetmeliği","soru":110},{"ad":"4982 Sayılı Bilgi Edinme Hakkı Kanunu","soru":100},{"ad":"İnternet Toplu Kullanım Sağlayıcıları Hakkında Yönetmelik","soru":80},{"ad":"7201 Sayılı Tebligat Kanunu","soru":71},{"ad":"Resmî Yazışmalarda Uygulanacak Usul ve Esaslar Hakkında Yönetmelik","soru":65},{"ad":"3628 Sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu","soru":60},{"ad":"İçişleri Bakanlığı Merkez ve Taşra Teşkilatı Arşiv Hizmetleri Yönetmeliği","soru":60},{"ad":"Telekomünikasyon Kurumu Tarafından Erişim Sağlayıcılara ve Yer Sağlayıcılara Faaliyet Belgesi Verilmesine İlişkin Usul ve Esaslar Hakkında Yönetmelik","soru":60},{"ad":"Sınır Anlaşmazlığı, Mülki Ayrılma ve Birleşme ile Köy Kurulması ve Kaldırılması Hakkında Yönetmelik","soru":60},{"ad":"Taşınmaz Mal Zilyetliğine Yapılan Tecavüzlerin Önlenmesi Hakkında Kanunun Uygulama Şekli ve Esaslarına Dair Yönetmelik","soru":50},{"ad":"Ulusal ve Resmî Bayramlar ile Mahallî Kurtuluş Günleri, Atatürk Günleri ve Tarihî Günlerde Yapılacak Tören ve Kutlamalar Yönetmeliği","soru":50},{"ad":"3071 Sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun","soru":40},{"ad":"İçişleri Bakanlığı Disiplin Amirleri Yönetmeliği","soru":40},{"ad":"1 Sayılı Cumhurbaşkanlığı Kararnamesi - İçişleri Bakanlığı","soru":40},{"ad":"Mal Bildiriminde Bulunulması Hakkında Yönetmelik","soru":40},{"ad":"4483 Sayılı Memurlar ve Diğer Kamu Görevlilerinin Yargılanması Hakkında Kanun","soru":40},{"ad":"3091 sayılı Taşınmaz Mal Zilyetliğine Yapılan Tecavüzlerin Önlenmesi Hakkında Kanun","soru":40},{"ad":"İl ve İlçe İnsan Hakları Kurullarının Kuruluş, Görev ve Çalışma Esasları Hakkında Yönetmelik","soru":40},{"ad":"7315 Sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu","soru":38},{"ad":"2429 sayılı Ulusal Bayram ve Genel Tatiller Hakkında Kanun","soru":30},{"ad":"2893 sayılı Türk Bayrağı Kanunu","soru":30},{"ad":"Eskimiş, Solmuş, Yırtılmış ve Kullanılamayacak Duruma Gelmiş Bayrakların Yok Edilmesi Usul ve Esaslarını Gösterir Yönetmelik","soru":20}],"mulakatModules":[]}};
-const FINAL_PROMO_FULL_FEATURES = ["Mevzuattan Çalış — konu konu sınırsız çalışma","Test Modu — sınırsız test çözümü","Akademi Denemeleri — uzman hazırlığı denemeler","Benim Denemelerim — kişiye özel deneme oluşturma","DersTube — tüm video dersler","DersTube — tüm podcast içerikleri","Çıkmış sınav soruları","Flash Kart ile hızlı tekrar","İstatistik & gelişim takibi","Sınava kadar ücretsiz güncelleme","Haftalık deneme sınavlarına erişim dahil"];
-const FINAL_PROMO_MODULE_DETAILS = [{"t":"Mevzuattan Çalış","d":"Konuyu mevzuat/başlık bazında seç, ilgili sorularla konu konu çalış.","det":"Konuyu mevzuat ya da başlık bazında seçersin. Seçtiğin konunun PDF mevzuat metni ekranda açılır; hemen yanından da o konuya ait Akademi soruları, çıkmış sınav soruları, konu anlatım videosu ve podcast'e tek ekrandan ulaşırsın. Yani önce mevzuatı okur, sonra sayfadan ayrılmadan aynı konunun sorularını çözersin. Konu konu, sistemli ilerlemek için en pratik modül."},{"t":"Test & Çıkmış Sorular","d":"Sınırsız test çöz; çıkmış sınav sorularıyla gerçek formatta pratik yap.","det":"Tek bir konuya odaklanmak için konu bazlı test, tüm konulardan rastgele gelmesi için karışık test çözebilirsin — test hakkın sınırsız. Çıkmış sınav sorularıyla gerçek sınav formatında pratik yaparsın. Yanlış yaptığın sorular otomatik olarak 'Yanlışlarım'a, işaretlediklerin 'Favorilerim'e düşer; bunları istediğin zaman tekrar çözebilirsin. Her sorunun çözüm açıklaması mevcuttur."},{"t":"Akademi & Kişisel Denemeler","d":"Uzman hazırlığı Akademi Denemeleri ve kendi kriterinle oluşturduğun denemeler.","det":"İki tür deneme sunar. Akademi Denemeleri: uzmanlarca hazırlanmış, sınav formatına ve süresine birebir uygun hazır denemeler. Benim Denemelerim: konu, soru sayısı ve süre gibi kriterleri kendin belirleyip oluşturduğun kişisel denemeler. Her denemenin sonunda puanını, doğru/yanlış sayını ve soruların çözümlerini görürsün — gerçek sınav provası gibi."},{"t":"DersTube Akademi","d":"Konu anlatım videoları ve podcast içerikleri tek panelde, tek akışta.","det":"Konu anlatım videoları ve podcast içeriklerinin tamamı tek panelde, tek akışta toplanır. Konuyu seçer, videoyu izler ya da podcast'i dinlersin. Podcastler yolda, işte veya çalışırken arka planda dinlemeye uygundur; videolar ise konuyu sıfırdan anlatır. Okumaya vakit bulamadığın konuları dinleyerek de çalışabilirsin."},{"t":"Flash Kart","d":"Ezber kartlarıyla kısa sürede tekrar; kritik bilgileri kalıcı hale getir.","det":"Kritik bilgileri — özellikle süre, sayı, tarih ve oran gibi ezberlenmesi zor ayrıntıları — flash kartlarla hızlıca tekrar edersin. Kartı çevirip cevabı görür, hatırlayıp hatırlamadığını işaretler ve bir sonrakine geçersin. Kısa sürede çok sayıda bilgiyi pekiştirmek ve sınav öncesi son tekrar için idealdir."},{"t":"İstatistik & Gelişim Takibi","d":"Doğru/yanlış analizi, konu bazlı başarı oranı ve gelişim raporları.","det":"Çözdüğün her testin ve denemenin doğru/yanlış analizini, konu bazlı başarı oranını ve zaman içindeki gelişimini raporlar halinde görürsün. Hangi konuda güçlü, hangisinde zayıf olduğunu net biçimde görüp çalışmanı eksik kaldığın yerlere yönlendirirsin. Böylece sınava kadar gelişimini ölçerek ilerlersin."}];
-
-const FINAL_PROMO_DEMO_FEATURES = [
-  "Haftalık yayınlanan tüm deneme sınavlarına erişim",
-  "Tüm kurum ve unvan denemelerine katılım",
-  "Türkiye geneli sıralama takibi",
-  "Doğru / yanlış / boş analizleri",
-  "Sonuçlarımı Gör ekranından geçmiş sonuç takibi"
-];
 
 // Anasayfa linklerinde Danıştay Şef satın alma ürünü ayrıca tanımlı olduğu için,
 
@@ -860,54 +858,21 @@ function fillRoles(ministryId){
   updateSummary();
 }
 
-function setMode(mode){
-  currentMode = mode;
-  modeTabs.forEach(tab => tab.classList.toggle('active', tab.dataset.mode === mode));
-  startBtn.textContent = mode === "exam" ? "Sınavı Başlat" : "Sonuçlarımı Gör";
-  firstName.placeholder = mode === "exam" ? "Adınızı giriniz" : "Sonucu sorgulanacak adı giriniz";
-  lastName.placeholder = mode === "exam" ? "Soyadınızı giriniz" : "Sonucu sorgulanacak soyadı giriniz";
-
-  // Sonuçlarımı Gör: kurum kartları/form yerine telefonla sorgulama panelini göster
-  const ministryGrid = document.querySelector('.ministry-grid');
-  const resultsLookup = document.getElementById('resultsLookup');
-  if(mode === "results"){
-    if(ministryGrid) ministryGrid.style.display = "none";
-    if(formArea) formArea.classList.remove('show');
-    if(resultsLookup) resultsLookup.classList.remove('hidden');
-  } else {
-    if(ministryGrid) ministryGrid.style.display = "";
-    if(resultsLookup) resultsLookup.classList.add('hidden');
-    if(selectedMinistry && formArea) formArea.classList.add('show');
-  }
-
-  updateSummary();
-}
-
 function selectedRoleLabel(){
   return roleSelect.value ? roleSelect.options[roleSelect.selectedIndex].textContent : "";
 }
 
 function updateSummary(){
-  if(!selectedMinistry){
-    summaryBox.textContent = 'Kurum seçildiğinde seçim özeti burada görünecek.';
-    return;
-  }
-  const ministryLabel = CONFIG[selectedMinistry].label;
-  const roleLabel = selectedRoleLabel();
-  const weekLabel = weekSelect.options[weekSelect.selectedIndex]?.textContent || '1. Hafta Deneme Sınavı';
-  const modeLabel = currentMode === "exam" ? "Deneme Sınavına Gir" : "Sonuçlarımı Gör";
   if(!roleSelect.value){
-    summaryBox.innerHTML = '<b>' + modeLabel + '</b> · <b>' + ministryLabel + '</b> seçildi. Devam etmek için unvan seçiniz.';
+    summaryBox.textContent = 'Unvanını seçerek başla.';
     return;
   }
-  const summaryRoleCfg = EXAM_CONFIG[roleSelect.value] || {};
-  const cfg = summaryRoleCfg.total ? summaryRoleCfg : null;
-  let count = cfg ? " · " + cfg.total + " soru / " + cfg.duration + " dakika" : "";
-  summaryBox.innerHTML = '<b>' + modeLabel + '</b> · <b>' + ministryLabel + '</b> · <b>' + roleLabel + '</b> · ' + weekLabel + count;
+  const cfg = EXAM_CONFIG[roleSelect.value];
+  const weekLabel = weekSelect.options[weekSelect.selectedIndex]?.textContent || '';
+  summaryBox.innerHTML = '<b>' + selectedRoleLabel() + '</b> · ' + weekLabel + (cfg ? ' · <b>' + cfg.total + ' soru</b> · <b>' + cfg.duration + ' dakika</b>' : '');
 }
 
 function validateBase(){
-  if(!selectedMinistry){ alert('Önce kurum seçiniz.'); return false; }
   if(!roleSelect.value){ alert('Lütfen unvan seçiniz.'); return false; }
   if(!firstName.value.trim()){ alert('Lütfen adınızı giriniz.'); firstName.focus(); return false; }
   if(!lastName.value.trim()){ alert('Lütfen soyadınızı giriniz.'); lastName.focus(); return false; }
@@ -930,14 +895,11 @@ function currentPayload(){
 }
 
 function showSection(name){
-  choiceBox.classList.toggle('hidden', name !== "choice");
+  const lw = document.getElementById('landingWrap'), lt = document.getElementById('landingTop');
+  if(lw) lw.style.display = name === "choice" ? "" : "none";
+  if(lt) lt.style.display = name === "choice" ? "" : "none";
   examScreen.classList.toggle('show', name === "exam");
   resultScreen.classList.toggle('show', name === "result");
-  const onExam = name === "exam";
-  const topBanner = document.getElementById('topBanner');
-  const bottomBanner = document.getElementById('bottomBanner');
-  if(topBanner) topBanner.style.display = onExam ? "none" : "block";
-  if(bottomBanner) bottomBanner.style.display = onExam ? "none" : "block";
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
@@ -1180,356 +1142,6 @@ function cleanTopicLabel(v){ return String(v || "").replace(/\s+/g," ").trim(); 
 
 
 
-function finalPromoFormatNumber(value){
-  const n = Number(value || 0);
-  if(!n) return "—";
-  try{ return n.toLocaleString("tr-TR"); }catch(e){ return String(n); }
-}
-
-function buildFinalPromoFeatureHtml(items, compact){
-  const arr = Array.isArray(items) ? items : [];
-  return '<div class="final-feature-list '+(compact ? 'compact' : '')+'">' +
-    arr.map(item => '<span>' + escapeHtml(item) + '</span>').join('') +
-    '</div>';
-}
-
-function finalPromoCourseImage(course){
-  const img = course && course.image ? String(course.image) : "";
-  if(img){
-    return '<div class="final-course-img"><img src="'+escapeHtml(img)+'" alt="'+escapeHtml(course.ad || 'Paket')+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest(\'.final-course-img\').classList.add(\'placeholder\');this.closest(\'.final-course-img\').innerHTML=\'AdaletSen Akademi\'"></div>';
-  }
-  const label = course && course.short ? course.short : "AdaletSen Akademi";
-  return '<div class="final-course-img placeholder">'+escapeHtml(label)+'</div>';
-}
-
-function finalPromoStatsHtml(course){
-  const topicCount = Number(course && course.konuSayisi || 0);
-  const soru = Number(course && course.toplamSoru || 0);
-  const isMulakat = course && course.type === "mulakat";
-  if(isMulakat){
-    return '<div class="final-course-stats">'
-      + '<div class="final-stat highlight"><b>5</b><span>Mülakat modülü</span></div>'
-      + '<div class="final-stat"><b>AI</b><span>Komisyon değerlendirme</span></div>'
-      + '<div class="final-stat"><b>Simülasyon</b><span>Gerçek sınav akışı</span></div>'
-      + '<div class="final-stat"><b>Dahil</b><span>Haftalık denemeler</span></div>'
-      + '</div>';
-  }
-  return '<div class="final-course-stats">'
-    + '<div class="final-stat highlight"><b>'+finalPromoFormatNumber(soru)+'</b><span>Soru</span></div>'
-    + '<div class="final-stat"><b>'+finalPromoFormatNumber(topicCount)+'</b><span>Konu</span></div>'
-    + '<div class="final-stat"><b>9</b><span>Çalışma modülü</span></div>'
-    + '<div class="final-stat"><b>Dahil</b><span>Haftalık denemeler</span></div>'
-    + '</div>';
-}
-
-function finalPromoTopicsHtml(course){
-  const topics = Array.isArray(course && course.topics) ? course.topics : [];
-  if(course && course.type === "mulakat"){
-    const modules = Array.isArray(course.mulakatModules) ? course.mulakatModules : [];
-    if(!modules.length) return '<div class="final-empty-note">Bu paket, sözlü sınav sürecini simülasyon ve cevap geliştirme odaklı hazırlar.</div>';
-    return '<div class="final-mulakat-list">' + modules.map(m =>
-      '<div class="final-mulakat-item"><b>'+escapeHtml(m.ad || '')+'</b><span>'+escapeHtml(m.d || '')+'</span></div>'
-    ).join('') + '</div>';
-  }
-  if(!topics.length) return '<div class="final-empty-note">Bu unvana ait konu dağılımı anasayfa paket verilerinde ayrıca tanımlı değil; full paket modülleri gösteriliyor.</div>';
-  const max = topics.reduce((m,k)=>Math.max(m, Number(k.soru||0)), 1);
-  const total = Number(course && course.toplamSoru || topics.reduce((a,k)=>a + Number(k.soru||0), 0));
-  const lead = '<div class="final-topic-lead"><b>Konu bazlı soru dağılımı</b><span>Anasayfadaki full paket verisinden alınan '+finalPromoFormatNumber(topics.length)+' konu ve '+finalPromoFormatNumber(total)+' soru aşağıdadır.</span></div>';
-  const rows = '<div class="final-topic-list">' + topics.map((k, i) => {
-    const soru = Number(k.soru || 0);
-    const w = Math.max(5, Math.round(soru / max * 100));
-    return '<div class="final-topic-row">'
-      + '<div class="final-topic-top"><span class="final-topic-index">'+(i+1)+'</span><span class="final-topic-name">'+escapeHtml(k.ad || '')+'</span><span class="final-topic-count">'+finalPromoFormatNumber(soru)+' soru</span></div>'
-      + '<div class="final-topic-bar"><i style="width:'+w+'%"></i></div>'
-      + '</div>';
-  }).join('') + '</div>';
-  const note = topics.length > 8 ? '<div class="final-topic-more-note">Tüm konu/soru dağılımı bu listede kaydırılarak görülebilir.</div>' : '';
-  return lead + rows + note;
-}
-
-function finalPromoModulesHtml(){
-  return '<div class="final-module-list">' + FINAL_PROMO_FULL_FEATURES.map(t =>
-    '<div class="final-module-item">'+escapeHtml(t)+'</div>'
-  ).join('') + '</div>';
-}
-
-function finalPromoModuleDetailsHtml(){
-  const items = FINAL_PROMO_MODULE_DETAILS.slice(0,6);
-  return '<div class="final-module-detail-grid">' + items.map(m =>
-    '<div class="final-module-detail"><b>'+escapeHtml(m.t || '')+'</b><span>'+escapeHtml(m.d || '')+'</span></div>'
-  ).join('') + '</div>';
-}
-
-function getFinalPromoFullPackage(record){
-  const roleId = record && record.role ? record.role : (activeExam && activeExam.payload ? activeExam.payload.role : "");
-  const packageId = FINAL_PROMO_ROLE_PACKAGE_MAP[roleId] || "";
-  const course = FINAL_PROMO_COURSE_DATA[packageId] || null;
-  const roleLabel = (record && record.roleLabel) || selectedRoleLabel() || "Seçili Unvan";
-  const fallback = {
-    ministry: (record && record.ministryLabel) || "AdaletSen Akademi",
-    short: "AKADEMİ",
-    ad: roleLabel,
-    panel: roleLabel + " Full Hazırlık Paketi",
-    toplamSoru: 0,
-    konuSayisi: 0,
-    url: "https://adaletsenakademi.com/#courses",
-    image: "",
-    type: "",
-    summary: "Konu anlatımı, soru bankası, denemeler, video/podcast içerikleri ve gelişim takibiyle tam hazırlık paketi.",
-    topics: []
-  };
-  const finalCourse = course || fallback;
-  const title = finalCourse.type === "mulakat" ? finalCourse.ad : (finalCourse.ad + " Full Hazırlık Paketi");
-  const desc = finalCourse.summary || (finalCourse.panel ? finalCourse.panel + " üzerinden konu, soru, deneme, video, podcast ve gelişim takibini tek ekranda toplar." : fallback.summary);
-  const url = finalCourse.url || fallback.url;
-  return {packageId, url, title, desc, course: finalCourse};
-}
-
-function showFinishPromoOverlay(record){
-  if(!record) return;
-  const existing = document.getElementById('finishPromoOverlay');
-  if(existing) existing.remove();
-  const full = getFinalPromoFullPackage(record);
-  const course = full.course;
-  const topicLabel = course && course.type === "mulakat" ? "Mülakat Modülleri" : "Konu Dağılımı";
-  const topicSmall = course && course.type === "mulakat" ? "sözlü hazırlık" : ((course.konuSayisi || 0) ? finalPromoFormatNumber(course.konuSayisi) + " konu" : "unvana özel");
-  const overlay = document.createElement('div');
-  overlay.className = 'final-promo-overlay show';
-  overlay.id = 'finishPromoOverlay';
-  overlay.setAttribute('role','dialog');
-  overlay.setAttribute('aria-modal','true');
-  overlay.setAttribute('aria-label','Deneme sonrası paket tanıtımı');
-  overlay.innerHTML = `
-    <div class="final-promo-modal">
-      <button type="button" class="final-promo-close" id="finishPromoClose" aria-label="Tanıtımı kapat">×</button>
-      <div class="final-promo-top">
-        <div class="final-promo-kicker">Sonucun hazır · Hazırlığını büyüt</div>
-        <h2 class="final-promo-title">${escapeHtml(record.roleLabel || 'Bu unvan')} için deneme sonrası en mantıklı iki seçenek</h2>
-        <p class="final-promo-desc">Sadece haftalık denemelere katılabilir ya da ${escapeHtml(FINAL_PROMO_SETTINGS.priceGapText)} full hazırlık paketine geçerek anasayfadaki premium panel içeriklerine, konu bazlı soru dağılımına, modüllere ve haftalık denemelere birlikte erişebilirsin.</p>
-      </div>
-      <div class="final-promo-grid">
-        <article class="final-plan demo">
-          <div class="final-plan-head">
-            <div class="final-plan-label">Deneme Paketi</div>
-            <h3>Deneme Sınavı Paketi</h3>
-            <div class="final-price"><b>${escapeHtml(FINAL_PROMO_SETTINGS.demoPrice)}</b><span>tek paket</span></div>
-            <p class="final-plan-copy">Haftalık düzenli yayınlanan denemelere girip Türkiye geneli sıralamanı takip etmek isteyenler için.</p>
-            <div class="final-demo-badge">Çözümlü · Her hafta yeni deneme · Türkiye sıralaması</div>
-          </div>
-          <div class="final-demo-visual">
-            <img src="https://i.hizliresim.com/eiz3opc.png" alt="Deneme Sınavı Paketi tanıtım görseli">
-          </div>
-          ${buildFinalPromoFeatureHtml(FINAL_PROMO_DEMO_FEATURES, false)}
-          <div class="final-plan-actions">
-            <button type="button" class="btn final-demo-buy" id="finishPromoDemoBuy">Deneme Paketini Al</button>
-          </div>
-        </article>
-        <article class="final-plan full final-full-rich">
-          <div class="final-course-hero">
-            ${finalPromoCourseImage(course)}
-            <div>
-              <div class="final-plan-label">Full Hazırlık Paketi</div>
-              <h3 class="final-course-title">${escapeHtml(full.title)}</h3>
-              <div class="final-course-panel">${escapeHtml(course.panel || course.ministry || '')}</div>
-              <div class="final-course-price"><b>${escapeHtml(FINAL_PROMO_SETTINGS.fullPrice)}</b><span>tam erişim</span></div>
-            </div>
-          </div>
-          <p class="final-plan-copy">${escapeHtml(full.desc)}</p>
-          ${finalPromoStatsHtml(course)}
-          <div class="final-advantage">${escapeHtml(FINAL_PROMO_SETTINGS.demoPrice)}’ye sadece deneme paketi almak yerine, ${escapeHtml(FINAL_PROMO_SETTINGS.fullPrice)}’ye full pakete geçerek hem unvana özel kurs içeriklerine hem de haftalık denemelere erişebilirsin.</div>
-          <div class="final-course-layout">
-            <div class="final-rich-block">
-              <div class="final-rich-head"><b>${escapeHtml(course && course.type === "mulakat" ? topicLabel : "Konu Dağılımı ve Soru Sayıları")}</b><small>${escapeHtml(topicSmall)}</small></div>
-              ${finalPromoTopicsHtml(course)}
-            </div>
-            <div class="final-rich-block">
-              <div class="final-rich-head"><b>Pakette Neler Var?</b><small>anasayfa full paket</small></div>
-              ${finalPromoModulesHtml()}
-            </div>
-          </div>
-          ${finalPromoModuleDetailsHtml()}
-          <div class="final-plan-actions" style="margin-top:14px">
-            <button type="button" class="btn final-full-buy" id="finishPromoFullBuy">Full Pakete Geç</button>
-          </div>
-        </article>
-      </div>
-      <div class="final-promo-bottom">
-        <button type="button" class="btn final-result-btn" id="finishPromoResultBtn">Şimdilik sadece sonucumu gör</button>
-      </div>
-    </div>`;
-  document.body.appendChild(overlay);
-  const close = () => { overlay.classList.remove('show'); overlay.remove(); };
-  const openUrl = (url) => { if(url) window.open(url, '_blank', 'noopener'); };
-  overlay.querySelector('#finishPromoClose')?.addEventListener('click', close);
-  overlay.querySelector('#finishPromoResultBtn')?.addEventListener('click', close);
-  overlay.querySelector('#finishPromoDemoBuy')?.addEventListener('click', () => openUrl(FINAL_PROMO_SETTINGS.demoPackageUrl));
-  overlay.querySelector('#finishPromoFullBuy')?.addEventListener('click', () => openUrl(full.url));
-  overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
-  overlay.addEventListener('keydown', (e) => { if(e.key === 'Escape') close(); });
-  setTimeout(() => overlay.querySelector('#finishPromoFullBuy')?.focus({preventScroll:true}), 120);
-}
-
-
-function showStartPromoOverlay(payload, onContinue){
-  if(!payload) return;
-  const existing = document.getElementById('startPromoOverlay');
-  if(existing) existing.remove();
-  const full = getFinalPromoFullPackage(payload);
-  const course = full.course;
-  const topicLabel = course && course.type === "mulakat" ? "Mülakat Modülleri" : "Konu Dağılımı";
-  const topicSmall = course && course.type === "mulakat" ? "sözlü hazırlık" : ((course.konuSayisi || 0) ? finalPromoFormatNumber(course.konuSayisi) + " konu" : "unvana özel");
-  const overlay = document.createElement('div');
-  overlay.className = 'final-promo-overlay show';
-  overlay.id = 'startPromoOverlay';
-  overlay.setAttribute('role','dialog');
-  overlay.setAttribute('aria-modal','true');
-  overlay.setAttribute('aria-label','Sınav öncesi paket tanıtımı');
-  overlay.innerHTML = `
-    <div class="final-promo-modal">
-      <button type="button" class="final-promo-close" id="startPromoClose" aria-label="Tanıtımı kapat ve sınava başla">×</button>
-      <div class="final-promo-top">
-        <div class="final-promo-kicker">Sınava başlamadan önce · Hazırlığını güçlendir</div>
-        <h2 class="final-promo-title">${escapeHtml(payload.roleLabel || 'Bu unvan')} için sınav öncesi iki hazırlık seçeneği</h2>
-        <p class="final-promo-desc">Denemeye başlamadan önce paketleri inceleyebilirsin. Deneme paketiyle haftalık sınavlara katılabilir; full hazırlık paketiyle konu dağılımı, soru bankası, modüller ve haftalık denemelere birlikte erişebilirsin.</p>
-      </div>
-      <div class="final-promo-grid">
-        <article class="final-plan demo">
-          <div class="final-plan-head">
-            <div class="final-plan-label">Deneme Paketi</div>
-            <h3>Deneme Sınavı Paketi</h3>
-            <div class="final-price"><b>${escapeHtml(FINAL_PROMO_SETTINGS.demoPrice)}</b><span>tek paket</span></div>
-            <p class="final-plan-copy">Haftalık düzenli yayınlanan denemelere girip Türkiye geneli sıralamanı takip etmek isteyenler için.</p>
-            <div class="final-demo-badge">Çözümlü · Her hafta yeni deneme · Türkiye sıralaması</div>
-          </div>
-          <div class="final-demo-visual">
-            <img src="https://i.hizliresim.com/eiz3opc.png" alt="Deneme Sınavı Paketi tanıtım görseli">
-          </div>
-          ${buildFinalPromoFeatureHtml(FINAL_PROMO_DEMO_FEATURES, false)}
-          <div class="final-plan-actions">
-            <button type="button" class="btn final-demo-buy" id="startPromoDemoBuy">Deneme Paketini Al</button>
-          </div>
-        </article>
-        <article class="final-plan full final-full-rich">
-          <div class="final-course-hero">
-            ${finalPromoCourseImage(course)}
-            <div>
-              <div class="final-plan-label">Full Hazırlık Paketi</div>
-              <h3 class="final-course-title">${escapeHtml(full.title)}</h3>
-              <div class="final-course-panel">${escapeHtml(course.panel || course.ministry || '')}</div>
-              <div class="final-course-price"><b>${escapeHtml(FINAL_PROMO_SETTINGS.fullPrice)}</b><span>tam erişim</span></div>
-            </div>
-          </div>
-          <p class="final-plan-copy">${escapeHtml(full.desc)}</p>
-          ${finalPromoStatsHtml(course)}
-          <div class="final-advantage">${escapeHtml(FINAL_PROMO_SETTINGS.demoPrice)}’ye sadece deneme paketi almak yerine, ${escapeHtml(FINAL_PROMO_SETTINGS.fullPrice)}’ye full pakete geçerek hem unvana özel kurs içeriklerine hem de haftalık denemelere erişebilirsin.</div>
-          <div class="final-course-layout">
-            <div class="final-rich-block">
-              <div class="final-rich-head"><b>${escapeHtml(course && course.type === "mulakat" ? topicLabel : "Konu Dağılımı ve Soru Sayıları")}</b><small>${escapeHtml(topicSmall)}</small></div>
-              ${finalPromoTopicsHtml(course)}
-            </div>
-            <div class="final-rich-block">
-              <div class="final-rich-head"><b>Pakette Neler Var?</b><small>anasayfa full paket</small></div>
-              ${finalPromoModulesHtml()}
-            </div>
-          </div>
-          ${finalPromoModuleDetailsHtml()}
-          <div class="final-plan-actions" style="margin-top:14px">
-            <button type="button" class="btn final-full-buy" id="startPromoFullBuy">Full Pakete Geç</button>
-          </div>
-        </article>
-      </div>
-      <div class="final-promo-bottom">
-        <button type="button" class="btn final-result-btn" id="startPromoContinueBtn">Şimdilik denemeye başla</button>
-      </div>
-    </div>`;
-  document.body.appendChild(overlay);
-  let continued = false;
-  const continueExam = () => {
-    if(continued) return;
-    continued = true;
-    overlay.classList.remove('show');
-    overlay.remove();
-    if(typeof onContinue === 'function') setTimeout(onContinue, 40);
-  };
-  const openUrl = (url) => { if(url) window.open(url, '_blank', 'noopener'); };
-  overlay.querySelector('#startPromoClose')?.addEventListener('click', continueExam);
-  overlay.querySelector('#startPromoContinueBtn')?.addEventListener('click', continueExam);
-  overlay.querySelector('#startPromoDemoBuy')?.addEventListener('click', () => openUrl(FINAL_PROMO_SETTINGS.demoPackageUrl));
-  overlay.querySelector('#startPromoFullBuy')?.addEventListener('click', () => openUrl(full.url));
-  overlay.addEventListener('click', (e) => { if(e.target === overlay) continueExam(); });
-  overlay.addEventListener('keydown', (e) => { if(e.key === 'Escape') continueExam(); });
-  setTimeout(() => overlay.querySelector('#startPromoContinueBtn')?.focus({preventScroll:true}), 120);
-}
-
-function renderResultPromoSection(record){
-  const holder = document.getElementById('resultPromoSection');
-  if(!holder){ return; }
-  if(!record){ holder.innerHTML = ''; return; }
-  const full = getFinalPromoFullPackage(record);
-  const course = full.course;
-  const topicLabel = course && course.type === "mulakat" ? "Mülakat Modülleri" : "Konu Dağılımı";
-  const topicSmall = course && course.type === "mulakat" ? "sözlü hazırlık" : ((course.konuSayisi || 0) ? finalPromoFormatNumber(course.konuSayisi) + " konu" : "unvana özel");
-  holder.innerHTML = `
-    <section class="result-promo-section" aria-label="Deneme sonrası paket seçenekleri">
-      <div class="result-promo-head">
-        <div class="result-promo-kicker">Çözümleri inceledikten sonra devam etmek isteyenlere</div>
-        <h3 class="result-promo-title">Hazırlığını burada bırakma: denemelere devam et veya full pakete geç</h3>
-        <p class="result-promo-desc">Sonuçlarını ve çözümleri gördükten sonra eksiklerini kapatmak istersen aşağıdaki iki seçenekten sana uygun olanı seçebilirsin.</p>
-      </div>
-      <div class="final-promo-grid result-promo-grid">
-        <article class="final-plan demo">
-          <div class="final-plan-head">
-            <div class="final-plan-label">Deneme Paketi</div>
-            <h3>Deneme Sınavı Paketi</h3>
-            <div class="final-price"><b>${escapeHtml(FINAL_PROMO_SETTINGS.demoPrice)}</b><span>tek paket</span></div>
-            <p class="final-plan-copy">Haftalık düzenli yayınlanan denemelere girip Türkiye geneli sıralamanı takip etmek isteyenler için.</p>
-            <div class="final-demo-badge">Çözümlü · Her hafta yeni deneme · Türkiye sıralaması</div>
-          </div>
-          <div class="final-demo-visual">
-            <img src="https://i.hizliresim.com/eiz3opc.png" alt="Deneme Sınavı Paketi tanıtım görseli">
-          </div>
-          ${buildFinalPromoFeatureHtml(FINAL_PROMO_DEMO_FEATURES, false)}
-          <div class="final-plan-actions">
-            <button type="button" class="btn final-demo-buy" id="resultPromoDemoBuy">Deneme Paketini Al</button>
-          </div>
-        </article>
-        <article class="final-plan full final-full-rich">
-          <div class="final-course-hero">
-            ${finalPromoCourseImage(course)}
-            <div>
-              <div class="final-plan-label">Full Hazırlık Paketi</div>
-              <h3 class="final-course-title">${escapeHtml(full.title)}</h3>
-              <div class="final-course-panel">${escapeHtml(course.panel || course.ministry || '')}</div>
-              <div class="final-course-price"><b>${escapeHtml(FINAL_PROMO_SETTINGS.fullPrice)}</b><span>tam erişim</span></div>
-            </div>
-          </div>
-          <p class="final-plan-copy">${escapeHtml(full.desc)}</p>
-          ${finalPromoStatsHtml(course)}
-          <div class="final-advantage">${escapeHtml(FINAL_PROMO_SETTINGS.demoPrice)}’ye sadece deneme paketi almak yerine, ${escapeHtml(FINAL_PROMO_SETTINGS.fullPrice)}’ye full pakete geçerek hem unvana özel kurs içeriklerine hem de haftalık denemelere erişebilirsin.</div>
-          <div class="final-course-layout">
-            <div class="final-rich-block">
-              <div class="final-rich-head"><b>${escapeHtml(course && course.type === "mulakat" ? topicLabel : "Konu Dağılımı ve Soru Sayıları")}</b><small>${escapeHtml(topicSmall)}</small></div>
-              ${finalPromoTopicsHtml(course)}
-            </div>
-            <div class="final-rich-block">
-              <div class="final-rich-head"><b>Pakette Neler Var?</b><small>anasayfa full paket</small></div>
-              ${finalPromoModulesHtml()}
-            </div>
-          </div>
-          ${finalPromoModuleDetailsHtml()}
-          <div class="final-plan-actions" style="margin-top:14px">
-            <button type="button" class="btn final-full-buy" id="resultPromoFullBuy">Full Pakete Geç</button>
-          </div>
-        </article>
-      </div>
-    </section>`;
-  holder.querySelector('#resultPromoDemoBuy')?.addEventListener('click', () => {
-    window.open(FINAL_PROMO_SETTINGS.demoPackageUrl, '_blank', 'noopener');
-  });
-  holder.querySelector('#resultPromoFullBuy')?.addEventListener('click', () => {
-    window.open(full.url, '_blank', 'noopener');
-  });
-}
 
 
 
@@ -1566,7 +1178,7 @@ async function startExam(){
     alert("Sorular yüklenirken hata oluştu: " + err.message);
   } finally {
     startBtn.classList.remove('loading');
-    startBtn.textContent = currentMode === "exam" ? "Sınavı Başlat" : "Sonuçlarımı Gör";
+    startBtn.textContent = "Sınavı Başlat";
   }
 }
 
@@ -1741,61 +1353,149 @@ function renderResult(record){
   showSection("result");
 }
 
-async function showMyResult(){
-  const payload = currentPayload();
 
-  try {
-    startBtn.classList.add('loading');
-    startBtn.textContent = "Sonuç aranıyor...";
-    const cloud = await fetchResultFromCloud(payload);
-    if(cloud && cloud.ok && cloud.result){
-      const basePayload = payload;
-      const record = normalizeCloudResult(cloud, basePayload);
-      renderResult(record);
-      setCloudStatus("ok", "Sonuç Google Sheet üzerinden getirildi.");
-      return;
-    }
-  } catch(err) {
-    // Yerel kayıtla devam edilir.
-  } finally {
-    startBtn.classList.remove('loading');
-    startBtn.textContent = currentMode === "exam" ? "Sınavı Başlat" : "Sonuçlarımı Gör";
+// ============ Paket tanıtımı (sınav ücretsiz; amaç unvana özel paketi satmak) ============
+const OFFER = {
+  price: "990 TL",
+  siteUrl: "https://adaletsenakademi.com/#courses",
+  features: [
+    "Mevzuattan Çalış — konu konu sınırsız çalışma",
+    "Sınırsız test çözümü ve çıkmış sorular",
+    "Konu anlatım videoları ve podcast içerikleri",
+    "Flash kartlarla hızlı tekrar",
+    "Akademi denemeleri ve kişiye özel deneme oluşturma",
+    "İstatistik ve gelişim takibi",
+    "Sınava kadar ücretsiz güncelleme"
+  ],
+  packages: {
+  "icisleri_seflik": {
+    "url": "https://www.shopier.com/adaletsenakademi/47825047",
+    "image": "https://i.hizliresim.com/djwvkzv.png"
+  },
+  "icisleri_vhki": {
+    "url": "https://www.shopier.com/adaletsenakademi/47825263",
+    "image": "https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli.png"
+  },
+  "icisleri_uzman": {
+    "url": "https://www.shopier.com/adaletsenakademi/47825186",
+    "image": "https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgoreli.png"
+  },
+  "icisleri_sube_mudurlugu": {
+    "url": "https://www.shopier.com/adaletsenakademi/47825087",
+    "image": "https://adaletsenakademi.com/wp-content/uploads/2026/06/giris-gorseli.png"
+  },
+  "icisleri_ilce_nufus_mudurlugu": {
+    "url": "https://www.shopier.com/adaletsenakademi/47824950",
+    "image": "https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli-1.png"
+  },
+  "icisleri_ilce_yazi_isleri_mudurlugu": {
+    "url": "https://www.shopier.com/adaletsenakademi/47824983",
+    "image": "https://adaletsenakademi.com/wp-content/uploads/2026/06/girisgorseli-2.png"
   }
+}
+};
+let offerStats = {};
 
-  const saved = localStorage.getItem(resultKey(payload));
-  if(!saved){
-    alert("Bu ad-soyad ve sınav seçimi için kayıtlı sonuç bulunamadı.");
-    return;
-  }
-  renderResult(JSON.parse(saved));
-  setCloudStatus("warn", "Sonuç bu cihazdaki yerel kayıttan getirildi.");
+function computeOfferStats(master){
+  const names = {};
+  (master.topics || []).forEach(t => { names[t.id] = t.name; });
+  const perProfile = {};
+  master.questions.forEach(q => {
+    (q.profiles || []).forEach(pid => {
+      const p = perProfile[pid] = perProfile[pid] || {total: 0, topics: {}};
+      p.total++; p.topics[q.topicId] = (p.topics[q.topicId] || 0) + 1;
+    });
+  });
+  offerStats = {};
+  Object.keys(perProfile).forEach(pid => {
+    const p = perProfile[pid];
+    const list = Object.keys(p.topics).map(tid => ({ad: names[tid] || tid, soru: p.topics[tid]})).sort((a, b) => b.soru - a.soru);
+    offerStats[pid] = {total: p.total, topicCount: list.length, top: list.slice(0, 6)};
+  });
+}
+loadMaster().then(m => { computeOfferStats(m); renderLandingOffer(); }).catch(() => {});
+
+function fmtNum(n){ return Number(n || 0).toLocaleString("tr-TR"); }
+function openUrl(url){ window.open(url, "_blank", "noopener"); }
+
+function offerCardHtml(roleId, ctaLabel){
+  roleId = (roleId && EXAM_CONFIG[roleId]) ? roleId : roleSelect.value;
+  const cfg = EXAM_CONFIG[roleId];
+  const name = cfg ? cfg.label : "İçişleri";
+  const pkg = OFFER.packages[roleId] || {};
+  const url = pkg.url || OFFER.siteUrl;
+  const st = offerStats[roleId];
+  const img = pkg.image
+    ? '<img class="offer-img" src="' + escapeHtml(pkg.image) + '" alt="' + escapeHtml(name) + ' paketi" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML=\'<div class=offer-ph>AdaletSen Akademi</div>\'">'
+    : '<div class="offer-ph">AdaletSen Akademi</div>';
+  const stats = st
+    ? '<div class="offer-stats"><div class="offer-stat"><b>' + fmtNum(st.total) + '</b><span>soru bankası</span></div><div class="offer-stat"><b>' + st.topicCount + '</b><span>konu</span></div><div class="offer-stat"><b>Dahil</b><span>video · podcast · flash kart</span></div></div>'
+    : '<div class="offer-stats"><div class="offer-stat"><b>Sınırsız</b><span>test çözümü</span></div><div class="offer-stat"><b>Dahil</b><span>video · podcast · flash kart</span></div></div>';
+  const max = st && st.top.length ? st.top[0].soru : 1;
+  const topics = st && st.top.length
+    ? '<div class="offer-block"><h4>En çok sorusu olan konular</h4>' + st.top.map(t => '<div class="topic-row"><div><span>' + escapeHtml(t.ad) + '</span><em>' + fmtNum(t.soru) + ' soru</em></div><div class="topic-bar"><i style="width:' + Math.max(6, Math.round(t.soru / max * 100)) + '%"></i></div></div>').join("") + '</div>'
+    : "";
+  return '<div class="offer-card"><div class="offer-ribbon">UNVANINA ÖZEL HAZIRLIK PAKETİ</div><div class="offer-body">' +
+    '<div class="offer-top">' + img + '<div class="offer-title"><div class="offer-eyebrow">İçişleri Bakanlığı</div><h3>' + escapeHtml(name.replace(/^İçişleri /, "")) + ' Full Hazırlık Paketi</h3></div>' +
+    '<div class="offer-price"><b>' + escapeHtml(OFFER.price) + '</b><span>tüm içeriklere tam erişim</span></div></div>' +
+    stats +
+    '<div class="offer-cols">' + topics + '<div class="offer-block"><h4>Pakette neler var?</h4><ul class="offer-list">' + OFFER.features.map(f => '<li>' + escapeHtml(f) + '</li>').join("") + '</ul></div></div>' +
+    '<div class="offer-cta"><a class="btn btn-buy" href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' + escapeHtml(ctaLabel || "Paketi İncele") + '</a></div></div></div>';
 }
 
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    selectedMinistry = card.dataset.ministry;
-    cards.forEach(c => c.classList.remove('active'));
-    card.classList.add('active');
-    formArea.classList.add('show');
-    fillRoles(selectedMinistry);
-    setTimeout(() => formArea.scrollIntoView({behavior:'smooth', block:'nearest'}), 80);
-  });
-});
+function renderLandingOffer(){
+  const holder = document.getElementById('landingOffer');
+  if(!holder) return;
+  const roleId = roleSelect.value;
+  if(roleId && EXAM_CONFIG[roleId]){ holder.innerHTML = offerCardHtml(roleId, "Paketi İncele ve Satın Al"); return; }
+  holder.innerHTML = '<div class="offer-generic"><b style="font-size:1.1rem">Unvanını seç, paketini gör</b><p style="color:var(--muted);font-weight:600;margin:6px 0 14px">Seçtiğin unvana ait soru sayısı, konu dağılımı ve paket içeriği burada görünür.</p><ul class="offer-list">' + OFFER.features.map(f => '<li>' + escapeHtml(f) + '</li>').join("") + '</ul><div class="offer-cta" style="margin-top:14px"><a class="btn btn-buy" href="' + OFFER.siteUrl + '" target="_blank" rel="noopener">Tüm Paketleri Gör</a></div></div>';
+}
 
-modeTabs.forEach(tab => tab.addEventListener('click', () => setMode(tab.dataset.mode)));
-roleSelect.addEventListener('change', () => { updateWeekAvailability(); updateSummary(); });
+function fmtDay(d){ return d.toLocaleDateString("tr-TR", {day:"numeric", month:"long", timeZone:"Europe/Istanbul"}); }
+function renderWeekBadge(){
+  const badge = document.getElementById('weekBadge');
+  if(!badge) return;
+  const start = new Date(new Date(FIRST_MONDAY + "T00:00:00+03:00").getTime() + (CURRENT_WEEK - 1) * 7 * 86400000);
+  const end = new Date(start.getTime() + 6 * 86400000);
+  badge.innerHTML = CURRENT_WEEK + '. Hafta Sınavı<small>' + fmtDay(start) + ' – ' + fmtDay(end) + '</small>';
+}
+
+function showFinishPromoOverlay(record){
+  const old = document.getElementById('finishOfferOverlay'); if(old) old.remove();
+  const ov = document.createElement('div');
+  ov.className = 'offer-overlay show'; ov.id = 'finishOfferOverlay';
+  ov.innerHTML = '<div class="offer-modal"><button type="button" class="offer-x" aria-label="Kapat">×</button>' +
+    '<div class="offer-modal-top"><h2>Sınavı tamamladın, tebrikler! 🎉</h2><p>Sonucun hazır. Eksiklerini kapatmak için unvanına özel hazırlık paketine göz at.</p>' +
+    '<div class="score-strip"><span>✅ ' + (record.correct || 0) + ' doğru</span><span>❌ ' + (record.wrong || 0) + ' yanlış</span><span>⬜ ' + (record.blank || 0) + ' boş</span><span>⭐ ' + record.score + ' puan</span></div></div>' +
+    offerCardHtml(record.role, "Paketi İncele ve Satın Al") +
+    '<div class="offer-modal-bottom"><button type="button" class="btn btn-out" id="finishOfferClose">Sonucumu ve Sıralamamı Gör</button></div></div>';
+  document.body.appendChild(ov);
+  const close = () => ov.remove();
+  ov.querySelector('.offer-x').addEventListener('click', close);
+  ov.querySelector('#finishOfferClose').addEventListener('click', close);
+  ov.addEventListener('click', e => { if(e.target === ov) close(); });
+}
+
+function renderResultPromoSection(record){
+  const holder = document.getElementById('resultPromoSection');
+  if(!holder) return;
+  holder.innerHTML = '<div class="result-offer"><h2 class="section-title" style="margin-top:0">Hazırlığını bir üst seviyeye taşı</h2><p class="section-sub">Haftalık deneme ücretsiz; unvanına özel paketle tüm konuları sistemli çalış.</p>' + offerCardHtml(record.role, "Paketi İncele ve Satın Al") +
+    '<div class="community" style="margin-bottom:0"><div><b>Gelecek haftanın sınavı Pazartesi yayında</b><span>Duyurular ve yeni sınavlar akademi WhatsApp grubunda.</span></div><a class="btn btn-wa" href="https://chat.whatsapp.com/G4jxcQtr8t60o45vRBBhPp" target="_blank" rel="noopener">WhatsApp Grubuna Katıl</a></div></div>';
+}
+
+// Açılış: kurum sabit (İçişleri), unvan listesi hazır
+selectedMinistry = "icisleri";
+fillRoles("icisleri");
+renderLandingOffer();
+
+roleSelect.addEventListener('change', () => { updateSummary(); renderLandingOffer(); });
 weekSelect.addEventListener('change', updateSummary);
 firstName.addEventListener('input', updateSummary);
 lastName.addEventListener('input', updateSummary);
 
 startBtn.addEventListener('click', () => {
   if(!validateBase()) return;
-  if(currentMode === "exam"){
-    const payload = currentPayload();
-    showStartPromoOverlay(payload, () => startExam());
-  }else{
-    showMyResult();
-  }
+  startExam();
 });
 
 document.getElementById('finishExamBtn').addEventListener('click', () => finishExam(false));
@@ -1805,7 +1505,6 @@ document.getElementById('backToSelectBtn').addEventListener('click', () => {
   }
 });
 document.getElementById('newExamBtn').addEventListener('click', () => { activeExam = null; showSection("choice"); });
-document.getElementById('showSelectBtn').addEventListener('click', () => { setMode("results"); showSection("choice"); });
 
 
 </script>
