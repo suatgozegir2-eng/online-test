@@ -283,126 +283,162 @@ const CONFIG = {
 
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxCu24DivrUTT9qrnWpYD9TQSlIkt4QmRd4-cOjslcAEBOowAJTTTWinxjKqjmOTwH5/exec";
 
-// Hazır haftalık denemeler (tools/build_exams.py ile sorularicislerixx.json masterından üretilir).
-// Dosyalar başka bir yere taşınırsa yalnızca bu adresi değiştirmek yeterlidir.
-const EXAM_DATA_BASE = "data/";
+// Sorular MASTER_URL adresindeki soru masterından tarayıcıda, unvanın resmî konu dağılımına göre seçilir.
+const MASTER_URL = "https://adaletsenakademi.com/wp-content/uploads/2026/09/sorularicislerixx.json";
+// Her Pazartesi yeni sınav: 1. hafta bu tarihte başlar (Pazartesi olmalı). Hafta numarası tarihe göre otomatik artar.
+const FIRST_MONDAY = "2026-10-05";
 
 const EXAM_CONFIG = {
   "icisleri_sube_mudurlugu": {
     "ministry": "icisleri",
     "label": "İçişleri Şube Müdürü",
-    "dataUrl": EXAM_DATA_BASE + "icisleri_sube_mudurlugu.json",
     "total": 80,
     "duration": 80
   },
   "icisleri_ilce_yazi_isleri_mudurlugu": {
     "ministry": "icisleri",
     "label": "İçişleri İlçe Yazı İşleri Müdürü",
-    "dataUrl": EXAM_DATA_BASE + "icisleri_ilce_yazi_isleri_mudurlugu.json",
     "total": 80,
     "duration": 80
   },
   "icisleri_ilce_nufus_mudurlugu": {
     "ministry": "icisleri",
     "label": "İçişleri İlçe Nüfus Müdürü",
-    "dataUrl": EXAM_DATA_BASE + "icisleri_ilce_nufus_mudurlugu.json",
     "total": 80,
     "duration": 80
   },
   "icisleri_uzman": {
     "ministry": "icisleri",
     "label": "İçişleri Uzman",
-    "dataUrl": EXAM_DATA_BASE + "icisleri_uzman.json",
     "total": 80,
     "duration": 80
   },
   "icisleri_seflik": {
     "ministry": "icisleri",
     "label": "İçişleri Şef",
-    "dataUrl": EXAM_DATA_BASE + "icisleri_seflik.json",
     "total": 80,
     "duration": 80
   },
   "icisleri_vhki": {
     "ministry": "icisleri",
     "label": "İçişleri Veri Hazırlama ve Kontrol İşletmeni",
-    "dataUrl": EXAM_DATA_BASE + "icisleri_vhki.json",
     "total": 80,
     "duration": 80
   },
   "icislericagrikarsilama": {
     "ministry": "icisleri",
     "label": "İçişleri Çağrı Karşılama Memuru",
-    "dataUrl": EXAM_DATA_BASE + "icislericagrikarsilama.json",
     "total": 80,
     "duration": 80
   },
   "icisleriavukat": {
     "ministry": "icisleri",
     "label": "İçişleri Avukat",
-    "dataUrl": EXAM_DATA_BASE + "icisleriavukat.json",
     "total": 70,
     "duration": 70
   },
   "icisleribilgisayarmuhendisligi": {
     "ministry": "icisleri",
     "label": "İçişleri Bilgisayar Mühendisi",
-    "dataUrl": EXAM_DATA_BASE + "icisleribilgisayarmuhendisligi.json",
     "total": 70,
     "duration": 70
   },
   "icisleri_elektrik_elektronik_muhendisligi": {
     "ministry": "icisleri",
     "label": "İçişleri Elektrik-Elektronik Mühendisi",
-    "dataUrl": EXAM_DATA_BASE + "icisleri_elektrik_elektronik_muhendisligi.json",
     "total": 70,
     "duration": 70
   },
   "icisleri_insaat_muhendisligi": {
     "ministry": "icisleri",
     "label": "İçişleri İnşaat Mühendisi",
-    "dataUrl": EXAM_DATA_BASE + "icisleri_insaat_muhendisligi.json",
     "total": 70,
     "duration": 70
   },
   "icislerimimarlik": {
     "ministry": "icisleri",
     "label": "İçişleri Mimar",
-    "dataUrl": EXAM_DATA_BASE + "icislerimimarlik.json",
     "total": 70,
     "duration": 70
   },
   "icisleriprogramci": {
     "ministry": "icisleri",
     "label": "İçişleri Programcı",
-    "dataUrl": EXAM_DATA_BASE + "icisleriprogramci.json",
     "total": 70,
     "duration": 70
   },
   "icisleri_tekniker": {
     "ministry": "icisleri",
     "label": "İçişleri Tekniker",
-    "dataUrl": EXAM_DATA_BASE + "icisleri_tekniker.json",
     "total": 70,
     "duration": 70
   },
   "icisleri_teknisyen": {
     "ministry": "icisleri",
     "label": "İçişleri Teknisyen",
-    "dataUrl": EXAM_DATA_BASE + "icisleri_teknisyen.json",
     "total": 70,
     "duration": 70
   }
 };
 
-// Yayındaki haftanın bilgisi data/index.json içinden okunur (her Pazartesi build_exams.py ile güncellenir).
-let CURRENT_WEEK = 1;
+function computeCurrentWeek(){
+  const start = new Date(FIRST_MONDAY + "T00:00:00+03:00").getTime();
+  return Math.max(1, Math.floor((Date.now() - start) / (7 * 24 * 3600 * 1000)) + 1);
+}
+let CURRENT_WEEK = computeCurrentWeek();
 function applyCurrentWeek(){
   weekSelect.innerHTML = '<option value="' + CURRENT_WEEK + '">' + CURRENT_WEEK + '. Hafta Deneme Sınavı</option>';
   weekSelect.value = String(CURRENT_WEEK);
   updateSummary();
 }
-fetch(EXAM_DATA_BASE + "index.json", {cache:"no-store"}).then(r => r.json()).then(j => { if(j && j.week){ CURRENT_WEEK = Number(j.week); applyCurrentWeek(); } }).catch(() => {});
+window.addEventListener('load', applyCurrentWeek);
+
+let masterPromise = null;
+function loadMaster(){
+  if(!masterPromise){
+    masterPromise = fetch(MASTER_URL).then(r => { if(!r.ok) throw new Error("Soru dosyası yüklenemedi: " + r.status); return r.json(); })
+      .catch(err => { masterPromise = null; throw err; });
+  }
+  return masterPromise;
+}
+// Sayfa açılır açılmaz indirmeyi başlat (tarayıcı önbelleğe alır, sınav başlarken beklemek kısalır)
+loadMaster().catch(() => {});
+
+function hashSeed(str){
+  let h = 2166136261;
+  for(let i = 0; i < str.length; i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function seededShuffle(arr, seedStr){
+  let a = hashSeed(seedStr);
+  const rnd = () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  for(let i = arr.length - 1; i > 0; i--){ const j = Math.floor(rnd() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; }
+  return arr;
+}
+// Hafta N sınavı: her konunun karıştırılmış havuzunun N. dilimi (önceki haftalarla aynı soru çıkmaz, herkes aynı sınavı görür)
+function buildWeekExam(master, profileId, week){
+  const prof = master.profiles && master.profiles[profileId];
+  if(!prof) throw new Error("Bu unvan soru dosyasında bulunamadı.");
+  const topicName = {};
+  (master.topics || []).forEach(t => { topicName[t.id] = t.name; });
+  const pools = {};
+  master.questions.forEach(q => {
+    if(!q.profiles || q.profiles.indexOf(profileId) < 0) return;
+    (pools[q.topicId] = pools[q.topicId] || []).push(q);
+  });
+  const out = [];
+  Object.keys(prof.officialQuestionCounts).forEach(tid => {
+    const n = prof.officialQuestionCounts[tid];
+    const pool = pools[tid] || [];
+    if(!pool.length) throw new Error("Bu unvan için '" + (topicName[tid] || tid) + "' konusunda soru bulunamadı.");
+    pool.sort((x, y) => String(x.id) < String(y.id) ? -1 : 1);
+    seededShuffle(pool, profileId + "|" + tid);
+    for(let i = 0; i < n; i++){
+      out.push({...pool[((week - 1) * n + i) % pool.length], topic: topicName[tid] || pool[0].topic});
+    }
+  });
+  return {questions: out, total: prof.officialTotalQuestions};
+}
 
 
 
@@ -1500,20 +1536,15 @@ function renderResultPromoSection(record){
 async function startExam(){
   const payload = currentPayload();
   const roleCfg = EXAM_CONFIG[payload.role];
-  if(!roleCfg || !roleCfg.dataUrl){ alert("Bu sınav için yapılandırma bulunamadı."); return; }
+  if(!roleCfg){ alert("Bu sınav için yapılandırma bulunamadı."); return; }
 
   startBtn.classList.add('loading');
   startBtn.textContent = "Sorular yükleniyor...";
   try {
     const cfg = roleCfg;
-    const data = await loadJson(roleCfg.dataUrl);
-    if(data.week && String(data.week) !== String(payload.week)){
-      CURRENT_WEEK = Number(data.week);
-      applyCurrentWeek();
-      payload.week = String(data.week);
-      payload.weekLabel = data.week + ". Hafta Deneme Sınavı";
-    }
-    const weekQuestions = (data.questions || []).filter(q => getQuestionText(q) && getQuestionOptions(q).length >= 2);
+    const master = await loadMaster();
+    const built = buildWeekExam(master, payload.role, Number(payload.week));
+    const weekQuestions = built.questions.filter(q => getQuestionText(q) && getQuestionOptions(q).length >= 2);
     if(weekQuestions.length < cfg.total){
       alert("Sınav soruları eksik. Bulunan soru: " + weekQuestions.length + " / " + cfg.total);
       return;
