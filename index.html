@@ -99,7 +99,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
 .cloud-status.ok{background:#ecfdf5;border:1px solid #bbf7d0;color:#166534}
 .cloud-status.warn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
 .cloud-status.err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
-@media(min-width:780px){.candidate-grid.has-phone{grid-template-columns:1fr 1fr 1fr}}
 
 
 #rankNotice,#cloudStatus{display:none!important}
@@ -154,11 +153,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
         <p>Önce işlem türünü seçin, ardından kurum, unvan ve hafta bilgileriyle devam edin.</p>
       </div>
 
-      <div class="mode-tabs" role="tablist" aria-label="İşlem seçimi">
-        <button class="mode-tab active" type="button" data-mode="exam">Deneme Sınavına Gir</button>
-        <button class="mode-tab" type="button" data-mode="results">Sonuçlarımı Gör</button>
-      </div>
-
       <div class="ministry-grid">
         <button class="ministry-card icisleri" type="button" data-ministry="icisleri" aria-label="İçişleri Bakanlığı denemeleri">
           <div class="ministry-top">
@@ -171,19 +165,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
           <p>Şeflik, VHKİ, uzmanlık, şube müdürlüğü, ilçe nüfus, ilçe yazı işleri, bilgisayar mühendisliği, elektrik-elektronik mühendisliği, inşaat mühendisliği, tekniker-teknisyen, programcı ve sosyolog için deneme sınavları.</p>
           <div class="ministry-meta"><span>12 unvan</span><span>1-3. hafta aktif</span></div>
         </button>
-      </div>
-
-      <div class="results-lookup hidden" id="resultsLookup" style="padding:20px 22px 24px;border-top:1px solid var(--line)">
-        <h2 style="font-size:1.25rem;font-weight:900;letter-spacing:-.01em">Sonuçlarımı Gör</h2>
-        <p style="color:var(--muted);margin:5px 0 16px">Sınava girerken kullandığınız telefon numarasını yazın; o numarayla çözülen tüm deneme sınavları aşağıda listelenir.</p>
-        <div class="field" style="max-width:420px">
-          <label for="lookupPhone">Telefon Numarası</label>
-          <input id="lookupPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx">
-        </div>
-        <div style="margin-top:13px">
-          <button class="btn btn-purple" type="button" id="lookupBtn">Sonuçlarımı Sorgula</button>
-        </div>
-        <div id="lookupList" style="margin-top:18px;display:grid;gap:10px"></div>
       </div>
 
       <div class="form-area" id="formArea">
@@ -209,7 +190,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
         </div>
 
         <div class="candidate-area show" id="candidateArea">
-          <div class="candidate-grid has-phone">
+          <div class="candidate-grid">
             <div class="field">
               <label for="firstName">Ad</label>
               <input id="firstName" type="text" autocomplete="given-name" placeholder="Adınızı giriniz">
@@ -218,13 +199,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
               <label for="lastName">Soyad</label>
               <input id="lastName" type="text" autocomplete="family-name" placeholder="Soyadınızı giriniz">
             </div>
-            <div class="field">
-              <label for="phoneNumber">Telefon</label>
-              <input id="phoneNumber" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx">
-            </div>
-          </div>
-          <div class="phone-note" style="margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--muted);font-size:.88rem;line-height:1.55">
-            <b style="color:var(--ink)">Önemli:</b> Sınav sonucunuzu daha sonra <b style="color:var(--ink)">“Sonuçlarımı Gör”</b> bölümünden, burada girdiğiniz <b style="color:var(--ink)">telefon numarası</b> ile görüntüleyeceksiniz. Lütfen numaranızı başında <b style="color:var(--ink)">0</b> olacak şekilde <b style="color:var(--ink)">11 haneli</b> ve doğru giriniz.
           </div>
         </div>
 
@@ -718,7 +692,6 @@ const summaryBox = document.getElementById('summaryBox');
 const startBtn = document.getElementById('startBtn');
 const firstName = document.getElementById('firstName');
 const lastName = document.getElementById('lastName');
-const phoneNumber = document.getElementById('phoneNumber');
 const choiceBox = document.querySelector('.choice-box');
 const examScreen = document.getElementById('examScreen');
 const resultScreen = document.getElementById('resultScreen');
@@ -1158,7 +1131,6 @@ function setMode(mode){
   startBtn.textContent = mode === "exam" ? "Sınavı Başlat" : "Sonuçlarımı Gör";
   firstName.placeholder = mode === "exam" ? "Adınızı giriniz" : "Sonucu sorgulanacak adı giriniz";
   lastName.placeholder = mode === "exam" ? "Soyadınızı giriniz" : "Sonucu sorgulanacak soyadı giriniz";
-  if(phoneNumber) phoneNumber.placeholder = mode === "exam" ? "05xx xxx xx xx" : "Sonuç için telefon numarası";
 
   // Sonuçlarımı Gör: kurum kartları/form yerine telefonla sorgulama panelini göster
   const ministryGrid = document.querySelector('.ministry-grid');
@@ -1204,13 +1176,6 @@ function validateBase(){
   if(!roleSelect.value){ alert('Lütfen unvan seçiniz.'); return false; }
   if(!firstName.value.trim()){ alert('Lütfen adınızı giriniz.'); firstName.focus(); return false; }
   if(!lastName.value.trim()){ alert('Lütfen soyadınızı giriniz.'); lastName.focus(); return false; }
-  const phoneDigits = phoneNumber.value.replace(/\D/g, '');
-  if(!phoneDigits){ alert('Lütfen telefon numaranızı giriniz.'); phoneNumber.focus(); return false; }
-  if(phoneDigits.length !== 11 || phoneDigits.charAt(0) !== '0'){
-    alert('Lütfen telefon numaranızı başında 0 olacak şekilde 11 haneli giriniz.\nÖrnek: 0532 123 45 67');
-    phoneNumber.focus();
-    return false;
-  }
   return true;
 }
 
@@ -1224,7 +1189,7 @@ function currentPayload(){
     weekLabel: weekSelect.options[weekSelect.selectedIndex]?.textContent || "1. Hafta",
     firstName: firstName.value.trim(),
     lastName: lastName.value.trim(),
-    phone: phoneNumber.value.trim().replace(/\D/g, ''),
+    phone: '',
     fullName: (firstName.value.trim() + ' ' + lastName.value.trim()).trim()
   };
 }
@@ -2001,7 +1966,7 @@ async function showMyResult(){
 
   const saved = localStorage.getItem(resultKey(payload));
   if(!saved){
-    alert("Bu ad-soyad, telefon ve sınav seçimi için kayıtlı sonuç bulunamadı.");
+    alert("Bu ad-soyad ve sınav seçimi için kayıtlı sonuç bulunamadı.");
     return;
   }
   renderResult(JSON.parse(saved));
@@ -2024,7 +1989,6 @@ roleSelect.addEventListener('change', () => { updateWeekAvailability(); updateSu
 weekSelect.addEventListener('change', updateSummary);
 firstName.addEventListener('input', updateSummary);
 lastName.addEventListener('input', updateSummary);
-phoneNumber.addEventListener('input', updateSummary);
 
 startBtn.addEventListener('click', () => {
   if(!validateBase()) return;
@@ -2045,131 +2009,7 @@ document.getElementById('backToSelectBtn').addEventListener('click', () => {
 document.getElementById('newExamBtn').addEventListener('click', () => { activeExam = null; showSection("choice"); });
 document.getElementById('showSelectBtn').addEventListener('click', () => { setMode("results"); showSection("choice"); });
 
-/* ============ Sonuçlarım: telefonla sorgulama ============ */
-function phoneLast10(v){
-  const p = String(v == null ? "" : v).replace(/\D/g, "");
-  return p.length > 10 ? p.slice(-10) : p;
-}
 
-function formatLookupDate(t){
-  if(!t) return "";
-  const d = new Date(t);
-  if(isNaN(d.getTime())) return String(t);
-  return d.toLocaleDateString("tr-TR") + " " + d.toLocaleTimeString("tr-TR", {hour:"2-digit", minute:"2-digit"});
-}
-
-async function lookupByPhone(){
-  const inp = document.getElementById("lookupPhone");
-  const listEl = document.getElementById("lookupList");
-  const btn = document.getElementById("lookupBtn");
-  const phone = (inp.value || "").replace(/\D/g, "");
-
-  if(!phone){ alert("Lütfen telefon numaranızı giriniz."); inp.focus(); return; }
-
-  listEl.innerHTML = '<div class="summary">Sonuçlar aranıyor...</div>';
-  btn.classList.add("loading");
-  try {
-    const res = await postToNewSheet({ action: "byphone", telefon: phone });
-    if(!res || !res.ok || !Array.isArray(res.results) || res.results.length === 0){
-      listEl.innerHTML = '<div class="summary">Bu telefon numarasıyla kayıtlı sınav sonucu bulunamadı.</div>';
-      return;
-    }
-    renderLookupList(res.results);
-  } catch(err) {
-    listEl.innerHTML = '<div class="summary">Sonuçlara şu an ulaşılamadı. Lütfen tekrar deneyin.</div>';
-  } finally {
-    btn.classList.remove("loading");
-  }
-}
-
-function renderLookupList(results){
-  const listEl = document.getElementById("lookupList");
-  listEl.innerHTML = "";
-
-  results.forEach(item => {
-    const card = document.createElement("button");
-    card.type = "button";
-    card.style.cssText = "text-align:left;border:1.5px solid var(--line2);border-radius:12px;background:#fff;padding:14px 16px;cursor:pointer;transition:.16s";
-    const dateTxt = formatLookupDate(item.tarih);
-    const rank = item.rankTurkey ? String(item.rankTurkey) : "—";
-    const count = item.participantCount ? String(item.participantCount) : "—";
-    card.innerHTML =
-      '<div style="font-weight:900;color:var(--ink)">' + escapeHtml(item.unvan || "") + " — " + escapeHtml(item.hafta || "") + "</div>" +
-      '<div style="color:var(--muted);font-size:.9rem;margin-top:3px">' + escapeHtml(item.bakanlik || "") + (dateTxt ? " · " + dateTxt : "") + "</div>" +
-      '<div style="margin-top:8px;font-size:.92rem"><b>Puan:</b> ' + escapeHtml(String(item.puan)) + ' &nbsp;·&nbsp; <b>Türkiye Sırası:</b> ' + escapeHtml(rank) + " / " + escapeHtml(count) + " kişi</div>";
-    card.addEventListener("mouseenter", () => { card.style.borderColor = "var(--purple)"; });
-    card.addEventListener("mouseleave", () => { card.style.borderColor = "var(--line2)"; });
-    card.addEventListener("click", () => showSheetResult(item));
-    listEl.appendChild(card);
-  });
-}
-
-function findLocalReview(item){
-  const tName  = normalizeText(((item.ad || "") + " " + (item.soyad || "")).trim());
-  const tPhone = phoneLast10(item.telefon);
-  const tB = normalizeText(item.bakanlik);
-  const tR = normalizeText(item.unvan);
-  const tW = normalizeText(item.hafta);
-
-  for(let i = 0; i < localStorage.length; i++){
-    const key = localStorage.key(i);
-    if(!key || key.indexOf("aa_deneme_result__") !== 0) continue;
-    let rec;
-    try { rec = JSON.parse(localStorage.getItem(key)); } catch(e) { continue; }
-    if(!rec) continue;
-    if(normalizeText(rec.fullName) !== tName) continue;
-    if(phoneLast10(rec.phone) !== tPhone) continue;
-    if(normalizeText(rec.ministryLabel) !== tB) continue;
-    if(normalizeText(rec.roleLabel) !== tR) continue;
-    if(normalizeText(rec.weekLabel) !== tW) continue;
-    return rec;
-  }
-  return null;
-}
-
-function showSheetResult(item){
-  const fullName = ((item.ad || "") + " " + (item.soyad || "")).trim();
-  const record = {
-    ministryLabel: item.bakanlik || "",
-    roleLabel: item.unvan || "",
-    weekLabel: item.hafta || "",
-    fullName: fullName,
-    phone: item.telefon || "",
-    correct: Number(item.dogru || 0),
-    wrong: Number(item.yanlis || 0),
-    blank: Number(item.bos || 0),
-    score: Number(item.puan || 0),
-    rankTurkey: item.rankTurkey || null,
-    participantCount: item.participantCount || null,
-    answers: [],
-    reviewQuestions: []
-  };
-
-  // Sınav çözüm kâğıdı (soru/şık/çözüm) Sheet'te tutulmaz; yalnız bu cihazın yerel kaydında olabilir.
-  const local = findLocalReview(item);
-  if(local && Array.isArray(local.reviewQuestions) && local.reviewQuestions.length){
-    record.answers = Array.isArray(local.answers) ? local.answers : [];
-    record.reviewQuestions = local.reviewQuestions;
-    record.evaluations = Array.isArray(local.evaluations) ? local.evaluations : [];
-    record.examType = local.examType || record.examType;
-    record.rawScore = local.rawScore != null ? local.rawScore : record.rawScore;
-    record.rawMaxScore = local.rawMaxScore || record.rawMaxScore;
-    record.shortScore = local.shortScore != null ? local.shortScore : undefined;
-    record.aiScore = local.aiScore != null ? local.aiScore : undefined;
-  } else {
-    record.reviewNotice =
-      '<div class="review-head"><div><h3>' + ('Sınav Çözüm Kâğıdı') + '</h3>' +
-      '<p>' + 'İşaretlediğiniz cevapları, doğru/yanlış durumunu ve soru çözümlerini içeren sınav cevap kâğıdı yalnızca sınavı çözdüğünüz cihazda saklanır. ' +
-      'Bu detayları görmek için lütfen sınava girdiğiniz cihaz ve tarayıcıdan sonuç sorgulaması yapın. ' +
-      'Yukarıdaki puan, Türkiye sırası ve katılımcı sayısı güncel olarak görüntülenir.</p></div></div>';
-  }
-
-  renderResult(record);
-  setCloudStatus("ok", "Sonuç Google Sheet üzerinden getirildi.");
-}
-
-document.getElementById('lookupBtn').addEventListener('click', lookupByPhone);
-document.getElementById('lookupPhone').addEventListener('keydown', (e) => { if(e.key === "Enter") lookupByPhone(); });
 </script>
 </body>
 </html>
