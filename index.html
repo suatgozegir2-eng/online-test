@@ -168,6 +168,13 @@ body{background:var(--bg)}
 .result-title{color:var(--bordo)}
 @media(max-width:640px){.hero{padding:24px 0 74px}.entry-head,.exam-entry .form-area{padding-left:16px;padding-right:16px}.offer-body{padding:14px}.offer-modal .offer-card{margin:12px 12px 0}.site-brand small{display:none}.site-link{font-size:.8rem;padding:7px 10px}.seal{flex-basis:40px;width:40px;height:40px}}
 .katex{font-size:1.15em}
+.sample-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:640px){.sample-grid{grid-template-columns:1fr}}
+.sample{background:var(--bg2);border:1px solid #e3e7ee;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.sample-label{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--purple)}
+.sample video{width:100%;border-radius:8px;background:#000;max-height:240px}.sample audio{width:100%}
+.sample-title{font-size:.84rem;font-weight:600;color:var(--muted);line-height:1.35}
+.sample-btn{min-height:44px;width:100%}
+@media(max-width:640px){.site-head .wrap{gap:8px}.site-brand strong{font-size:.98rem}.site-head .site-link+.site-link{display:none}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -354,6 +361,8 @@ const CONFIG = {
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxCu24DivrUTT9qrnWpYD9TQSlIkt4QmRd4-cOjslcAEBOowAJTTTWinxjKqjmOTwH5/exec";
 
 // Sorular MASTER_URL adresindeki soru masterından tarayıcıda, unvanın resmî konu dağılımına göre seçilir.
+// Ders içerikleri (video, podcast, sunum PDF, ders PDF) — paket tanıtımındaki örnek içerikler buradan seçilir.
+const CONTENT_URL = "https://adaletsenakademi.com/wp-content/uploads/2026/09/icerikicislerixx.json";
 const MASTER_URL = "https://adaletsenakademi.com/wp-content/uploads/2026/09/sorularicislerixx.json";
 // Her Pazartesi yeni sınav: 1. hafta bu tarihte başlar (Pazartesi olmalı). Hafta numarası tarihe göre otomatik artar.
 const FIRST_MONDAY = "2026-10-05";
@@ -1476,6 +1485,55 @@ loadMaster().then(m => { computeOfferStats(m); renderLandingOffer(); }).catch(()
 function fmtNum(n){ return Number(n || 0).toLocaleString("tr-TR"); }
 function openUrl(url){ window.open(url, "_blank", "noopener"); }
 
+
+// ---- Paket tanıtımındaki örnek içerikler ----
+let contentData = null, contentPromise = null;
+const sampleCache = {};
+function loadContent(){
+  if(!contentPromise){
+    contentPromise = fetch(CONTENT_URL).then(r => { if(!r.ok) throw new Error("İçerik dosyası yüklenemedi: " + r.status); return r.json(); })
+      .then(j => { contentData = j; return j; }).catch(err => { contentPromise = null; throw err; });
+  }
+  return contentPromise;
+}
+loadContent().then(() => renderLandingOffer()).catch(() => {});
+
+function pickSamples(roleId){
+  if(sampleCache[roleId]) return sampleCache[roleId];
+  if(!contentData || !Array.isArray(contentData.contents)) return null;
+  const pool = [];
+  contentData.contents.forEach(c => {
+    if(!Array.isArray(c.profiles) || c.profiles.indexOf(roleId) < 0) return;
+    (c.items || []).forEach(it => pool.push({shared: (contentData.sharedTopicIds || []).indexOf(c.topicId) >= 0, konu: c.konu, altKonu: it.altKonu, pdf: it.pdf, sunum: it.sunum, video: it.video, podcast: it.podcast}));
+  });
+  if(!pool.length) return null;
+  const rnd = a => a.length ? a[Math.floor(Math.random() * a.length)] : null;
+  const used = new Set();
+  // Önce unvana özel konulardan (ortak genel yetenek/genel kültür dışı) örnek seç
+  const take = (list) => { const own = list.filter(i => !i.shared); if(own.length) list = own; const fresh = list.filter(i => !used.has(i)); const it = rnd(fresh.length ? fresh : list); if(it) used.add(it); return it; };
+  const res = {
+    video: take(pool.filter(i => i.video)),
+    podcast: take(pool.filter(i => i.podcast)),
+    sunum: take(pool.filter(i => i.sunum)),
+    pdf: take(pool.filter(i => i.pdf))
+  };
+  sampleCache[roleId] = res;
+  return res;
+}
+function sampleTitle(it){ return escapeHtml((it.konu || "") + (it.altKonu ? " — " + it.altKonu : "")); }
+function sampleBlockHtml(roleId){
+  const sm = pickSamples(roleId);
+  if(!sm || !(sm.video || sm.podcast || sm.sunum || sm.pdf)) return "";
+  const tile = (label, body, it) => '<div class="sample"><div class="sample-label">' + label + '</div>' + body + '<div class="sample-title">' + sampleTitle(it) + '</div></div>';
+  const open = (url, text) => '<a class="btn btn-out sample-btn" href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' + text + '</a>';
+  return '<div class="offer-block sample-block"><h4>Paketten ücretsiz örnek içerikler</h4><div class="sample-grid">' +
+    (sm.video ? tile("Video ders", '<video controls preload="none" playsinline src="' + escapeHtml(sm.video.video) + '"></video>', sm.video) : "") +
+    (sm.podcast ? tile("Podcast", '<audio controls preload="none" src="' + escapeHtml(sm.podcast.podcast) + '"></audio>', sm.podcast) : "") +
+    (sm.sunum ? tile("Ders sunumu (PDF)", open(sm.sunum.sunum, "Sunumu Aç"), sm.sunum) : "") +
+    (sm.pdf ? tile("Ders notu (PDF)", open(sm.pdf.pdf, "Ders Notunu Aç"), sm.pdf) : "") +
+    '</div></div>';
+}
+
 function offerCardHtml(roleId, ctaLabel){
   roleId = (roleId && EXAM_CONFIG[roleId]) ? roleId : roleSelect.value;
   const cfg = EXAM_CONFIG[roleId];
@@ -1496,7 +1554,7 @@ function offerCardHtml(roleId, ctaLabel){
   return '<div class="offer-card"><div class="offer-ribbon">UNVANINA ÖZEL HAZIRLIK PAKETİ</div><div class="offer-body">' +
     '<div class="offer-top">' + img + '<div class="offer-title"><div class="offer-eyebrow">İçişleri Bakanlığı</div><h3>' + escapeHtml(name.replace(/^İçişleri /, "")) + ' Full Hazırlık Paketi</h3></div>' +
     '<div class="offer-price"><b>' + escapeHtml(OFFER.price) + '</b><span>tüm içeriklere tam erişim</span></div></div>' +
-    stats +
+    stats + sampleBlockHtml(roleId) +
     '<div class="offer-cols">' + topics + '<div class="offer-block"><h4>Pakette neler var?</h4><ul class="offer-list">' + OFFER.features.map(f => '<li>' + escapeHtml(f) + '</li>').join("") + '</ul></div></div>' +
     '<div class="offer-cta"><a class="btn btn-buy" href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' + escapeHtml(ctaLabel || "Paketi İncele") + '</a></div></div></div>';
 }
