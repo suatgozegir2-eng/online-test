@@ -177,7 +177,7 @@ body{background:var(--bg)}
 <div id="landingTop">
 <header class="site-head"><div class="wrap">
   <a class="site-brand" href="https://adaletsenakademi.com" target="_blank" rel="noopener"><span class="seal" role="img" aria-label="AdaletSen Akademi logosu"></span><span><strong>AdaletSen Akademi</strong><small>İçişleri Bakanlığı · Görevde Yükselme</small></span></a>
-  <a class="site-link" href="https://www.shopier.com/adaletsenakademi" target="_blank" rel="noopener">Paketleri Gör</a>
+  <span style="display:flex;gap:8px;align-items:center"><a class="site-link" href="#resultsCard" id="hdrResults">Sonuçlarımı Gör</a><a class="site-link" href="https://www.shopier.com/adaletsenakademi" target="_blank" rel="noopener">Paketleri Gör</a></span>
 </div></header>
 <section class="hero"><div class="wrap">
   <span class="hero-pill">Ücretsiz · Her Pazartesi yeni sınav</span>
@@ -232,8 +232,33 @@ body{background:var(--bg)}
         <div class="summary" id="summaryBox">Unvanını seçerek başla.</div>
         <div class="start-wrap">
           <button class="btn btn-purple" id="startBtn" type="button">Sınavı Başlat</button>
+          <button class="btn btn-out" id="showResultsBtn" type="button" style="margin-top:10px">Sonuçlarımı Gör</button>
         </div>
         <div class="free-note">Deneme sınavları ücretsizdir. Sonuçlar Türkiye geneli sıralamaya otomatik eklenir.</div>
+      </div>
+    </section>
+
+
+    <section class="choice-box exam-entry" id="resultsCard" style="display:none;margin-top:16px">
+      <div class="entry-head">
+        <div>
+          <h2>Sonuçlarımı Gör</h2>
+          <p>Sınava girerken yazdığın ad, soyad ve unvanı gir. Puanını, Türkiye sıralamanı ve sınava katılan kişi sayısını görürsün.</p>
+        </div>
+      </div>
+      <div class="form-area show">
+        <div class="form-grid">
+          <div class="field"><label for="resRole">Unvan</label><select id="resRole"></select></div>
+          <div class="field"><label for="resWeek">Sınav</label><select id="resWeek"></select></div>
+        </div>
+        <div class="candidate-area show">
+          <div class="candidate-grid">
+            <div class="field"><label for="resFirst">Ad</label><input id="resFirst" type="text" autocomplete="given-name" placeholder="Sınavda yazdığın ad"></div>
+            <div class="field"><label for="resLast">Soyad</label><input id="resLast" type="text" autocomplete="family-name" placeholder="Sınavda yazdığın soyad"></div>
+          </div>
+        </div>
+        <div class="start-wrap"><button class="btn btn-purple" id="lookupBtn" type="button">Sonucumu Getir</button></div>
+        <div class="free-note" style="background:var(--bg2);border-color:var(--line);color:var(--muted)">Adı ve soyadı sınavda yazdığın şekilde gir. Sıralama, sonucun kaydedildiği andan itibaren güncel katılımcı sayısına göre hesaplanır.</div>
       </div>
     </section>
 
@@ -1536,6 +1561,69 @@ function renderResultPromoSection(record){
 selectedMinistry = "icisleri";
 fillRoles("icisleri");
 renderLandingOffer();
+
+
+// ============ Sonuçlarımı Gör (ad + soyad + unvan + sınav) ============
+function fillResultsForm(){
+  const rr = document.getElementById('resRole'), rw = document.getElementById('resWeek');
+  if(!rr || !rw) return;
+  const keepRole = rr.value || roleSelect.value;
+  rr.innerHTML = CONFIG.icisleri.roles.map(r => '<option value="' + r.id + '">' + escapeHtml(r.label) + '</option>').join("");
+  if(keepRole) rr.value = keepRole;
+  const keepWeek = rw.value || String(CURRENT_WEEK);
+  let w = '';
+  for(let i = CURRENT_WEEK; i >= 1; i--) w += '<option value="' + i + '">' + i + '. Hafta Deneme Sınavı</option>';
+  rw.innerHTML = w; rw.value = keepWeek;
+}
+function toggleResultsCard(show){
+  const card = document.getElementById('resultsCard');
+  if(!card) return;
+  const open = show === undefined ? card.style.display === "none" : show;
+  card.style.display = open ? "" : "none";
+  if(open){
+    fillResultsForm();
+    if(!document.getElementById('resFirst').value) document.getElementById('resFirst').value = firstName.value;
+    if(!document.getElementById('resLast').value) document.getElementById('resLast').value = lastName.value;
+    card.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+}
+async function lookupMyResult(){
+  const rr = document.getElementById('resRole'), rw = document.getElementById('resWeek');
+  const f = document.getElementById('resFirst').value.trim(), l = document.getElementById('resLast').value.trim();
+  if(!f || !l){ alert('Lütfen sınavda yazdığın ad ve soyadı gir.'); return; }
+  const roleCfg = EXAM_CONFIG[rr.value];
+  const payload = {
+    ministry: "icisleri", ministryLabel: CONFIG.icisleri.label,
+    role: rr.value, roleLabel: roleCfg ? roleCfg.label : rr.options[rr.selectedIndex].textContent,
+    week: rw.value, weekLabel: rw.value + ". Hafta Deneme Sınavı",
+    firstName: f, lastName: l, phone: '', fullName: (f + ' ' + l).trim()
+  };
+  const btn = document.getElementById('lookupBtn');
+  btn.classList.add('loading'); btn.textContent = "Sonuç aranıyor...";
+  try {
+    let local = null;
+    try { const raw = localStorage.getItem(resultKey(payload)); if(raw) local = JSON.parse(raw); } catch(e) {}
+    let cloud = null;
+    try { cloud = await fetchResultFromCloud(payload); } catch(e) {}
+    if(cloud && cloud.ok && (cloud.result || cloud.rank || cloud.rankTurkey || cloud.participantCount)){
+      const record = normalizeCloudResult(cloud, local ? {...local, ...payload} : payload);
+      if(!(local && Array.isArray(local.reviewQuestions) && local.reviewQuestions.length)){
+        record.reviewNotice = '<div class="review-head"><div><h3>Sınav Çözüm Kâğıdı</h3><p>Soru ve cevap detayları yalnızca sınavı çözdüğünüz cihazda saklanır. Puanınız, Türkiye sıralamanız ve katılımcı sayısı güncel olarak yukarıda görüntülenir.</p></div></div>';
+      }
+      renderResult(record);
+      return;
+    }
+    if(local){ renderResult(local); return; }
+    alert("Bu ad, soyad ve sınav için kayıtlı sonuç bulunamadı. Ad ve soyadı sınavda yazdığın şekilde, doğru unvan ve haftayı seçerek tekrar dene.");
+  } finally {
+    btn.classList.remove('loading'); btn.textContent = "Sonucumu Getir";
+  }
+}
+document.getElementById('showResultsBtn').addEventListener('click', () => toggleResultsCard());
+document.getElementById('hdrResults').addEventListener('click', e => { e.preventDefault(); toggleResultsCard(true); });
+document.getElementById('lookupBtn').addEventListener('click', lookupMyResult);
+['resFirst','resLast'].forEach(id => document.getElementById(id).addEventListener('keydown', e => { if(e.key === "Enter") lookupMyResult(); }));
+window.addEventListener('load', fillResultsForm);
 
 roleSelect.addEventListener('change', () => { updateSummary(); renderLandingOffer(); });
 weekSelect.addEventListener('change', updateSummary);
