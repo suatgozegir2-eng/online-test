@@ -176,13 +176,10 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
               <option value="">Önce kurum seçiniz</option>
             </select>
           </div>
-          <div class="field">
-            <label for="weekSelect">Hafta seç</label>
+          <div class="field" style="display:none">
+            <label for="weekSelect">Hafta</label>
             <select id="weekSelect">
               <option value="1">1. Hafta Deneme Sınavı</option>
-              <option value="2">2. Hafta Deneme Sınavı</option>
-              <option value="3">3. Hafta Deneme Sınavı</option>
-              <option value="4">4. Hafta Deneme Sınavı</option>
             </select>
           </div>
           <div class="start-wrap">
@@ -295,138 +292,117 @@ const EXAM_CONFIG = {
     "ministry": "icisleri",
     "label": "İçişleri Şube Müdürü",
     "dataUrl": EXAM_DATA_BASE + "icisleri_sube_mudurlugu.json",
-    "week1": {"duration": 80, "total": 80},
-    "week2": {"duration": 80, "total": 80},
-    "week3": {"duration": 80, "total": 80},
-    "week4": {"duration": 80, "total": 80}
+    "total": 80,
+    "duration": 80
   },
   "icisleri_ilce_yazi_isleri_mudurlugu": {
     "ministry": "icisleri",
     "label": "İçişleri İlçe Yazı İşleri Müdürü",
     "dataUrl": EXAM_DATA_BASE + "icisleri_ilce_yazi_isleri_mudurlugu.json",
-    "week1": {"duration": 80, "total": 80},
-    "week2": {"duration": 80, "total": 80},
-    "week3": {"duration": 80, "total": 80},
-    "week4": {"duration": 80, "total": 80}
+    "total": 80,
+    "duration": 80
   },
   "icisleri_ilce_nufus_mudurlugu": {
     "ministry": "icisleri",
     "label": "İçişleri İlçe Nüfus Müdürü",
     "dataUrl": EXAM_DATA_BASE + "icisleri_ilce_nufus_mudurlugu.json",
-    "week1": {"duration": 80, "total": 80},
-    "week2": {"duration": 80, "total": 80},
-    "week3": {"duration": 80, "total": 80},
-    "week4": {"duration": 80, "total": 80}
+    "total": 80,
+    "duration": 80
   },
   "icisleri_uzman": {
     "ministry": "icisleri",
     "label": "İçişleri Uzman",
     "dataUrl": EXAM_DATA_BASE + "icisleri_uzman.json",
-    "week1": {"duration": 80, "total": 80},
-    "week2": {"duration": 80, "total": 80},
-    "week3": {"duration": 80, "total": 80},
-    "week4": {"duration": 80, "total": 80}
+    "total": 80,
+    "duration": 80
   },
   "icisleri_seflik": {
     "ministry": "icisleri",
     "label": "İçişleri Şef",
     "dataUrl": EXAM_DATA_BASE + "icisleri_seflik.json",
-    "week1": {"duration": 80, "total": 80},
-    "week2": {"duration": 80, "total": 80},
-    "week3": {"duration": 80, "total": 80},
-    "week4": {"duration": 80, "total": 80}
+    "total": 80,
+    "duration": 80
   },
   "icisleri_vhki": {
     "ministry": "icisleri",
     "label": "İçişleri Veri Hazırlama ve Kontrol İşletmeni",
     "dataUrl": EXAM_DATA_BASE + "icisleri_vhki.json",
-    "week1": {"duration": 80, "total": 80},
-    "week2": {"duration": 80, "total": 80},
-    "week3": {"duration": 80, "total": 80},
-    "week4": {"duration": 80, "total": 80}
+    "total": 80,
+    "duration": 80
   },
   "icislericagrikarsilama": {
     "ministry": "icisleri",
     "label": "İçişleri Çağrı Karşılama Memuru",
     "dataUrl": EXAM_DATA_BASE + "icislericagrikarsilama.json",
-    "week1": {"duration": 80, "total": 80},
-    "week2": {"duration": 80, "total": 80},
-    "week3": {"duration": 80, "total": 80},
-    "week4": {"duration": 80, "total": 80}
+    "total": 80,
+    "duration": 80
   },
   "icisleriavukat": {
     "ministry": "icisleri",
     "label": "İçişleri Avukat",
     "dataUrl": EXAM_DATA_BASE + "icisleriavukat.json",
-    "week1": {"duration": 70, "total": 70},
-    "week2": {"duration": 70, "total": 70},
-    "week3": {"duration": 70, "total": 70},
-    "week4": {"duration": 70, "total": 70}
+    "total": 70,
+    "duration": 70
   },
   "icisleribilgisayarmuhendisligi": {
     "ministry": "icisleri",
     "label": "İçişleri Bilgisayar Mühendisi",
     "dataUrl": EXAM_DATA_BASE + "icisleribilgisayarmuhendisligi.json",
-    "week1": {"duration": 70, "total": 70},
-    "week2": {"duration": 70, "total": 70},
-    "week3": {"duration": 70, "total": 70},
-    "week4": {"duration": 70, "total": 70}
+    "total": 70,
+    "duration": 70
   },
   "icisleri_elektrik_elektronik_muhendisligi": {
     "ministry": "icisleri",
     "label": "İçişleri Elektrik-Elektronik Mühendisi",
     "dataUrl": EXAM_DATA_BASE + "icisleri_elektrik_elektronik_muhendisligi.json",
-    "week1": {"duration": 70, "total": 70},
-    "week2": {"duration": 70, "total": 70},
-    "week3": {"duration": 70, "total": 70},
-    "week4": {"duration": 70, "total": 70}
+    "total": 70,
+    "duration": 70
   },
   "icisleri_insaat_muhendisligi": {
     "ministry": "icisleri",
     "label": "İçişleri İnşaat Mühendisi",
     "dataUrl": EXAM_DATA_BASE + "icisleri_insaat_muhendisligi.json",
-    "week1": {"duration": 70, "total": 70},
-    "week2": {"duration": 70, "total": 70},
-    "week3": {"duration": 70, "total": 70},
-    "week4": {"duration": 70, "total": 70}
+    "total": 70,
+    "duration": 70
   },
   "icislerimimarlik": {
     "ministry": "icisleri",
     "label": "İçişleri Mimar",
     "dataUrl": EXAM_DATA_BASE + "icislerimimarlik.json",
-    "week1": {"duration": 70, "total": 70},
-    "week2": {"duration": 70, "total": 70},
-    "week3": {"duration": 70, "total": 70},
-    "week4": {"duration": 70, "total": 70}
+    "total": 70,
+    "duration": 70
   },
   "icisleriprogramci": {
     "ministry": "icisleri",
     "label": "İçişleri Programcı",
     "dataUrl": EXAM_DATA_BASE + "icisleriprogramci.json",
-    "week1": {"duration": 70, "total": 70},
-    "week2": {"duration": 70, "total": 70},
-    "week3": {"duration": 70, "total": 70},
-    "week4": {"duration": 70, "total": 70}
+    "total": 70,
+    "duration": 70
   },
   "icisleri_tekniker": {
     "ministry": "icisleri",
     "label": "İçişleri Tekniker",
     "dataUrl": EXAM_DATA_BASE + "icisleri_tekniker.json",
-    "week1": {"duration": 70, "total": 70},
-    "week2": {"duration": 70, "total": 70},
-    "week3": {"duration": 70, "total": 70},
-    "week4": {"duration": 70, "total": 70}
+    "total": 70,
+    "duration": 70
   },
   "icisleri_teknisyen": {
     "ministry": "icisleri",
     "label": "İçişleri Teknisyen",
     "dataUrl": EXAM_DATA_BASE + "icisleri_teknisyen.json",
-    "week1": {"duration": 70, "total": 70},
-    "week2": {"duration": 70, "total": 70},
-    "week3": {"duration": 70, "total": 70},
-    "week4": {"duration": 70, "total": 70}
+    "total": 70,
+    "duration": 70
   }
 };
+
+// Yayındaki haftanın bilgisi data/index.json içinden okunur (her Pazartesi build_exams.py ile güncellenir).
+let CURRENT_WEEK = 1;
+function applyCurrentWeek(){
+  weekSelect.innerHTML = '<option value="' + CURRENT_WEEK + '">' + CURRENT_WEEK + '. Hafta Deneme Sınavı</option>';
+  weekSelect.value = String(CURRENT_WEEK);
+  updateSummary();
+}
+fetch(EXAM_DATA_BASE + "index.json", {cache:"no-store"}).then(r => r.json()).then(j => { if(j && j.week){ CURRENT_WEEK = Number(j.week); applyCurrentWeek(); } }).catch(() => {});
 
 
 
@@ -834,52 +810,7 @@ function questionUniqueKey(q){
 // Seçilen haftadan önceki haftaların setlerini aynı sabit seçim düzeniyle yeniden
 // üretir ve kullanılan soru kimliklerini dışarıda bırakır. Böylece farklı haftalar
 // yalnızca farklı sıralanmaz; aynı soru hiçbir biçimde yeniden seçilemez.
-function pickDistinctWeekQuestions(allQuestions, roleCfg, ministryId, roleId, weekNo){
-  const previousKeys = new Set();
-  const requestedWeek = Math.max(1, Number(weekNo) || 1);
-  const originalSeedContext = selectionSeedContext;
-
-  for(let currentWeek = 1; currentWeek <= requestedWeek; currentWeek++){
-    const cfg = roleCfg["week" + currentWeek];
-    if(!cfg || !cfg.distribution) continue;
-    selectionSeedContext = [ministryId, roleId, "week" + currentWeek].join("|");
-    const available = allQuestions.filter(q => !previousKeys.has(questionUniqueKey(q)));
-    const picked = pickByDistribution(available, cfg.distribution, cfg.total);
-    if(currentWeek === requestedWeek){
-      selectionSeedContext = originalSeedContext;
-      return picked;
-    }
-    picked.selected.forEach(q => previousKeys.add(questionUniqueKey(q)));
-  }
-
-  selectionSeedContext = originalSeedContext;
-  return {selected:[], warnings:["Seçilen hafta için sınav yapılandırması bulunamadı."]};
-}
-
-function baseWeekOptionLabel(weekNo){
-  return weekNo + ". Hafta Deneme Sınavı";
-}
-function updateWeekAvailability(){
-  const roleId = roleSelect.value;
-  const roleCfg = EXAM_CONFIG[roleId] || null;
-  Array.from(weekSelect.options).forEach(opt => {
-    const weekNo = Number(opt.value);
-    if(!weekNo) return;
-    let enabled = weekNo <= 2;
-    if(roleId && roleCfg){
-      enabled = !!roleCfg["week" + weekNo];
-    }else{
-      enabled = weekNo === 1;
-    }
-    opt.disabled = !enabled;
-    opt.textContent = baseWeekOptionLabel(weekNo) + (enabled ? "" : " — yakında");
-  });
-  const selectedOpt = weekSelect.options[weekSelect.selectedIndex];
-  if(selectedOpt && selectedOpt.disabled){
-    const firstEnabled = Array.from(weekSelect.options).find(o => !o.disabled);
-    if(firstEnabled) weekSelect.value = firstEnabled.value;
-  }
-}
+function updateWeekAvailability(){}
 function fillRoles(ministryId){
   const data = CONFIG[ministryId];
   roleSelect.innerHTML = '<option value="">Unvan seçiniz</option>';
@@ -889,7 +820,6 @@ function fillRoles(ministryId){
     opt.textContent = role.label;
     roleSelect.appendChild(opt);
   });
-  weekSelect.value = '1';
   updateWeekAvailability();
   updateSummary();
 }
@@ -935,7 +865,7 @@ function updateSummary(){
     return;
   }
   const summaryRoleCfg = EXAM_CONFIG[roleSelect.value] || {};
-  const cfg = summaryRoleCfg["week" + weekSelect.value] || summaryRoleCfg.week1;
+  const cfg = summaryRoleCfg.total ? summaryRoleCfg : null;
   let count = cfg ? " · " + cfg.total + " soru / " + cfg.duration + " dakika" : "";
   summaryBox.innerHTML = '<b>' + modeLabel + '</b> · <b>' + ministryLabel + '</b> · <b>' + roleLabel + '</b> · ' + weekLabel + count;
 }
@@ -1569,17 +1499,21 @@ function renderResultPromoSection(record){
 
 async function startExam(){
   const payload = currentPayload();
-  selectionSeedContext = [payload.ministry, payload.role, "week" + payload.week].join("|");
   const roleCfg = EXAM_CONFIG[payload.role];
   if(!roleCfg || !roleCfg.dataUrl){ alert("Bu sınav için yapılandırma bulunamadı."); return; }
 
   startBtn.classList.add('loading');
   startBtn.textContent = "Sorular yükleniyor...";
   try {
-    const cfg = roleCfg["week" + payload.week];
-    if(!cfg){ alert("Bu unvan için seçilen hafta henüz aktif değil."); return; }
+    const cfg = roleCfg;
     const data = await loadJson(roleCfg.dataUrl);
-    const weekQuestions = ((data.weeks || {})[payload.week] || []).filter(q => getQuestionText(q) && getQuestionOptions(q).length >= 2);
+    if(data.week && String(data.week) !== String(payload.week)){
+      CURRENT_WEEK = Number(data.week);
+      applyCurrentWeek();
+      payload.week = String(data.week);
+      payload.weekLabel = data.week + ". Hafta Deneme Sınavı";
+    }
+    const weekQuestions = (data.questions || []).filter(q => getQuestionText(q) && getQuestionOptions(q).length >= 2);
     if(weekQuestions.length < cfg.total){
       alert("Sınav soruları eksik. Bulunan soru: " + weekQuestions.length + " / " + cfg.total);
       return;

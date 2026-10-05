@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 """İçişleri soru masterından (sorularicislerixx.json) unvan başına haftalık deneme sınavı dosyaları üretir.
 
-Kullanım: python3 tools/build_exams.py <master.json> [çıktı_klasörü=data] [hafta_sayısı=4]
+Kullanım: python3 tools/build_exams.py <master.json> <hafta_no> [çıktı_klasörü=data]
+
+Her Pazartesi yayınlanacak sınav için: hafta_no'yu 1 artırıp çalıştırın, data/ klasörünü yükleyin.
+Çıktı yalnızca o haftanın sınavıdır (data/<unvan>.json + data/index.json).
 
 - Her unvanın resmî konu dağılımı (profiles.<id>.officialQuestionCounts) birebir uygulanır.
-- Her hafta kendi içinde ve haftalar arasında tekrar eden soru çıkmaz (havuz yetiyorsa).
+- Hafta N sınavı havuzun N. diliminden seçilir; önceki haftalarla aynı soru çıkmaz (havuz yetiyorsa).
 - Seçim sabit tohumla yapılır: aynı master -> aynı sınav (sıralama herkes için aynı kalır).
 - Soru bankası eksik konusu olan unvanlar atlanır (tam sınav kurulamaz).
 """
 import json, random, sys, os, hashlib
 
-master, out, weeks = sys.argv[1], (sys.argv[2] if len(sys.argv) > 2 else "data"), int(sys.argv[3]) if len(sys.argv) > 3 else 4
+master, week, out = sys.argv[1], int(sys.argv[2]), (sys.argv[3] if len(sys.argv) > 3 else "data")
 d = json.load(open(master, encoding="utf-8"))
 os.makedirs(out, exist_ok=True)
 KEEP = ("id", "topicId", "topic", "altKonu", "text", "options", "answer", "solution", "visual", "optionVisuals")
@@ -24,28 +27,25 @@ topic_name = {t["id"]: t["name"] for t in d["topics"]}
 index = []
 for pid, prof in d["profiles"].items():
     counts = prof["officialQuestionCounts"]
-    short = [t for t, n in counts.items() if len(by.get((pid, t), [])) < n * weeks]
+    short = [t for t, n in counts.items() if len(by.get((pid, t), [])) < n * week]
     empty = [t for t, n in counts.items() if not by.get((pid, t))]
     if empty:
         print("ATLANDI (eksik soru bankası):", pid, len(empty), "konu")
         continue
-    wk = {str(w): [] for w in range(1, weeks + 1)}
+    qs = []
     for t, n in counts.items():
         pool = sorted(by[(pid, t)], key=lambda q: q["id"])
         random.Random(hashlib.sha256(f"{pid}|{t}".encode()).hexdigest()).shuffle(pool)
-        for w in range(1, weeks + 1):
-            # hafta w: havuzun w. dilimi; havuz yetmezse başa sararak devam eder
-            pick = [pool[((w - 1) * n + i) % len(pool)] for i in range(n)]
-            for q in pick:
-                o = {k: q[k] for k in KEEP if k in q}
-                o["topic"] = topic_name.get(t, q.get("topic", ""))
-                wk[str(w)].append(o)
+        # hafta N: havuzun N. dilimi; havuz yetmezse başa sararak devam eder
+        for i in range(n):
+            q = pool[((week - 1) * n + i) % len(pool)]
+            o = {k: q[k] for k in KEEP if k in q}
+            o["topic"] = topic_name.get(t, q.get("topic", ""))
+            qs.append(o)
     total = prof["officialTotalQuestions"]
-    assert all(len(v) == total for v in wk.values()), pid
-    for w, qs in wk.items():
-        assert len({q["id"] for q in qs}) == len(qs), (pid, w)
-    json.dump({"profile": pid, "name": prof["name"], "duration": total, "total": total, "weeks": wk},
+    assert len(qs) == total and len({q["id"] for q in qs}) == total, pid
+    json.dump({"profile": pid, "name": prof["name"], "week": week, "duration": total, "total": total, "questions": qs},
               open(os.path.join(out, pid + ".json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-    index.append({"id": pid, "name": prof["name"], "total": total, "weeks": weeks, "overlap": short})
-    print("OK", pid, total, "soru x", weeks, "hafta", "(tekrar var: %s)" % short if short else "")
-json.dump(index, open(os.path.join(out, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    index.append({"id": pid, "name": prof["name"], "total": total, "duration": total, "overlap": short})
+    print("OK", pid, total, "soru,", str(week) + ". hafta", "(tekrar var: %s)" % short if short else "")
+json.dump({"week": week, "profiles": index}, open(os.path.join(out, "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
