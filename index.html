@@ -111,73 +111,71 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
 /* ============ Sınav bitişi iki paketli tanıtım overlay ============ */
 
 .q-visual{margin:12px 0;text-align:center}.q-chart{width:100%;max-width:640px;height:auto;background:#fff;border:1px solid var(--line);border-radius:12px}.q-opt-visual{margin-top:8px}.q-opt-visual svg{width:100%;max-width:420px;height:auto;border:1px solid var(--line);border-radius:10px}
-/* ===== Yeni giriş sayfası + paket tanıtımı ===== */
-.site-head{background:#fff;border-bottom:1px solid var(--line)}.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.site-brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.08rem;letter-spacing:-.01em}
-.logo-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--purple),#6d28d9);color:#fff;display:grid;place-items:center;font-weight:900}
-.site-link{font-weight:800;font-size:.92rem;color:var(--purple-d)}.site-link:hover{text-decoration:underline}
-.hero{background:radial-gradient(1000px 420px at 85% -10%,rgba(164,53,240,.55),transparent 60%),linear-gradient(135deg,#17122b,#2d1b69 62%,#4c1d95);color:#fff;padding:40px 0 92px}
-.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 14px;font-weight:800;font-size:.8rem;letter-spacing:.06em}
-.hero-pill i{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 4px rgba(74,222,128,.25)}
-.hero h1{font-size:clamp(1.75rem,5vw,2.8rem);line-height:1.12;font-weight:900;letter-spacing:-.025em;margin:16px 0 10px;max-width:760px}
-.hero p{font-size:1.08rem;color:rgba(255,255,255,.82);max-width:640px;font-weight:600}
-.hero-points{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.hero-points li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px 13px;font-weight:800;font-size:.9rem}.hero-points li:before{content:"✓";color:#4ade80;margin-right:7px}
-.main{padding:0 0 12px}.landing-pull{margin-top:-62px;position:relative}
-.entry-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;padding:22px 22px 0}
-.entry-head h2{font-size:1.45rem;font-weight:900;letter-spacing:-.015em}.entry-head p{color:var(--muted);font-weight:600;margin-top:3px}
-.week-badge{background:var(--purple-l);color:var(--purple-d);border-radius:12px;padding:8px 14px;font-weight:900;text-align:center;line-height:1.25}.week-badge small{display:block;font-weight:700;color:#6b21a8;font-size:.76rem}
-.exam-entry .form-area{display:block;border-top:0;background:#fff;padding:18px 22px 22px}
+/* ===== Giriş sayfası + paket tanıtımı (sade, kurumsal) ===== */
+.site-head{background:#fff;border-bottom:3px solid var(--purple)}.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px;padding-top:8px;padding-bottom:8px}
+.site-brand{display:flex;align-items:center;min-width:0}.site-brand img{height:44px;width:auto;max-width:100%;object-fit:contain;display:block}.site-brand span{font-weight:900;font-size:1.1rem}
+.site-link{font-weight:800;font-size:.92rem;color:var(--purple-d);white-space:nowrap}.site-link:hover{text-decoration:underline}
+.hero{background:var(--bg2);border-bottom:1px solid var(--line);padding:30px 0 26px}
+.hero-pill{display:inline-block;color:var(--purple-d);font-weight:800;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase}
+.hero h1{font-size:clamp(1.5rem,4vw,2.1rem);line-height:1.2;font-weight:900;letter-spacing:-.015em;margin:6px 0 8px}
+.hero p{font-size:1.02rem;color:var(--muted);max-width:680px;font-weight:600}
+.hero-points{list-style:none;display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:14px}.hero-points li{font-weight:700;font-size:.92rem}.hero-points li:before{content:"✓";color:var(--green);margin-right:6px;font-weight:900}
+.main{padding:22px 0 12px}
+.entry-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;padding:20px 22px 0}
+.entry-head h2{font-size:1.3rem;font-weight:900}.entry-head p{color:var(--muted);font-weight:600;margin-top:3px;font-size:.95rem}
+.week-badge{border:1px solid var(--line2);border-radius:var(--r);padding:7px 12px;font-weight:800;text-align:center;line-height:1.25;background:var(--bg2)}.week-badge small{display:block;font-weight:600;color:var(--muted);font-size:.78rem}
+.exam-entry .form-area{display:block;border-top:0;background:#fff;padding:16px 22px 22px}
 .exam-entry .form-grid{grid-template-columns:1fr}.exam-entry .candidate-area{display:block;margin-top:14px;border-top:0;padding-top:0}
-.exam-entry .start-wrap{margin-top:16px}.exam-entry .start-wrap .btn{width:100%;min-height:54px;font-size:1.08rem}
-.free-note{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:.88rem;font-weight:700;color:#166534;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 12px}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:22px 0}
-.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.step b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--purple);color:#fff;margin-bottom:9px}.step h4{font-weight:900}.step p{color:var(--muted);font-size:.9rem;font-weight:600}
-.section-title{font-size:1.4rem;font-weight:900;letter-spacing:-.015em;margin:28px 0 4px}.section-sub{color:var(--muted);font-weight:600;margin-bottom:14px}
-.offer-card{position:relative;border:2px solid #c084fc;border-radius:20px;background:linear-gradient(180deg,#fff,#faf5ff);box-shadow:0 14px 36px rgba(124,58,237,.14);overflow:hidden}
-.offer-ribbon{background:linear-gradient(90deg,#7e22ce,#a435f0);color:#fff;font-weight:900;font-size:.76rem;letter-spacing:.12em;padding:8px 18px}
-.offer-body{padding:18px 20px 20px;display:grid;gap:16px}
-.offer-top{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-.offer-img{width:76px;height:76px;border-radius:16px;object-fit:cover;background:#fff;border:1px solid #e9d5ff}.offer-ph{width:76px;height:76px;border-radius:16px;background:linear-gradient(135deg,#7e22ce,#a435f0);color:#fff;display:grid;place-items:center;font-weight:900;text-align:center;font-size:.62rem;line-height:1.15;padding:4px}
-.offer-title{flex:1;min-width:200px}.offer-eyebrow{font-size:.74rem;letter-spacing:.12em;font-weight:900;color:#7e22ce;text-transform:uppercase}.offer-title h3{font-size:1.28rem;line-height:1.2;font-weight:900;margin-top:2px}
-.offer-price{text-align:right}.offer-price b{display:block;font-size:2rem;line-height:1;font-weight:900;color:#6b21a8}.offer-price span{font-size:.8rem;color:var(--muted);font-weight:700}
-.offer-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}.offer-stat{background:#fff;border:1px solid #e9d5ff;border-radius:12px;padding:10px;text-align:center}.offer-stat b{display:block;font-size:1.3rem;font-weight:900;color:#6b21a8}.offer-stat span{font-size:.78rem;font-weight:700;color:var(--muted)}
-.offer-cols{display:grid;grid-template-columns:1.1fr 1fr;gap:14px}@media(max-width:760px){.offer-cols{grid-template-columns:1fr}.offer-price{text-align:left}}
-.offer-block{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.offer-block h4{font-size:.95rem;font-weight:900;margin-bottom:10px}
-.topic-row{margin-bottom:9px}.topic-row div{display:flex;justify-content:space-between;gap:10px;font-size:.84rem;font-weight:700}.topic-row em{font-style:normal;color:#6b21a8;white-space:nowrap}.topic-bar{height:6px;border-radius:99px;background:#f3e8ff;margin-top:4px;overflow:hidden}.topic-bar i{display:block;height:100%;background:linear-gradient(90deg,#a435f0,#7e22ce);border-radius:99px}
-.offer-list{list-style:none;display:grid;gap:8px}.offer-list li{display:flex;gap:8px;font-size:.88rem;font-weight:700;color:#374151}.offer-list li:before{content:"✓";color:#15803d;font-weight:900}
-.offer-cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.offer-cta .btn{flex:1;min-width:200px;min-height:52px;font-size:1.02rem}.offer-guar{font-size:.8rem;color:var(--muted);font-weight:700;flex-basis:100%}
-.btn-buy{background:linear-gradient(135deg,#a435f0,#7e22ce);color:#fff;box-shadow:0 8px 20px rgba(124,58,237,.3)}.btn-buy:hover{filter:brightness(1.06)}
-.offer-generic{border:1.5px dashed #c084fc;border-radius:18px;background:#faf5ff;padding:20px}
-.community{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:26px 0;border-radius:18px;padding:20px 22px;background:linear-gradient(135deg,#052e16,#14532d);color:#fff}
-.community b{font-size:1.15rem;font-weight:900;display:block}.community span{color:rgba(255,255,255,.82);font-weight:600;font-size:.93rem}
-.btn-wa{background:#25D366;color:#073b1d}.btn-wa:hover{filter:brightness(1.05)}
-.offer-overlay{position:fixed;inset:0;z-index:9999;background:rgba(15,10,30,.72);backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;padding:18px;overflow:auto}.offer-overlay.show{display:flex}
-.offer-modal{position:relative;width:min(860px,100%);background:#fff;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.4);margin:auto}
-.offer-modal-top{padding:22px 24px 6px}.offer-modal-top h2{font-size:1.5rem;font-weight:900;letter-spacing:-.02em;line-height:1.2}.offer-modal-top p{color:var(--muted);font-weight:600;margin-top:6px}
-.offer-modal .offer-card{margin:14px 20px 0;box-shadow:none}.offer-modal-bottom{padding:14px 20px 20px;text-align:center}
-.offer-x{position:absolute;right:14px;top:14px;width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid var(--line);font-size:1.3rem;line-height:1}
-.score-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.score-strip span{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-weight:800;font-size:.9rem}
-.result-offer{margin-top:26px}
-@media(max-width:640px){.hero{padding:28px 0 80px}.entry-head,.exam-entry .form-area{padding-left:16px;padding-right:16px}.offer-body{padding:16px}.offer-modal-top{padding:20px 18px 4px}.offer-modal .offer-card{margin:12px 12px 0}.offer-price b{font-size:1.7rem}}
+.exam-entry .start-wrap{margin-top:16px}.exam-entry .start-wrap .btn{width:100%;min-height:50px}
+.free-note{margin-top:12px;font-size:.88rem;font-weight:600;color:var(--muted);text-align:center}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:18px 0}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 16px}.step b{color:var(--purple-d);font-size:.85rem;display:block;margin-bottom:4px}.step h4{font-weight:800}.step p{color:var(--muted);font-size:.9rem;font-weight:600}
+.section-title{font-size:1.25rem;font-weight:900;margin:26px 0 4px}.section-sub{color:var(--muted);font-weight:600;margin-bottom:12px;font-size:.95rem}
+.offer-card{border:1px solid var(--line2);border-top:3px solid var(--purple);border-radius:var(--r-lg);background:#fff;overflow:hidden}
+.offer-ribbon{background:var(--bg2);color:var(--purple-d);font-weight:800;font-size:.76rem;letter-spacing:.08em;padding:8px 18px;border-bottom:1px solid var(--line)}
+.offer-body{padding:16px 18px 18px;display:grid;gap:14px}
+.offer-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.offer-img{width:64px;height:64px;border-radius:var(--r);object-fit:cover;background:#fff;border:1px solid var(--line)}.offer-ph{width:64px;height:64px;border-radius:var(--r);background:var(--purple);color:#fff;display:grid;place-items:center;font-weight:900;text-align:center;font-size:.6rem;line-height:1.15;padding:4px}
+.offer-title{flex:1;min-width:200px}.offer-eyebrow{font-size:.74rem;letter-spacing:.08em;font-weight:800;color:var(--muted);text-transform:uppercase}.offer-title h3{font-size:1.15rem;line-height:1.25;font-weight:900;margin-top:2px}
+.offer-price{text-align:right}.offer-price b{display:block;font-size:1.7rem;line-height:1;font-weight:900;color:var(--purple-d)}.offer-price span{font-size:.78rem;color:var(--muted);font-weight:600}
+.offer-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}.offer-stat{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:9px;text-align:center}.offer-stat b{display:block;font-size:1.15rem;font-weight:900}.offer-stat span{font-size:.76rem;font-weight:600;color:var(--muted)}
+.offer-cols{display:grid;grid-template-columns:1.1fr 1fr;gap:12px}@media(max-width:760px){.offer-cols{grid-template-columns:1fr}.offer-price{text-align:left}}
+.offer-block{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}.offer-block h4{font-size:.92rem;font-weight:800;margin-bottom:9px}
+.topic-row{margin-bottom:8px}.topic-row div{display:flex;justify-content:space-between;gap:10px;font-size:.84rem;font-weight:600}.topic-row em{font-style:normal;color:var(--muted);white-space:nowrap}.topic-bar{height:4px;border-radius:99px;background:var(--bg3);margin-top:3px;overflow:hidden}.topic-bar i{display:block;height:100%;background:var(--purple)}
+.offer-list{list-style:none;display:grid;gap:7px}.offer-list li{display:flex;gap:8px;font-size:.88rem;font-weight:600;color:#374151}.offer-list li:before{content:"✓";color:var(--green);font-weight:900}
+.offer-cta{display:flex;gap:10px;flex-wrap:wrap}.offer-cta .btn{flex:1;min-width:200px;min-height:48px}
+.btn-buy{background:var(--purple);color:#fff}.btn-buy:hover{background:var(--purple-d)}
+.offer-generic{border:1px solid var(--line2);border-radius:var(--r-lg);background:var(--bg2);padding:18px}
+.community{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:22px 0;border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;background:var(--bg2)}
+.community b{font-size:1.02rem;font-weight:800;display:block}.community span{color:var(--muted);font-weight:600;font-size:.92rem}
+.btn-wa{background:#25D366;color:#073b1d}.btn-wa:hover{filter:brightness(.97)}
+.offer-overlay{position:fixed;inset:0;z-index:9999;background:rgba(17,24,39,.65);display:none;align-items:flex-start;justify-content:center;padding:16px;overflow:auto}.offer-overlay.show{display:flex}
+.offer-modal{position:relative;width:min(820px,100%);background:#fff;border-radius:var(--r-lg);box-shadow:0 20px 60px rgba(0,0,0,.35);margin:auto}
+.offer-modal-top{padding:20px 22px 4px;padding-right:56px}.offer-modal-top h2{font-size:1.3rem;font-weight:900;line-height:1.25}.offer-modal-top p{color:var(--muted);font-weight:600;margin-top:5px;font-size:.95rem}
+.offer-modal .offer-card{margin:12px 20px 0}.offer-modal-bottom{padding:14px 20px 20px;text-align:center}.offer-modal-bottom .btn{min-width:240px}
+.offer-x{position:absolute;right:12px;top:12px;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--line);font-size:1.25rem;line-height:1}
+.score-strip{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.score-strip span{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:5px 11px;font-weight:700;font-size:.88rem}
+.result-offer{margin-top:24px}
+@media(max-width:640px){.hero{padding:22px 0 20px}.entry-head,.exam-entry .form-area{padding-left:16px;padding-right:16px}.offer-body{padding:14px}.offer-modal .offer-card{margin:12px 12px 0}.site-brand img{height:38px}.site-link{font-size:.82rem}}
 </style>
 </head>
 <body>
 <div id="landingTop">
 <header class="site-head"><div class="wrap">
-  <a class="site-brand" href="https://adaletsenakademi.com" target="_blank" rel="noopener"><span class="logo-mark">A</span>AdaletSen Akademi</a>
-  <a class="site-link" href="https://adaletsenakademi.com/#courses" target="_blank" rel="noopener">Tüm hazırlık paketleri →</a>
+  <a class="site-brand" href="https://adaletsenakademi.com" target="_blank" rel="noopener"><img src="https://i.hizliresim.com/n013xrj.png" alt="AdaletSen Akademi" onerror="this.outerHTML='<span>AdaletSen Akademi</span>'"></a>
+  <a class="site-link" href="https://www.shopier.com/adaletsenakademi" target="_blank" rel="noopener">Paketleri Gör →</a>
 </div></header>
 <section class="hero"><div class="wrap">
-  <span class="hero-pill"><i></i>ÜCRETSİZ · HER PAZARTESİ YENİ SINAV</span>
+  <span class="hero-pill">Ücretsiz · Her Pazartesi yeni sınav</span>
   <h1>İçişleri Bakanlığı Haftalık Deneme Sınavı</h1>
-  <p>Resmî sınav dağılımına göre hazırlanan denemeyi çöz, Türkiye geneli sıralamandaki yerini gör, çözümlü cevap kâğıdınla eksiklerini kapat.</p>
-  <ul class="hero-points"><li>Tamamen ücretsiz</li><li>Türkiye sıralaması</li><li>Çözümlü cevap kâğıdı</li><li>Her hafta yeni sorular</li></ul>
+  <p>Resmî sınav dağılımına göre hazırlanan denemeyi çöz, Türkiye geneli sıralamandaki yerini gör ve çözümlü cevap kâğıdınla eksiklerini belirle.</p>
+  <ul class="hero-points"><li>Ücretsiz</li><li>Türkiye geneli sıralama</li><li>Çözümlü cevap kâğıdı</li><li>Her hafta yeni sorular</li></ul>
 </div></section>
 </div>
 <main class="main" id="secim">
   <div class="wrap">
     <div id="landingWrap">
-    <section class="choice-box exam-entry landing-pull">
+    <section class="choice-box exam-entry">
       <div class="entry-head">
         <div>
           <h2>Bu haftanın sınavına katıl</h2>
@@ -216,15 +214,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
         <div class="start-wrap">
           <button class="btn btn-purple" id="startBtn" type="button">Sınavı Başlat</button>
         </div>
-        <div class="free-note">🎁 Deneme sınavları ücretsizdir. Sonuçlar Türkiye geneli sıralamaya otomatik eklenir.</div>
+        <div class="free-note">Deneme sınavları ücretsizdir. Sonuçlar Türkiye geneli sıralamaya otomatik eklenir.</div>
       </div>
     </section>
 
     <div class="steps">
-      <div class="step"><b>1</b><h4>Unvanını seç</h4><p>Sınav, seçtiğin unvanın resmî konu dağılımına göre hazırlanır.</p></div>
-      <div class="step"><b>2</b><h4>Denemeyi çöz</h4><p>Gerçek sınav süresinde, soru sayısı ve konu ağırlığı resmî dağılıma uygun.</p></div>
-      <div class="step"><b>3</b><h4>Sıralamanı gör</h4><p>Puanını, doğru/yanlış analizini ve Türkiye sıralamanı anında öğren.</p></div>
-      <div class="step"><b>4</b><h4>Eksiklerini kapat</h4><p>Çözümlü cevap kâğıdını incele, unvanına özel hazırlık paketiyle devam et.</p></div>
+      <div class="step"><b>ADIM 1</b><h4>Unvanını seç</h4><p>Sınav, seçtiğin unvanın resmî konu dağılımına göre hazırlanır.</p></div>
+      <div class="step"><b>ADIM 2</b><h4>Denemeyi çöz</h4><p>Gerçek sınav süresinde, soru sayısı ve konu ağırlığı resmî dağılıma uygun.</p></div>
+      <div class="step"><b>ADIM 3</b><h4>Sıralamanı gör</h4><p>Puanını, doğru/yanlış analizini ve Türkiye sıralamanı anında öğren.</p></div>
+      <div class="step"><b>ADIM 4</b><h4>Eksiklerini kapat</h4><p>Çözümlü cevap kâğıdını incele, unvanına özel hazırlık paketiyle devam et.</p></div>
     </div>
 
     <h2 class="section-title">Sınavı geçmek için hazırlığını tamamla</h2>
@@ -232,7 +230,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
     <div id="landingOffer"></div>
 
     <div class="community">
-      <div><b>Yeni sınavdan ilk sen haberdar ol</b><span>Her Pazartesi yayınlanan denemeler ve duyurular akademi WhatsApp grubunda.</span></div>
+      <div><b>Yeni sınavlardan haberdar ol</b><span>Her Pazartesi yayınlanan denemeler ve duyurular akademi WhatsApp grubunda.</span></div>
       <a class="btn btn-wa" href="https://chat.whatsapp.com/G4jxcQtr8t60o45vRBBhPp" target="_blank" rel="noopener">WhatsApp Grubuna Katıl</a>
     </div>
     </div>
@@ -1357,7 +1355,7 @@ function renderResult(record){
 // ============ Paket tanıtımı (sınav ücretsiz; amaç unvana özel paketi satmak) ============
 const OFFER = {
   price: "990 TL",
-  siteUrl: "https://adaletsenakademi.com/#courses",
+  siteUrl: "https://www.shopier.com/adaletsenakademi",
   features: [
     "Mevzuattan Çalış — konu konu sınırsız çalışma",
     "Sınırsız test çözümü ve çıkmış sorular",
@@ -1447,8 +1445,8 @@ function renderLandingOffer(){
   const holder = document.getElementById('landingOffer');
   if(!holder) return;
   const roleId = roleSelect.value;
-  if(roleId && EXAM_CONFIG[roleId]){ holder.innerHTML = offerCardHtml(roleId, "Paketi İncele ve Satın Al"); return; }
-  holder.innerHTML = '<div class="offer-generic"><b style="font-size:1.1rem">Unvanını seç, paketini gör</b><p style="color:var(--muted);font-weight:600;margin:6px 0 14px">Seçtiğin unvana ait soru sayısı, konu dağılımı ve paket içeriği burada görünür.</p><ul class="offer-list">' + OFFER.features.map(f => '<li>' + escapeHtml(f) + '</li>').join("") + '</ul><div class="offer-cta" style="margin-top:14px"><a class="btn btn-buy" href="' + OFFER.siteUrl + '" target="_blank" rel="noopener">Tüm Paketleri Gör</a></div></div>';
+  if(roleId && EXAM_CONFIG[roleId]){ holder.innerHTML = offerCardHtml(roleId, "Paketi İncele"); return; }
+  holder.innerHTML = '<div class="offer-generic"><b style="font-size:1.1rem">Unvanını seç, paketini gör</b><p style="color:var(--muted);font-weight:600;margin:6px 0 14px">Seçtiğin unvana ait soru sayısı, konu dağılımı ve paket içeriği burada görünür.</p><ul class="offer-list">' + OFFER.features.map(f => '<li>' + escapeHtml(f) + '</li>').join("") + '</ul><div class="offer-cta" style="margin-top:14px"><a class="btn btn-buy" href="' + OFFER.siteUrl + '" target="_blank" rel="noopener">Paketleri Gör</a></div></div>';
 }
 
 function fmtDay(d){ return d.toLocaleDateString("tr-TR", {day:"numeric", month:"long", timeZone:"Europe/Istanbul"}); }
@@ -1465,9 +1463,9 @@ function showFinishPromoOverlay(record){
   const ov = document.createElement('div');
   ov.className = 'offer-overlay show'; ov.id = 'finishOfferOverlay';
   ov.innerHTML = '<div class="offer-modal"><button type="button" class="offer-x" aria-label="Kapat">×</button>' +
-    '<div class="offer-modal-top"><h2>Sınavı tamamladın, tebrikler! 🎉</h2><p>Sonucun hazır. Eksiklerini kapatmak için unvanına özel hazırlık paketine göz at.</p>' +
-    '<div class="score-strip"><span>✅ ' + (record.correct || 0) + ' doğru</span><span>❌ ' + (record.wrong || 0) + ' yanlış</span><span>⬜ ' + (record.blank || 0) + ' boş</span><span>⭐ ' + record.score + ' puan</span></div></div>' +
-    offerCardHtml(record.role, "Paketi İncele ve Satın Al") +
+    '<div class="offer-modal-top"><h2>Sınavı tamamladın</h2><p>Sonucun hazır. Eksiklerini kapatmak için unvanına özel hazırlık paketine göz atabilirsin.</p>' +
+    '<div class="score-strip"><span>' + (record.correct || 0) + ' doğru</span><span>' + (record.wrong || 0) + ' yanlış</span><span>' + (record.blank || 0) + ' boş</span><span>Puan: ' + record.score + '</span></div></div>' +
+    offerCardHtml(record.role, "Paketi İncele") +
     '<div class="offer-modal-bottom"><button type="button" class="btn btn-out" id="finishOfferClose">Sonucumu ve Sıralamamı Gör</button></div></div>';
   document.body.appendChild(ov);
   const close = () => ov.remove();
@@ -1476,10 +1474,26 @@ function showFinishPromoOverlay(record){
   ov.addEventListener('click', e => { if(e.target === ov) close(); });
 }
 
+function showStartPromoOverlay(payload, onContinue){
+  const old = document.getElementById('startOfferOverlay'); if(old) old.remove();
+  const ov = document.createElement('div');
+  ov.className = 'offer-overlay show'; ov.id = 'startOfferOverlay';
+  ov.innerHTML = '<div class="offer-modal"><button type="button" class="offer-x" aria-label="Kapat ve sınava başla">×</button>' +
+    '<div class="offer-modal-top"><h2>Sınav ücretsiz — hazırlığını paketle destekle</h2><p>Sınavına başlamadan önce ' + escapeHtml(payload.roleLabel) + ' için hazırlanan paketi inceleyebilirsin. Pencereyi kapatınca sınav başlar.</p></div>' +
+    offerCardHtml(payload.role, "Paketi İncele") +
+    '<div class="offer-modal-bottom"><button type="button" class="btn btn-purple" id="startOfferGo">Kapat ve Sınava Başla</button></div></div>';
+  document.body.appendChild(ov);
+  let done = false;
+  const go = () => { if(done) return; done = true; ov.remove(); onContinue(); };
+  ov.querySelector('.offer-x').addEventListener('click', go);
+  ov.querySelector('#startOfferGo').addEventListener('click', go);
+  ov.addEventListener('click', e => { if(e.target === ov) go(); });
+}
+
 function renderResultPromoSection(record){
   const holder = document.getElementById('resultPromoSection');
   if(!holder) return;
-  holder.innerHTML = '<div class="result-offer"><h2 class="section-title" style="margin-top:0">Hazırlığını bir üst seviyeye taşı</h2><p class="section-sub">Haftalık deneme ücretsiz; unvanına özel paketle tüm konuları sistemli çalış.</p>' + offerCardHtml(record.role, "Paketi İncele ve Satın Al") +
+  holder.innerHTML = '<div class="result-offer"><h2 class="section-title" style="margin-top:0">Hazırlığını bir üst seviyeye taşı</h2><p class="section-sub">Haftalık deneme ücretsiz; unvanına özel paketle tüm konuları sistemli çalış.</p>' + offerCardHtml(record.role, "Paketi İncele") +
     '<div class="community" style="margin-bottom:0"><div><b>Gelecek haftanın sınavı Pazartesi yayında</b><span>Duyurular ve yeni sınavlar akademi WhatsApp grubunda.</span></div><a class="btn btn-wa" href="https://chat.whatsapp.com/G4jxcQtr8t60o45vRBBhPp" target="_blank" rel="noopener">WhatsApp Grubuna Katıl</a></div></div>';
 }
 
@@ -1495,7 +1509,7 @@ lastName.addEventListener('input', updateSummary);
 
 startBtn.addEventListener('click', () => {
   if(!validateBase()) return;
-  startExam();
+  showStartPromoOverlay(currentPayload(), () => startExam());
 });
 
 document.getElementById('finishExamBtn').addEventListener('click', () => finishExam(false));
