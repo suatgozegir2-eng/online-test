@@ -139,6 +139,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
 @media(max-width:980px){.final-promo-grid{grid-template-columns:1fr}.final-course-layout{grid-template-columns:1fr 1fr}.final-module-detail-grid{grid-template-columns:1fr 1fr}.final-course-stats{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:640px){.final-promo-overlay{padding:10px}.final-promo-modal{border-radius:20px}.final-promo-grid{grid-template-columns:1fr;padding:14px}.final-promo-top{padding:18px 16px 13px}.final-promo-desc{font-size:.92rem}.final-plan{padding:16px;border-radius:18px}.final-plan.full:before{font-size:.56rem;right:-42px}.final-price b{font-size:1.75rem}.final-plan-actions .btn{width:100%;min-width:0}.final-promo-bottom{padding:0 14px 16px}.final-result-btn{width:100%}.final-course-hero{grid-template-columns:1fr;padding-right:34px}.final-course-img{height:118px}.final-course-layout{grid-template-columns:1fr}.final-course-stats{grid-template-columns:repeat(2,1fr)}.final-module-detail-grid{grid-template-columns:1fr}.final-topic-list,.final-module-list{max-height:none}}
 
+.q-visual{margin:12px 0;text-align:center}.q-chart{width:100%;max-width:640px;height:auto;background:#fff;border:1px solid var(--line);border-radius:12px}.q-opt-visual{margin-top:8px}.q-opt-visual svg{width:100%;max-width:420px;height:auto;border:1px solid var(--line);border-radius:10px}
 </style>
 </head>
 <body>
@@ -180,8 +181,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:28px 0;margin-t
             <select id="weekSelect">
               <option value="1">1. Hafta Deneme Sınavı</option>
               <option value="2">2. Hafta Deneme Sınavı</option>
-              <option value="3" disabled>3. Hafta Deneme Sınavı — yakında</option>
-              <option value="4" disabled>4. Hafta Deneme Sınavı — yakında</option>
+              <option value="3">3. Hafta Deneme Sınavı</option>
+              <option value="4">4. Hafta Deneme Sınavı</option>
             </select>
           </div>
           <div class="start-wrap">
@@ -264,401 +265,170 @@ const CONFIG = {
   icisleri: {
     label: "İçişleri Bakanlığı",
     roles: [
-      { id:"icisleri-seflik", label:"İçişleri Şeflik" },
-      { id:"icisleri-vhki", label:"İçişleri VHKİ" },
-      { id:"icisleri-uzmanlik", label:"İçişleri Uzmanlık" },
-      { id:"icisleri-sube-mudurlugu", label:"İçişleri Şube Müdürlüğü" },
-      { id:"ilce-nufus-mudurlugu", label:"İlçe Nüfus Müdürlüğü" },
-      { id:"ilce-yazi-isleri-mudurlugu", label:"İlçe Yazı İşleri Müdürlüğü" },
-      { id:"icisleri-bilgisayar-muhendisligi", label:"İçişleri Bilgisayar Mühendisliği" },
-      { id:"icisleri-elektrik-elektronik-muhendisligi", label:"İçişleri Elektrik-Elektronik Mühendisliği" },
-      { id:"icisleri-insaat-muhendisligi", label:"İçişleri İnşaat Mühendisliği" },
-      { id:"icisleri-tekniker-teknisyen", label:"İçişleri Tekniker-Teknisyen" },
-      { id:"icisleri-programci", label:"İçişleri Programcı" },
-      { id:"icisleri-sosyolog", label:"İçişleri Sosyolog" }
+      { id:"icisleri_sube_mudurlugu", label:"İçişleri Şube Müdürü" },
+      { id:"icisleri_ilce_yazi_isleri_mudurlugu", label:"İçişleri İlçe Yazı İşleri Müdürü" },
+      { id:"icisleri_ilce_nufus_mudurlugu", label:"İçişleri İlçe Nüfus Müdürü" },
+      { id:"icisleri_uzman", label:"İçişleri Uzman" },
+      { id:"icisleri_seflik", label:"İçişleri Şef" },
+      { id:"icisleri_vhki", label:"İçişleri Veri Hazırlama ve Kontrol İşletmeni" },
+      { id:"icislericagrikarsilama", label:"İçişleri Çağrı Karşılama Memuru" },
+      { id:"icisleriavukat", label:"İçişleri Avukat" },
+      { id:"icisleribilgisayarmuhendisligi", label:"İçişleri Bilgisayar Mühendisi" },
+      { id:"icisleri_elektrik_elektronik_muhendisligi", label:"İçişleri Elektrik-Elektronik Mühendisi" },
+      { id:"icisleri_insaat_muhendisligi", label:"İçişleri İnşaat Mühendisi" },
+      { id:"icislerimimarlik", label:"İçişleri Mimar" },
+      { id:"icisleriprogramci", label:"İçişleri Programcı" },
+      { id:"icisleri_tekniker", label:"İçişleri Tekniker" },
+      { id:"icisleri_teknisyen", label:"İçişleri Teknisyen" }
     ]
   }
 };
 
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxCu24DivrUTT9qrnWpYD9TQSlIkt4QmRd4-cOjslcAEBOowAJTTTWinxjKqjmOTwH5/exec";
 
+// Hazır haftalık denemeler (tools/build_exams.py ile sorularicislerixx.json masterından üretilir).
+// Dosyalar başka bir yere taşınırsa yalnızca bu adresi değiştirmek yeterlidir.
+const EXAM_DATA_BASE = "data/";
+
 const EXAM_CONFIG = {
-  "icisleri-seflik": {
+  "icisleri_sube_mudurlugu": {
     "ministry": "icisleri",
-    "label": "İçişleri Şeflik",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/06/icisleriseflik.json",
-    "week1": {
-      "duration": 80,
-      "total": 80,
-      "distribution": {
-        "TÜRKÇE VE DİL BİLGİSİ": 5,
-        "ATATÜRK İLKELERİ VE İNKILAP TARİHİ": 5,
-        "1982 TÜRKİYE CUMHURİYETİ ANAYASASI": 5,
-        "657 SAYILI DEVLET MEMURLARI KANUNU": 15,
-        "1 SAYILI CUMHURBAŞKANLIĞI TEŞKİLATI HAKKINDA CUMHURBAŞKANLIĞI KARARNAMESİ (İÇİŞLERİ BAKANLIĞI)": 3,
-        "4982 SAYILI BİLGİ EDİNME HAKKI KANUNU": 4,
-        "3071 SAYILI DİLEKÇE HAKKININ KULLANILMASINA DAİR KANUN": 3,
-        "7315 SAYILI GÜVENLİK SORUŞTURMASI VE ARŞİV ARAŞTIRMASI KANUNU": 2,
-        "DEVLET MEMURLARI DİSİPLİN YÖNETMELİĞİ": 3,
-        "İÇİŞLERİ BAKANLIĞI DİSİPLİN AMİRLERİ YÖNETMELİĞİ": 3,
-        "RESMİ YAZIŞMALARDA UYGULANACAK USUL VE ESASLAR HAKKINDA YÖNETMELİK": 10,
-        "VALİLİK VE KAYMAKAMLIK BİRİMLERİ TEŞKİLAT, GÖREV VE ÇALIŞMA YÖNETMELİĞİ": 5,
-        "MAL BİLDİRİMİNDE BULUNULMASI HAKKINDA YÖNETMELİK": 5,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ ATAMA VE YER DEĞİŞTİRME YÖNETMELİĞİ-YENİ": 6,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ GÖREVDE YÜKSELME VE UNVAN DEĞİŞİKLİĞİ YÖNETMELİĞİ-YENİ": 6
-      }
-    }
+    "label": "İçişleri Şube Müdürü",
+    "dataUrl": EXAM_DATA_BASE + "icisleri_sube_mudurlugu.json",
+    "week1": {"duration": 80, "total": 80},
+    "week2": {"duration": 80, "total": 80},
+    "week3": {"duration": 80, "total": 80},
+    "week4": {"duration": 80, "total": 80}
   },
-  "icisleri-vhki": {
+  "icisleri_ilce_yazi_isleri_mudurlugu": {
     "ministry": "icisleri",
-    "label": "İçişleri VHKİ",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/06/icislerivhki.json",
-    "week1": {
-      "duration": 80,
-      "total": 80,
-      "distribution": {
-        "TÜRKÇE VE DİL BİLGİSİ": 5,
-        "1982 TÜRKİYE CUMHURİYETİ ANAYASASI": 5,
-        "ATATÜRK İLKELERİ VE İNKILAP TARİHİ": 5,
-        "657 SAYILI DEVLET MEMURLARI KANUNU": 15,
-        "1 SAYILI CUMHURBAŞKANLIĞI TEŞKİLATI HAKKINDA CUMHURBAŞKANLIĞI KARARNAMESİ (İÇİŞLERİ BAKANLIĞI)": 3,
-        "4982 SAYILI BİLGİ EDİNME HAKKI KANUNU": 4,
-        "3071 SAYILI DİLEKÇE HAKKININ KULLANILMASINA DAİR KANUN": 3,
-        "7315 SAYILI GÜVENLİK SORUŞTURMASI VE ARŞİV ARAŞTIRMASI KANUNU": 2,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ GÖREVDE YÜKSELME VE UNVAN DEĞİŞİKLİĞİ YÖNETMELİĞİ-YENİ": 7,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ ATAMA VE YER DEĞİŞTİRME YÖNETMELİĞİ-YENİ": 7,
-        "DEVLET MEMURLARI DİSİPLİN YÖNETMELİĞİ": 5,
-        "İÇİŞLERİ BAKANLIĞI DİSİPLİN AMİRLERİ YÖNETMELİĞİ": 4,
-        "MAL BİLDİRİMİNDE BULUNULMASI HAKKINDA YÖNETMELİK": 5,
-        "RESMİ YAZIŞMALARDA UYGULANACAK USUL VE ESASLAR HAKKINDA YÖNETMELİK": 10
-      }
-    }
+    "label": "İçişleri İlçe Yazı İşleri Müdürü",
+    "dataUrl": EXAM_DATA_BASE + "icisleri_ilce_yazi_isleri_mudurlugu.json",
+    "week1": {"duration": 80, "total": 80},
+    "week2": {"duration": 80, "total": 80},
+    "week3": {"duration": 80, "total": 80},
+    "week4": {"duration": 80, "total": 80}
   },
-  "icisleri-uzmanlik": {
+  "icisleri_ilce_nufus_mudurlugu": {
     "ministry": "icisleri",
-    "label": "İçişleri Uzmanlık",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/06/icisleriuzman.json",
-    "week1": {
-      "duration": 80,
-      "total": 80,
-      "distribution": {
-        "657 SAYILI DEVLET MEMURLARI KANUNU": 15,
-        "4483 SAYILI MEMURLAR VE DİĞER KAMU GÖREVLİLERİNİN YARGILANMASI HAKKINDA KANUN": 3,
-        "3628 SAYILI MAL BİLDİRİMİNDE BULUNULMASI, RÜŞVET VE YOLSUZLUKLARLA MÜCADELE KANUNU": 3,
-        "5442 SAYILI İL İDARESİ KANUNU": 5,
-        "3071 SAYILI DİLEKÇE HAKKININ KULLANILMASINA DAİR KANUN": 3,
-        "4982 SAYILI BİLGİ EDİNME HAKKI KANUNU": 3,
-        "RESMİ YAZIŞMALARDA UYGULANACAK USUL VE ESASLAR HAKKINDA YÖNETMELİK": 4,
-        "1982 TÜRKİYE CUMHURİYETİ ANAYASASI": 5,
-        "ATATÜRK İLKELERİ VE İNKILAP TARİHİ": 5,
-        "TÜRKÇE VE DİL BİLGİSİ": 5,
-        "7315 SAYILI GÜVENLİK SORUŞTURMASI VE ARŞİV ARAŞTIRMASI KANUNU": 2,
-        "DEVLET MEMURLARI DİSİPLİN YÖNETMELİĞİ": 3,
-        "VALİLİK VE KAYMAKAMLIK BİRİMLERİ TEŞKİLAT, GÖREV VE ÇALIŞMA YÖNETMELİĞİ": 3,
-        "İÇİŞLERİ BAKANLIĞI DİSİPLİN AMİRLERİ YÖNETMELİĞİ": 3,
-        "1 SAYILI CUMHURBAŞKANLIĞI TEŞKİLATI HAKKINDA CUMHURBAŞKANLIĞI KARARNAMESİ (İÇİŞLERİ BAKANLIĞI)": 3,
-        "MAL BİLDİRİMİNDE BULUNULMASI HAKKINDA YÖNETMELİK": 3,
-        "2577 SAYILI İDARİ YARGILAMA USULÜ KANUNU": 4,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ ATAMA VE YER DEĞİŞTİRME YÖNETMELİĞİ-YENİ": 4,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ GÖREVDE YÜKSELME VE UNVAN DEĞİŞİKLİĞİ YÖNETMELİĞİ-YENİ": 4
-      }
-    }
+    "label": "İçişleri İlçe Nüfus Müdürü",
+    "dataUrl": EXAM_DATA_BASE + "icisleri_ilce_nufus_mudurlugu.json",
+    "week1": {"duration": 80, "total": 80},
+    "week2": {"duration": 80, "total": 80},
+    "week3": {"duration": 80, "total": 80},
+    "week4": {"duration": 80, "total": 80}
   },
-  "icisleri-sube-mudurlugu": {
+  "icisleri_uzman": {
     "ministry": "icisleri",
-    "label": "İçişleri Şube Müdürlüğü",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/06/icislerisubemudurlugu.json",
-    "week1": {
-      "duration": 80,
-      "total": 80,
-      "distribution": {
-        "657 SAYILI DEVLET MEMURLARI KANUNU": 9,
-        "4483 SAYILI MEMURLAR VE DİĞER KAMU GÖREVLİLERİNİN YARGILANMASI HAKKINDA KANUN": 4,
-        "3628 SAYILI MAL BİLDİRİMİNDE BULUNULMASI, RÜŞVET VE YOLSUZLUKLARLA MÜCADELE KANUNU": 3,
-        "5442 SAYILI İL İDARESİ KANUNU": 4,
-        "3071 SAYILI DİLEKÇE HAKKININ KULLANILMASINA DAİR KANUN": 2,
-        "4982 SAYILI BİLGİ EDİNME HAKKI KANUNU": 3,
-        "5018 SAYILI KAMU MALİ YÖNETİMİ VE KONTROL KANUNU": 3,
-        "RESMİ YAZIŞMALARDA UYGULANACAK USUL VE ESASLAR HAKKINDA YÖNETMELİK": 4,
-        "1982 TÜRKİYE CUMHURİYETİ ANAYASASI": 4,
-        "ATATÜRK İLKELERİ VE İNKILAP TARİHİ": 4,
-        "5651 SAYILI İNTERNET ORTAMINDA YAPILAN YAYINLARIN DÜZENLENMESİ VE BU YAYINLAR YOLUYLA İŞLENEN SUÇLARLA MÜCADELE EDİLMESİ HAKKINDA KANUN": 2,
-        "TÜRKÇE VE DİL BİLGİSİ": 4,
-        "7315 SAYILI GÜVENLİK SORUŞTURMASI VE ARŞİV ARAŞTIRMASI KANUNU": 2,
-        "DEVLET MEMURLARI DİSİPLİN YÖNETMELİĞİ": 2,
-        "VALİLİK VE KAYMAKAMLIK BİRİMLERİ TEŞKİLAT, GÖREV VE ÇALIŞMA YÖNETMELİĞİ": 2,
-        "İÇİŞLERİ BAKANLIĞI DİSİPLİN AMİRLERİ YÖNETMELİĞİ": 2,
-        "1 SAYILI CUMHURBAŞKANLIĞI TEŞKİLATI HAKKINDA CUMHURBAŞKANLIĞI KARARNAMESİ (İÇİŞLERİ BAKANLIĞI)": 2,
-        "MAL BİLDİRİMİNDE BULUNULMASI HAKKINDA YÖNETMELİK": 3,
-        "2577 SAYILI İDARİ YARGILAMA USULÜ KANUNU": 3,
-        "7201 SAYILI TEBLİGAT KANUNU": 2,
-        "TELEKOMÜNİKASYON KURUMU TARAFINDAN ERİŞİM SAĞLAYICILARA VE YER SAĞLAYICILARA FAALİYET BELGESİ VERİLMESİNE İLİŞKİN USUL VE ESASLAR HAKKINDA YÖNETMELİK": 1,
-        "İNTERNET TOPLU KULLANIM SAĞLAYICILARI HAKKINDA YÖNETMELİK": 1,
-        "İNTERNET ORTAMINDA YAPILAN YAYINLARIN DÜZENLENMESİNE DAİR USUL VE ESASLAR HAKKINDA YÖNETMELİK": 1,
-        "İÇİŞLERİ BAKANLIĞI MERKEZ VE TAŞRA TEŞKİLATI ARŞİV HİZMETLERİ YÖNETMELİĞİ": 2,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ ATAMA VE YER DEĞİŞTİRME YÖNETMELİĞİ-YENİ": 3,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ GÖREVDE YÜKSELME VE UNVAN DEĞİŞİKLİĞİ YÖNETMELİĞİ-YENİ": 3,
-        "MEMURLARIN YETİŞTİRİLMELERİ VE EĞİTİMLERİ HAKKINDA GENEL YÖNETMELİK": 4
-      }
-    }
+    "label": "İçişleri Uzman",
+    "dataUrl": EXAM_DATA_BASE + "icisleri_uzman.json",
+    "week1": {"duration": 80, "total": 80},
+    "week2": {"duration": 80, "total": 80},
+    "week3": {"duration": 80, "total": 80},
+    "week4": {"duration": 80, "total": 80}
   },
-  "ilce-nufus-mudurlugu": {
+  "icisleri_seflik": {
     "ministry": "icisleri",
-    "label": "İlçe Nüfus Müdürlüğü",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/06/ilcenufusmuduru.json",
-    "week1": {
-      "duration": 80,
-      "total": 80,
-      "distribution": {
-        "657 SAYILI DEVLET MEMURLARI KANUNU": 8,
-        "4483 SAYILI MEMURLAR VE DİĞER KAMU GÖREVLİLERİNİN YARGILANMASI HAKKINDA KANUN": 3,
-        "3628 SAYILI MAL BİLDİRİMİNDE BULUNULMASI, RÜŞVET VE YOLSUZLUKLARLA MÜCADELE KANUNU": 2,
-        "5442 SAYILI İL İDARESİ KANUNU": 3,
-        "3071 SAYILI DİLEKÇE HAKKININ KULLANILMASINA DAİR KANUN": 2,
-        "4982 SAYILI BİLGİ EDİNME HAKKI KANUNU": 2,
-        "6245 SAYILI HARCIRAH KANUNU": 2,
-        "RESMİ YAZIŞMALARDA UYGULANACAK USUL VE ESASLAR HAKKINDA YÖNETMELİK": 2,
-        "1982 TÜRKİYE CUMHURİYETİ ANAYASASI": 2,
-        "ATATÜRK İLKELERİ VE İNKILAP TARİHİ": 3,
-        "5326 SAYILI KABAHATLER KANUNU": 2,
-        "5901 SAYILI TÜRK VATANDAŞLIĞI KANUNU": 2,
-        "TÜRKÇE VE DİL BİLGİSİ": 3,
-        "7315 SAYILI GÜVENLİK SORUŞTURMASI VE ARŞİV ARAŞTIRMASI KANUNU": 2,
-        "DEVLET MEMURLARI DİSİPLİN YÖNETMELİĞİ": 2,
-        "VALİLİK VE KAYMAKAMLIK BİRİMLERİ TEŞKİLAT, GÖREV VE ÇALIŞMA YÖNETMELİĞİ": 2,
-        "İÇİŞLERİ BAKANLIĞI DİSİPLİN AMİRLERİ YÖNETMELİĞİ": 2,
-        "1 SAYILI CUMHURBAŞKANLIĞI TEŞKİLATI HAKKINDA CUMHURBAŞKANLIĞI KARARNAMESİ (İÇİŞLERİ BAKANLIĞI)": 2,
-        "MAL BİLDİRİMİNDE BULUNULMASI HAKKINDA YÖNETMELİK": 2,
-        "7201 SAYILI TEBLİGAT KANUNU": 1,
-        "4722 SAYILI TÜRK MEDENİ KANUNUNUN YÜRÜRLÜĞÜ VE UYGULAMA ŞEKLİ HAKKINDA KANUN": 2,
-        "ADRES KAYIT SİSTEMİ YÖNETMELİĞİ": 2,
-        "ADRES VE NUMARALAMAYA İLİŞKİN YÖNETMELİK": 2,
-        "KİMLİK PAYLAŞIMI SİSTEMİ YÖNETMELİĞİ": 2,
-        "NÜFUS HİZMETLERİ UYGULAMA YÖNETMELİĞİ": 2,
-        "NÜFUS KÜTÜKLERİNİN YENİLENMESİNE İLİŞKİN YÖNETMELİK": 2,
-        "TÜRK MEDENİ KANUNUNUN VELAYET, VESAYET VE MİRAS HÜKÜMLERİNİN UYGULANMASINA İLİŞKİN TÜZÜK": 2,
-        "TÜRKİYE’DE OTURAN YABANCILARIN NÜFUS KAYITLARININ TUTULMASI HAKKINDA YÖNETMELİK": 2,
-        "TÜRK VATANDAŞLIĞI KANUNUNUN UYGULANMASINA İLİŞKİN YÖNETMELİK": 2,
-        "EVLENDİRME YÖNETMELİĞİ": 2,
-        "5490 SAYILI NÜFUS HİZMETLERİ KANUNU": 2,
-        "İÇİŞLERİ BAKANLIĞI MERKEZ VE TAŞRA TEŞKİLATI ARŞİV HİZMETLERİ YÖNETMELİĞİ": 1,
-        "4721 SAYILI TÜRK MEDENİ KANUNU": 2,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ ATAMA VE YER DEĞİŞTİRME YÖNETMELİĞİ-YENİ": 3,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ GÖREVDE YÜKSELME VE UNVAN DEĞİŞİKLİĞİ YÖNETMELİĞİ-YENİ": 3
-      }
-    }
+    "label": "İçişleri Şef",
+    "dataUrl": EXAM_DATA_BASE + "icisleri_seflik.json",
+    "week1": {"duration": 80, "total": 80},
+    "week2": {"duration": 80, "total": 80},
+    "week3": {"duration": 80, "total": 80},
+    "week4": {"duration": 80, "total": 80}
   },
-  "ilce-yazi-isleri-mudurlugu": {
+  "icisleri_vhki": {
     "ministry": "icisleri",
-    "label": "İlçe Yazı İşleri Müdürlüğü",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/06/ilceyaziisleri.json",
-    "week1": {
-      "duration": 80,
-      "total": 80,
-      "distribution": {
-        "657 SAYILI DEVLET MEMURLARI KANUNU": 8,
-        "4483 SAYILI MEMURLAR VE DİĞER KAMU GÖREVLİLERİNİN YARGILANMASI HAKKINDA KANUN": 3,
-        "3628 SAYILI MAL BİLDİRİMİNDE BULUNULMASI, RÜŞVET VE YOLSUZLUKLARLA MÜCADELE KANUNU": 2,
-        "5442 SAYILI İL İDARESİ KANUNU": 3,
-        "3071 SAYILI DİLEKÇE HAKKININ KULLANILMASINA DAİR KANUN": 2,
-        "4982 SAYILI BİLGİ EDİNME HAKKI KANUNU": 3,
-        "6245 SAYILI HARCIRAH KANUNU": 2,
-        "RESMİ YAZIŞMALARDA UYGULANACAK USUL VE ESASLAR HAKKINDA YÖNETMELİK": 2,
-        "1982 TÜRKİYE CUMHURİYETİ ANAYASASI": 2,
-        "ATATÜRK İLKELERİ VE İNKILAP TARİHİ": 3,
-        "5253 SAYILI DERNEKLER KANUNU": 2,
-        "5326 SAYILI KABAHATLER KANUNU": 2,
-        "5651 SAYILI İNTERNET ORTAMINDA YAPILAN YAYINLARIN DÜZENLENMESİ VE BU YAYINLAR YOLUYLA İŞLENEN SUÇLARLA MÜCADELE EDİLMESİ HAKKINDA KANUN": 1,
-        "TÜRKÇE VE DİL BİLGİSİ": 3,
-        "7315 SAYILI GÜVENLİK SORUŞTURMASI VE ARŞİV ARAŞTIRMASI KANUNU": 1,
-        "DEVLET MEMURLARI DİSİPLİN YÖNETMELİĞİ": 2,
-        "VALİLİK VE KAYMAKAMLIK BİRİMLERİ TEŞKİLAT, GÖREV VE ÇALIŞMA YÖNETMELİĞİ": 2,
-        "İÇİŞLERİ BAKANLIĞI DİSİPLİN AMİRLERİ YÖNETMELİĞİ": 2,
-        "1 SAYILI CUMHURBAŞKANLIĞI TEŞKİLATI HAKKINDA CUMHURBAŞKANLIĞI KARARNAMESİ (İÇİŞLERİ BAKANLIĞI)": 2,
-        "MAL BİLDİRİMİNDE BULUNULMASI HAKKINDA YÖNETMELİK": 2,
-        "2577 SAYILI İDARİ YARGILAMA USULÜ KANUNU": 3,
-        "7201 SAYILI TEBLİGAT KANUNU": 2,
-        "TELEKOMÜNİKASYON KURUMU TARAFINDAN ERİŞİM SAĞLAYICILARA VE YER SAĞLAYICILARA FAALİYET BELGESİ VERİLMESİNE İLİŞKİN USUL VE ESASLAR HAKKINDA YÖNETMELİK": 1,
-        "İNTERNET TOPLU KULLANIM SAĞLAYICILARI HAKKINDA YÖNETMELİK": 1,
-        "İNTERNET ORTAMINDA YAPILAN YAYINLARIN DÜZENLENMESİNE DAİR USUL VE ESASLAR HAKKINDA YÖNETMELİK": 1,
-        "İÇİŞLERİ BAKANLIĞI MERKEZ VE TAŞRA TEŞKİLATI ARŞİV HİZMETLERİ YÖNETMELİĞİ": 2,
-        "5393 SAYILI BELEDİYE KANUNU": 3,
-        "442 SAYILI KÖY KANUNU": 2,
-        "2429 SAYILI ULUSAL BAYRAM VE GENEL TATİLLER HAKKINDA KANUN": 1,
-        "2893 SAYILI TÜRK BAYRAĞI KANUNU": 1,
-        "3091 SAYILI TAŞINMAZ MAL ZİLYETLİĞİNE YAPILAN TECAVÜZLERİN ÖNLENMESİ HAKKINDA KANUN": 2,
-        "ESKİMİŞ, SOLMUŞ, YIRTILMIŞ VE KULLANILAMAYACAK DURUMA GELMİŞ BAYRAKLARIN YOK EDİLMESİ USUL VE ESASLARINI GÖSTERİR YÖNETMELİK": 1,
-        "İL VE İLÇE İNSAN HAKLARI KURULLARININ KURULUŞ, GÖREV VE ÇALIŞMA ESASLARI HAKKINDA YÖNETMELİK": 2,
-        "SINIR ANLAŞMAZLIĞI, MÜLKİ AYRILMA VE BİRLEŞME İLE KÖY KURULMASI VE KALDIRILMASI HAKKINDA YÖNETMELİK": 2,
-        "TAŞINMAZ MAL ZİLYETLİĞİNE YAPILAN TECAVÜZLERİN ÖNLENMESİ HAKKINDA KANUNUN UYGULAMA ŞEKLİ VE ESASLARINA DAİR YÖNETMELİK": 2,
-        "ULUSAL VE RESMİ BAYRAMLAR İLE MAHALLİ KURTULUŞ GÜNLERİ, ATATÜRK GÜNLERİ VE TARİHİ GÜNLERDE YAPILACAK TÖREN VE KUTLAMALAR YÖNETMELİĞİ": 1,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ ATAMA VE YER DEĞİŞTİRME YÖNETMELİĞİ-YENİ": 2,
-        "İÇİŞLERİ BAKANLIĞI PERSONELİ GÖREVDE YÜKSELME VE UNVAN DEĞİŞİKLİĞİ YÖNETMELİĞİ-YENİ": 2
-      }
-    }
+    "label": "İçişleri Veri Hazırlama ve Kontrol İşletmeni",
+    "dataUrl": EXAM_DATA_BASE + "icisleri_vhki.json",
+    "week1": {"duration": 80, "total": 80},
+    "week2": {"duration": 80, "total": 80},
+    "week3": {"duration": 80, "total": 80},
+    "week4": {"duration": 80, "total": 80}
   },
-  "icisleri-bilgisayar-muhendisligi": {
+  "icislericagrikarsilama": {
     "ministry": "icisleri",
-    "label": "İçişleri Bilgisayar Mühendisliği",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/06/icisleribilgisayarmuhendisligi.json",
-    "week1": {
-      "duration": 70,
-      "total": 70,
-      "distribution": {
-        "Türkçe Dil Bilgisi": 3,
-        "Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik": 3,
-        "Türkiye Cumhuriyeti Anayasası": 3,
-        "657 sayılı Devlet Memurları Kanunu": 7,
-        "7315 sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu": 2,
-        "Bilgisayar Ağları": 5,
-        "Programlama ve Programlama Dilleri": 8,
-        "Veri tabanı": 5,
-        "Algoritma": 5,
-        "Matematik": 5,
-        "Donanım": 5,
-        "İşletim Sistemleri": 5,
-        "Veri Yapıları": 5,
-        "Web Teknolojileri": 4,
-        "Yazılım Mühendisliği": 5
-      }
-    }
+    "label": "İçişleri Çağrı Karşılama Memuru",
+    "dataUrl": EXAM_DATA_BASE + "icislericagrikarsilama.json",
+    "week1": {"duration": 80, "total": 80},
+    "week2": {"duration": 80, "total": 80},
+    "week3": {"duration": 80, "total": 80},
+    "week4": {"duration": 80, "total": 80}
   },
-  "icisleri-elektrik-elektronik-muhendisligi": {
+  "icisleriavukat": {
     "ministry": "icisleri",
-    "label": "İçişleri Elektrik-Elektronik Mühendisliği",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/06/icisleri_elektrik_elektronik_muhendisligi.json",
-    "weeksActive": [1],
-    "week1": {
-      "duration": 70,
-      "total": 70,
-      "distribution": {
-        "Türkçe Dil Bilgisi": 3,
-        "Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik": 3,
-        "Türkiye Cumhuriyeti Anayasası": 3,
-        "657 sayılı Devlet Memurları Kanunu": 7,
-        "7315 sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu": 2,
-        "Temel Kavramlar ve Ölçme": 4,
-        "Devre Analizi": 6,
-        "Güç Sistem Analizi": 4,
-        "Enerji Üretim, İletim ve Dağıtımı": 5,
-        "Yüksek Gerilim": 4,
-        "Elektrik Makineleri": 5,
-        "Güç Elektroniği": 5,
-        "Elektromanyetik Alanlar": 5,
-        "Sinyaller ve Sistemler": 4,
-        "Elektronik Devreler": 5,
-        "Kontrol ve Otomasyon": 5
-      }
-    }
+    "label": "İçişleri Avukat",
+    "dataUrl": EXAM_DATA_BASE + "icisleriavukat.json",
+    "week1": {"duration": 70, "total": 70},
+    "week2": {"duration": 70, "total": 70},
+    "week3": {"duration": 70, "total": 70},
+    "week4": {"duration": 70, "total": 70}
   },
-  "icisleri-insaat-muhendisligi": {
+  "icisleribilgisayarmuhendisligi": {
     "ministry": "icisleri",
-    "label": "İçişleri İnşaat Mühendisliği",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/07/icisleri_insaat_muhendisligi.json",
-    "weeksActive": [1],
-    "week1": {
-      "duration": 80,
-      "total": 70,
-      "distribution": {
-        "Türkçe": 3,
-        "Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik": 3,
-        "Türkiye Cumhuriyeti Anayasası": 3,
-        "657 sayılı Devlet Memurları Kanunu": 7,
-        "7315 sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu": 2,
-        "Yapı ve Mekanik": 15,
-        "Geoteknik": 8,
-        "Hidrolik": 6,
-        "Malzeme": 6,
-        "Yapı Yönetimi Maliyet Metraj": 6,
-        "Ulaştırma": 5,
-        "Yapı teknolojileri Yapı Bilgisi": 6
-      }
-    }
+    "label": "İçişleri Bilgisayar Mühendisi",
+    "dataUrl": EXAM_DATA_BASE + "icisleribilgisayarmuhendisligi.json",
+    "week1": {"duration": 70, "total": 70},
+    "week2": {"duration": 70, "total": 70},
+    "week3": {"duration": 70, "total": 70},
+    "week4": {"duration": 70, "total": 70}
   },
-  "icisleri-tekniker-teknisyen": {
+  "icisleri_elektrik_elektronik_muhendisligi": {
     "ministry": "icisleri",
-    "label": "İçişleri Tekniker-Teknisyen",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/07/teknisyen_tekniker.json",
-    "weeksActive": [1],
-    "week1": {
-      "duration": 80,
-      "total": 70,
-      "distribution": {
-        "Türkiye Cumhuriyeti Anayasası": 15,
-        "Türkçe": 10,
-        "Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik": 5,
-        "Matematik": 18,
-        "657 sayılı Devlet Memurları Kanunu": 18,
-        "7315 sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu": 4
-      }
-    }
+    "label": "İçişleri Elektrik-Elektronik Mühendisi",
+    "dataUrl": EXAM_DATA_BASE + "icisleri_elektrik_elektronik_muhendisligi.json",
+    "week1": {"duration": 70, "total": 70},
+    "week2": {"duration": 70, "total": 70},
+    "week3": {"duration": 70, "total": 70},
+    "week4": {"duration": 70, "total": 70}
   },
-  "icisleri-programci": {
+  "icisleri_insaat_muhendisligi": {
+    "ministry": "icisleri",
+    "label": "İçişleri İnşaat Mühendisi",
+    "dataUrl": EXAM_DATA_BASE + "icisleri_insaat_muhendisligi.json",
+    "week1": {"duration": 70, "total": 70},
+    "week2": {"duration": 70, "total": 70},
+    "week3": {"duration": 70, "total": 70},
+    "week4": {"duration": 70, "total": 70}
+  },
+  "icislerimimarlik": {
+    "ministry": "icisleri",
+    "label": "İçişleri Mimar",
+    "dataUrl": EXAM_DATA_BASE + "icislerimimarlik.json",
+    "week1": {"duration": 70, "total": 70},
+    "week2": {"duration": 70, "total": 70},
+    "week3": {"duration": 70, "total": 70},
+    "week4": {"duration": 70, "total": 70}
+  },
+  "icisleriprogramci": {
     "ministry": "icisleri",
     "label": "İçişleri Programcı",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/08/PROGRAMCI_TAM_SORU_HAVUZU_2021_DILI_TEMIZ_V2.json",
-    "week1": {
-      "duration": 70,
-      "total": 70,
-      "distribution": {
-        "Türkçe Dil Bilgisi": 4,
-        "Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik": 3,
-        "Türkiye Cumhuriyeti Anayasası": 3,
-        "657 sayılı Devlet Memurları Kanunu": 10,
-        "7315 sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu": 2,
-        "Algoritma": 6,
-        "Programlama (C, C++)": 12,
-        "Donanım": 5,
-        "Veri tabanı": 5,
-        "İşletim Sistemleri": 5,
-        "Bilgisayar Ağları": 5,
-        "Ofis Yazılımları": 5,
-        "Web Teknolojileri": 5
-      }
-    }
+    "dataUrl": EXAM_DATA_BASE + "icisleriprogramci.json",
+    "week1": {"duration": 70, "total": 70},
+    "week2": {"duration": 70, "total": 70},
+    "week3": {"duration": 70, "total": 70},
+    "week4": {"duration": 70, "total": 70}
   },
-  "icisleri-sosyolog": {
+  "icisleri_tekniker": {
     "ministry": "icisleri",
-    "label": "İçişleri Sosyolog",
-    "jsonUrl": "https://adaletsenakademi.com/wp-content/uploads/2026/08/icisleri_sosyolog-1.json",
-    "week1": {
-      "duration": 70,
-      "total": 70,
-      "distribution": {
-        "Türkçe": 3,
-        "Atatürk İlkeleri ve İnkılap Tarihi / Ulusal Güvenlik": 3,
-        "Türkiye Cumhuriyeti Anayasası": 3,
-        "657 sayılı Devlet Memurları Kanunu": 9,
-        "7315 sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu": 2,
-        "Klasik Sosyoloji Kuramları": 5,
-        "Klasik Sosyologlar ve Temel Düşünceleri": 6,
-        "Çağdaş Sosyoloji Kuramları": 5,
-        "Kent Sosyolojisi": 5,
-        "Araştırma Yöntem ve Teknikleri": 5,
-        "Sosyoloji Tarihi": 6,
-        "Türk Sosyologlar": 5,
-        "Siyaset Sosyolojisi": 4,
-        "Küreselleşme ve Kültür Sosyolojisi": 5,
-        "Eğitim Sosyolojisi": 4
-      }
-    }
+    "label": "İçişleri Tekniker",
+    "dataUrl": EXAM_DATA_BASE + "icisleri_tekniker.json",
+    "week1": {"duration": 70, "total": 70},
+    "week2": {"duration": 70, "total": 70},
+    "week3": {"duration": 70, "total": 70},
+    "week4": {"duration": 70, "total": 70}
+  },
+  "icisleri_teknisyen": {
+    "ministry": "icisleri",
+    "label": "İçişleri Teknisyen",
+    "dataUrl": EXAM_DATA_BASE + "icisleri_teknisyen.json",
+    "week1": {"duration": 70, "total": 70},
+    "week2": {"duration": 70, "total": 70},
+    "week3": {"duration": 70, "total": 70},
+    "week4": {"duration": 70, "total": 70}
   }
 };
 
 
-// Haftalık sınavlar aynı resmi dağılımı korur. İçişleri Bakanlığında ilk üç,
-// diğer kurumlardaysa izin verilen ilk iki hafta yapılandırılır.
-Object.keys(EXAM_CONFIG).forEach(function(roleId){
-  const roleCfg = EXAM_CONFIG[roleId];
-  const weeksActive = Array.isArray(roleCfg && roleCfg.weeksActive) ? roleCfg.weeksActive : null;
-  const maxWeek = roleCfg && roleCfg.ministry === "icisleri" ? 3 : 2;
-  for(let weekNo = 2; weekNo <= maxWeek; weekNo++){
-    if(weeksActive && !weeksActive.includes(weekNo) && roleCfg.ministry !== "icisleri") continue;
-    if(roleCfg && roleCfg.week1 && !roleCfg["week" + weekNo]){
-      roleCfg["week" + weekNo] = JSON.parse(JSON.stringify(roleCfg.week1));
-    }
-  }
-});
 
 
 
@@ -708,15 +478,12 @@ const FINAL_PROMO_SETTINGS = {
 };
 
 const FINAL_PROMO_ROLE_PACKAGE_MAP = {
-  "icisleri-seflik":"ic-seflik",
-  "icisleri-vhki":"ic-vhki",
-  "icisleri-uzmanlik":"ic-uzman",
-  "icisleri-sube-mudurlugu":"ic-sube",
-  "ilce-nufus-mudurlugu":"ic-nufus",
-  "ilce-yazi-isleri-mudurlugu":"ic-ilceyazi",
-  "gib-gelir-uzmanligi-guy":"gib-uzman",
-  "gib-vergi-dairesi-mudur-yardimciligi":"gib-vergi",
-  "gib-vhki":"gib-vhki",
+  "icisleri_seflik":"ic-seflik",
+  "icisleri_vhki":"ic-vhki",
+  "icisleri_uzman":"ic-uzman",
+  "icisleri_sube_mudurlugu":"ic-sube",
+  "icisleri_ilce_nufus_mudurlugu":"ic-nufus",
+  "icisleri_ilce_yazi_isleri_mudurlugu":"ic-ilceyazi"
 };
 
 // Anasayfa HTML'indeki unvan bazlı paket modalı verilerinden alınmıştır: panel adı, soru sayısı, konu dağılımı, görsel ve satın alma linkleri.
@@ -843,6 +610,8 @@ function compactReviewQuestion(q){
     options: q.options || q.secenekler || q.choices || q.siklar || q["şıklar"] || q["şıkklar"] || [],
     answer: q.answer ?? q.correct ?? q.dogruCevap ?? q.cevap ?? q.correctAnswer ?? "",
     solution: q.solution || q.explanation || q.aciklama || q.açıklama || q.cozum || q.çözüm || "",
+    visual: q.visual || undefined,
+    optionVisuals: q.optionVisuals || undefined,
     sourceType: q.sourceType || "",
     evalType: q.evalType || "",
     section: q.section || "",
@@ -1206,6 +975,69 @@ function showSection(name){
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
+function visualChartSvg(v){
+  if(!v || !Array.isArray(v.labels) || !Array.isArray(v.datasets) || !v.datasets.length) return "";
+  const W = 640, H = 340, L = 56, R = 16, T = 40, B = 64;
+  const colors = ["#2563eb","#dc2626","#16a34a","#d97706","#7c3aed","#0891b2"];
+  const e = escapeHtml;
+  const title = v.title ? '<text x="' + (W/2) + '" y="22" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">' + e(v.title) + '</text>' : "";
+  let body = "";
+  if(v.type === "pie"){
+    const data = (v.datasets[0].data || []).map(Number);
+    const total = data.reduce((a,b) => a + b, 0) || 1;
+    const cx = 190, cy = 190, r = 120;
+    let ang = -Math.PI / 2;
+    data.forEach((val, i) => {
+      const a2 = ang + val / total * 2 * Math.PI;
+      const large = a2 - ang > Math.PI ? 1 : 0;
+      const p = (a) => (cx + r * Math.cos(a)).toFixed(1) + " " + (cy + r * Math.sin(a)).toFixed(1);
+      body += data.length === 1
+        ? '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + colors[0] + '"/>'
+        : '<path d="M' + cx + " " + cy + " L" + p(ang) + " A" + r + " " + r + " 0 " + large + " 1 " + p(a2) + ' Z" fill="' + colors[i % colors.length] + '" stroke="#fff" stroke-width="2"/>';
+      ang = a2;
+    });
+    body += v.labels.map((lb, i) => '<rect x="360" y="' + (90 + i * 26) + '" width="14" height="14" fill="' + colors[i % colors.length] + '"/><text x="382" y="' + (102 + i * 26) + '" font-size="14" fill="#111827">' + e(lb) + ": " + e(data[i]) + "</text>").join("");
+    return '<svg class="q-chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + e(v.title || "Grafik") + '" xmlns="http://www.w3.org/2000/svg">' + title + body + "</svg>";
+  }
+  const all = v.datasets.flatMap(d => (d.data || []).map(Number));
+  const yMin = v.yAxis && v.yAxis.min != null ? Number(v.yAxis.min) : Math.min(0, ...all);
+  let yMax = Math.max(...all);
+  const step = v.yAxis && v.yAxis.step ? Number(v.yAxis.step) : Math.max(1, Math.ceil((yMax - yMin) / 5));
+  yMax = Math.ceil(yMax / step) * step;
+  const pw = W - L - R, ph = H - T - B;
+  const y = (val) => T + ph - (val - yMin) / ((yMax - yMin) || 1) * ph;
+  for(let t = yMin; t <= yMax + 1e-9; t += step){
+    body += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(t).toFixed(1) + '" y2="' + y(t).toFixed(1) + '" stroke="#e5e7eb"/><text x="' + (L - 8) + '" y="' + (y(t) + 4).toFixed(1) + '" text-anchor="end" font-size="12" fill="#4b5563">' + t + "</text>";
+  }
+  const n = v.labels.length, gw = pw / n;
+  v.labels.forEach((lb, i) => { body += '<text x="' + (L + gw * (i + .5)).toFixed(1) + '" y="' + (T + ph + 18) + '" text-anchor="middle" font-size="12" fill="#111827">' + e(lb) + "</text>"; });
+  const k = v.datasets.length;
+  v.datasets.forEach((ds, si) => {
+    const col = colors[si % colors.length];
+    const data = (ds.data || []).map(Number);
+    if(v.type === "line"){
+      const pts = data.map((val, i) => (L + gw * (i + .5)).toFixed(1) + "," + y(val).toFixed(1));
+      body += '<polyline fill="none" stroke="' + col + '" stroke-width="3" points="' + pts.join(" ") + '"/>' + pts.map(p => '<circle cx="' + p.split(",")[0] + '" cy="' + p.split(",")[1] + '" r="4" fill="' + col + '"/>').join("");
+    }else{
+      const bw = gw * .7 / k;
+      data.forEach((val, i) => {
+        const x = L + gw * i + gw * .15 + bw * si;
+        body += '<rect x="' + x.toFixed(1) + '" y="' + y(val).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(0, y(yMin) - y(val)).toFixed(1) + '" fill="' + col + '"/>';
+      });
+    }
+  });
+  if(k > 1 || v.datasets[0].label){
+    body += v.datasets.map((ds, si) => '<rect x="' + (L + si * 120) + '" y="' + (H - 22) + '" width="12" height="12" fill="' + colors[si % colors.length] + '"/><text x="' + (L + si * 120 + 18) + '" y="' + (H - 12) + '" font-size="12" fill="#111827">' + e(ds.label || "") + "</text>").join("");
+  }
+  return '<svg class="q-chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + e(v.title || "Grafik") + '" xmlns="http://www.w3.org/2000/svg">' + title + '<line x1="' + L + '" x2="' + L + '" y1="' + T + '" y2="' + (T + ph) + '" stroke="#9ca3af"/>' + body + "</svg>";
+}
+
+function questionVisualHtml(q){ return q && q.visual ? '<div class="q-visual">' + visualChartSvg(q.visual) + '</div>' : ""; }
+function optionVisualHtml(q, oi){
+  const ov = q && q.optionVisuals && q.optionVisuals["ABCDE"[oi]];
+  return ov && ov.svg ? '<div class="q-opt-visual" role="img" aria-label="' + escapeHtml(ov.altText || "") + '">' + ov.svg + '</div>' : "";
+}
+
 function renderExam(){
   const exam = activeExam;
   document.getElementById('examTitle').textContent = exam.payload.roleLabel + " — " + exam.payload.weekLabel;
@@ -1222,12 +1054,13 @@ function renderExam(){
         <div class="qtopic">${getQuestionTopic(q) || ""}</div>
       </div>
       <div class="qtext">${getQuestionText(q)}</div>
+      ${questionVisualHtml(q)}
       <div class="options">
         ${opts.map((opt, oi) => `
           <label class="option" data-q="${idx}" data-o="${oi}">
             <input type="radio" name="q_${idx}" value="${oi}" style="margin-top:4px">
             <span class="option-letter">${"ABCDE"[oi]})</span>
-            <span>${opt}</span>
+            <span>${opt}${optionVisualHtml(q, oi)}</span>
           </label>
         `).join("")}
       </div>
@@ -1738,21 +1571,20 @@ async function startExam(){
   const payload = currentPayload();
   selectionSeedContext = [payload.ministry, payload.role, "week" + payload.week].join("|");
   const roleCfg = EXAM_CONFIG[payload.role];
-  if(!roleCfg || !roleCfg.week1){ alert("Bu sınav için yapılandırma bulunamadı."); return; }
+  if(!roleCfg || !roleCfg.dataUrl){ alert("Bu sınav için yapılandırma bulunamadı."); return; }
 
   startBtn.classList.add('loading');
   startBtn.textContent = "Sorular yükleniyor...";
   try {
     const cfg = roleCfg["week" + payload.week];
-    if(!cfg || !cfg.distribution){ alert("Bu unvan için seçilen hafta henüz aktif değil."); return; }
-    const raw = await loadJson(roleCfg.jsonUrl);
-    const all = extractQuestions(raw).map((q, i) => ({...q, __idx:i})).filter(q => getQuestionText(q) && getQuestionOptions(q).length >= 2);
-    const picked = pickDistinctWeekQuestions(all, roleCfg, payload.ministry, payload.role, payload.week);
-
-    if(picked.selected.length < cfg.total){
-      alert("Havuzda yeterli soru bulunamadı. Bulunan soru: " + picked.selected.length + " / " + cfg.total);
+    if(!cfg){ alert("Bu unvan için seçilen hafta henüz aktif değil."); return; }
+    const data = await loadJson(roleCfg.dataUrl);
+    const weekQuestions = ((data.weeks || {})[payload.week] || []).filter(q => getQuestionText(q) && getQuestionOptions(q).length >= 2);
+    if(weekQuestions.length < cfg.total){
+      alert("Sınav soruları eksik. Bulunan soru: " + weekQuestions.length + " / " + cfg.total);
       return;
     }
+    const picked = {selected: weekQuestions, warnings: []};
 
     activeExam = {
       payload,
@@ -1827,6 +1659,7 @@ function renderReview(record){
           <div class="review-topic">${escapeHtml(getQuestionTopic(q) || "")}</div>
         </div>
         <div class="review-q">${escapeHtml(getQuestionText(q))}</div>
+        ${questionVisualHtml(q)}
         <div class="review-options">
           ${opts.map((opt, oi) => {
             const cls = [
@@ -1836,7 +1669,7 @@ function renderReview(record){
               (isBlank && oi === correctIndex) ? "is-user-blank" : ""
             ].filter(Boolean).join(" ");
             const tag = oi === correctIndex ? " <b>✓ Doğru cevap</b>" : ((!isBlank && oi === userIndex) ? " <b>✕ Sizin cevabınız</b>" : "");
-            return `<div class="${cls}"><span class="review-letter">${"ABCDE"[oi]})</span><span>${escapeHtml(opt)}${tag}</span></div>`;
+            return `<div class="${cls}"><span class="review-letter">${"ABCDE"[oi]})</span><span>${escapeHtml(opt)}${tag}${optionVisualHtml(q, oi)}</span></div>`;
           }).join("")}
         </div>
         <div class="solution-box">
