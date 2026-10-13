@@ -78,7 +78,7 @@
     window.addEventListener('keydown', onKey, true); // yakalama aşaması: panelin eski tuş yutucularından bağımsız
     root.addEventListener('error', function (e) {
       var t = e.target;
-      if (t && t.tagName === 'VIDEO') fallbackDrive();
+      if (t && t.tagName === 'VIDEO') { var cur = item(); if (cur && cur.d && !state.alt) fallbackDrive(); else { var fr = $('.qv-frame'); if (fr && !fr.querySelector('.qv-novideo')) { var m = document.createElement('div'); m.className = 'qv-novideo'; m.textContent = 'Video yüklenemedi. İnternet bağlantınızı kontrol edip tekrar deneyin.'; fr.appendChild(m); } } }
     }, true);
   }
 
@@ -176,13 +176,14 @@
       '<div class="qv-crumb"><span class="qv-c-t">' + esc(t.name) + '</span><span class="qv-c-n">Video <b>' + (state.i + 1) + '</b> / ' + t.items.length + '</span></div>' +
       '<div class="qv-chips" id="qvChips" role="tablist" aria-label="Videolar"></div>' +
       '<div class="qv-split">' +
+        (!v.q ? '<section class="qv-q qv-q-lite" aria-label="Konu"><div class="qv-q-in"><div class="qv-q-meta">Matematik · konu çözüm videosu</div><div class="qv-q-text qv-q-title">' + esc(v.st) + '</div><p class="qv-hint">Videoyu izleyin. Bitince “Sonraki” ile devam edebilirsiniz.</p></div></section>' :
         '<section class="qv-q" aria-label="Soru"><div class="qv-q-in">' +
           '<div class="qv-q-meta">' + esc(v.st || '') + '</div>' +
           '<div class="qv-q-text">' + esc(v.q) + '</div>' +
           (v.n ? '<div class="qv-note">' + esc(v.n) + '</div>' : '') +
           '<div class="qv-chs" role="radiogroup" aria-label="Seçenekler">' + choices + '</div>' +
           '<div class="qv-act"><button type="button" class="qv-btn" data-a="reveal"' + (shown ? ' disabled' : '') + '>Cevabı göster</button><strong class="qv-st' + (shown ? (sel === v.a ? ' ok' : (sel == null ? '' : ' no')) : '') + '" aria-live="polite">' + status + '</strong></div>' +
-        '</div></section>' +
+        '</div></section>') +
         '<section class="qv-v" aria-label="Video çözüm">' +
           '<div class="qv-v-top"><b>Video çözüm</b><span>' + esc(v.f) + '</span></div>' +
           '<div class="qv-frame' + ((state.alt || !v.m) && v.d ? ' is-drive' : '') + '">' + playerHtml(v) + '</div>' +

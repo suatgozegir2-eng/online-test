@@ -132,6 +132,12 @@ for v in raw_videos:
         'r': {'t': rel.get('title', ''), 'd': drive_id(rel.get('url'))} if rel.get('url') else None,
         'n': v.get('sourceNote', ''),
     })
+# matematik konu videoları (soru metni yok; yalnızca video): tekniker / teknisyen "Matematik" konusu
+for k, line in enumerate(open(os.path.join(HERE, 'matematik_videolari.tsv'), encoding='utf-8').read().splitlines(), 1):
+    if not line.strip(): continue
+    title, url = line.split('\t')
+    videos.append({'id': 'MAT_VIDEO_%03d' % k, 't': 'tekniker_teknisyen_matematik', 'st': title, 'q': '', 'o': [], 'a': -1,
+                   'f': url.rsplit('/', 1)[1], 'd': '', 'm': url, 'r': None, 'n': ''})
 unknown = [v['t'] for v in videos if v['t'] not in topic_name]
 assert not unknown, unknown
 print(f'{len(videos)} video kaydı gömülecek (bağlantısız atlanan: {skipped}), 2 kayıtta ortak mp4 yerine Drive kullanılır')

@@ -180,3 +180,7 @@ html.qv-lock, html.qv-lock body { overflow: hidden !important; }
 }
 @media (max-width: 900px) and (max-height: 520px) { .qv-v { position: static; } }
 @media (prefers-reduced-motion: reduce) { .qv * { transition: none !important; } }
+
+.qv-q-title { font-size: 20px; line-height: 1.4; }
+.qv-hint { margin: 0; font-size: 13.5px; color: var(--ink-3); }
+.qv-q-lite .qv-q-in { padding-bottom: 18px; }
