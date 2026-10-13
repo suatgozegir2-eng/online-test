@@ -47,7 +47,8 @@
     $('qbSumE').textContent = ACTIVE.total;
     $('qbProg').hidden = false;
     $('qbModesNote').textContent = 'Çalışma modunu seçin.';
-    $('qbTopicsNote').textContent = 'Resmî sınavda yer alan ' + ACTIVE.topicIds.length + ' konu ve soru bankasındaki soru sayıları.';
+    $('qbTopicsNote').textContent = 'Resmî sınav konuları ve soru sayıları';
+    $('qbTopicsCount').textContent = ACTIVE.topicIds.length + ' konu';
     $('qbSrc').innerHTML = 'Kaynak: <a href="' + esc(META.announcementUrl) + '" target="_blank" rel="noopener">İçişleri Bakanlığı sınav duyurusu</a> (' + esc(META.announcementDate) + ')';
   }
   function renderVideoInfo() {
@@ -70,13 +71,7 @@
         (have ? '<b>' + nf.format(have) + '</b> soru' : '<span class="soon">Hazırlanıyor</span>') + (off ? '<span>sınavda ' + off + '</span>' : '') + '</span></li>';
     });
     list.innerHTML = rows.join('');
-    var LIM = 6, mobile = window.innerWidth <= 900;
-    if (mobile && rows.length > LIM && !TOPICS_OPEN) {
-      [].forEach.call(list.children, function (li, i) { li.hidden = i >= LIM; });
-      more.hidden = false; more.textContent = 'Tüm konuları göster (' + rows.length + ')';
-    } else {
-      more.hidden = !(mobile && rows.length > LIM); more.textContent = 'Daha az göster';
-    }
+    more.hidden = true;
     var miss = ACTIVE.topicIds.filter(function (id) { return !(ACTIVE.avail[id] || 0); });
     var gap = $('qbGap');
     if (miss.length) {
@@ -84,8 +79,13 @@
       gap.textContent = 'Bu unvanda ' + miss.length + ' konunun soru bankası henüz hazırlanıyor. Deneme oluştururken eksik konuların soruları, unvanın diğer konularından tamamlanır.';
     } else gap.hidden = true;
   }
-  $('qbMore').addEventListener('click', function () { TOPICS_OPEN = !TOPICS_OPEN; renderTopics(); });
-  window.addEventListener('resize', function () { renderTopics(); });
+  function setTopicsOpen(on, scroll) {
+    var body = $('qbTopicsBody'); body.hidden = !on;
+    $('qbTopicsToggle').setAttribute('aria-expanded', on ? 'true' : 'false');
+    $('qbTopicsSec').classList.toggle('open', on);
+    if (on && scroll) setTimeout(function () { scrollToEl($('qbTopicsSec')); }, 30);
+  }
+  $('qbTopicsToggle').addEventListener('click', function () { setTopicsOpen($('qbTopicsBody').hidden); });
 
   /* ---- ilerleme (yerel kayıt, yalnızca seçili unvanın soruları) ---- */
   function renderProgress() {
@@ -159,7 +159,7 @@
     closeDrawer(true);
     if (name === 'home') goHome();
     else if (name === 'progress') { if (!CHOSEN) return toast('Önce unvanınızı seçin.'); scrollToEl($('qbSummary')); }
-    else if (name === 'topics') { if (!CHOSEN) return toast('Önce unvanınızı seçin.'); scrollToEl($('qbTopicsSec')); }
+    else if (name === 'topics') { if (!CHOSEN) return toast('Önce unvanınızı seçin.'); setTopicsOpen(true, true); }
     else if (name === 'unvan') { focusUnvan(); }
     else if (name === 'about') aboutOpen();
   }

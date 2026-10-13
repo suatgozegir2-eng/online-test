@@ -125,10 +125,16 @@
     </section>
 
     <section class="qb-wrap qb-sec" id="qbTopicsSec" aria-labelledby="qbTopicsH">
-      <div class="qb-sec-h"><h2 id="qbTopicsH">Sorumlu olduğunuz konular</h2><p id="qbTopicsNote">Seçtiğiniz unvanın resmî sınavında yer alan konular.</p></div>
-      <div class="qb-gap" id="qbGap" hidden></div>
-      <ol class="qb-tlist" id="qbTopics"><li class="qb-empty">Unvan seçildiğinde konular burada listelenir.</li></ol>
-      <button type="button" class="qb-more" id="qbMore" hidden></button>
+      <button type="button" class="qb-acc" id="qbTopicsToggle" aria-expanded="false" aria-controls="qbTopicsBody">
+        <span class="qb-acc-t"><b id="qbTopicsH">Sorumlu olduğunuz konular</b><small id="qbTopicsNote">Seçtiğiniz unvanın resmî sınavında yer alan konular.</small></span>
+        <span class="qb-acc-n" id="qbTopicsCount"></span>
+        <svg class="qb-acc-ch" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="qb-acc-body" id="qbTopicsBody" hidden>
+        <div class="qb-gap" id="qbGap" hidden></div>
+        <ol class="qb-tlist" id="qbTopics"><li class="qb-empty">Unvan seçildiğinde konular burada listelenir.</li></ol>
+        <button type="button" class="qb-more" id="qbMore" hidden></button>
+      </div>
     </section>
   </main>
 
