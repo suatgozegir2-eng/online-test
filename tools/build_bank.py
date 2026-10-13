@@ -91,14 +91,18 @@ CONFIG_JS = r'''<script id="qb-config">
     return api;
   }
   window.QB_STORAGE_SHIM=[];
-  if(!usable('localStorage')){ try{ Object.defineProperty(window,'localStorage',{value:shim(true),configurable:true}); window.QB_STORAGE_SHIM.push('local'); }catch(e){} }
-  if(!usable('sessionStorage')){ try{ Object.defineProperty(window,'sessionStorage',{value:shim(false),configurable:true}); window.QB_STORAGE_SHIM.push('session'); }catch(e){} }
+  var HOST=null; try{ if(window.parent&&window.parent!==window&&window.parent.QB_SWITCH) HOST=window.parent; }catch(e){}
+  function hostStore(n){ try{ return HOST&&HOST[n]; }catch(e){ return null; } }
+  if(!usable('localStorage')){ try{ Object.defineProperty(window,'localStorage',{value:hostStore('__QB_LS')||shim(true),configurable:true}); window.QB_STORAGE_SHIM.push('local'); }catch(e){} }
+  if(!usable('sessionStorage')){ try{ Object.defineProperty(window,'sessionStorage',{value:hostStore('__QB_SS')||shim(false),configurable:true}); window.QB_STORAGE_SHIM.push('session'); }catch(e){} }
 
   var META=%(meta)s;
   var by={}; META.profiles.forEach(function(p){by[p.id]=p; by[p.key]=p;});
   var wanted=null;
-  try{ wanted=new URLSearchParams(location.search).get('u'); }catch(e){}
-  try{ if(!wanted){ var hm=/[#&]u=([^&]+)/.exec(location.hash); if(hm) wanted=decodeURIComponent(hm[1]); } }catch(e){}
+  // öncelik: adres parçası (yedek yolda yeni seçim) > üst belgenin ilettiği seçim > ?u > kayıtlı seçim
+  try{ var hm=/[#&]u=([^&]+)/.exec(location.hash); if(hm) wanted=decodeURIComponent(hm[1]); }catch(e){}
+  if(!wanted&&window.QB_BOOT) wanted=window.QB_BOOT;
+  try{ if(!wanted) wanted=new URLSearchParams(location.search).get('u'); }catch(e){}
   try{ if(!wanted) wanted=localStorage.getItem('qb_unvan'); }catch(e){}
   var chosen=wanted&&by[wanted]?by[wanted]:null;
   var active=chosen||META.profiles[0];
@@ -107,9 +111,11 @@ CONFIG_JS = r'''<script id="qb-config">
   window.QB_ACTIVE=active;
   window.AA_UNVAN_ID=active.id;
   window.QB_LABEL=active.key==='vhki'?'VHKİ':active.name;
+  // iframe içindeysek üst belge çerçeveyi yeniden kurar (adres/yenileme yok); tek başına açıldıysa eski yol
   window.QB_SET_UNVAN=function(id){
-    var p=by[id]; var key=p?p.key:id;
     try{ localStorage.setItem('qb_unvan',id); }catch(e){}
+    if(HOST){ try{ HOST.QB_SWITCH(id); return; }catch(e){} }
+    var p=by[id]; var key=p?p.key:id;
     try{ location.hash='u='+encodeURIComponent(key); }catch(e){}
     location.reload();
   };
@@ -265,6 +271,13 @@ for sid in DEAD_SCRIPTS:
     if n == 0: print('UYARI: betik bulunamadı ->', sid)
 report['işlevsiz betik kaldırıldı'] = removed
 
+# bu üründe işlevsiz dış bağımlılıklar: pdf.js (Mevzuat PDF görüntüleyici) ve oyun merkezi liderlik tablosu (WordPress'e bağlanır)
+html, n1 = re.subn(r'<script src="https://cdnjs\.cloudflare\.com/ajax/libs/pdf\.js/[^"]*"></script>\s*', '', html, count=1)
+html, n2 = re.subn(r'<script>\s*\(function\(\)\{\s*var W=\{cdnjs:.*?</script>\s*', '', html, count=1, flags=re.S)
+html, n3 = re.subn(r'<script>\(\(\)=>\{\s*const names=\{all:\'Genel Türkiye Sıralaması\'.*?</script>\s*', '', html, count=1, flags=re.S)
+report['pdf.js + liderlik tablosu kaldırıldı'] = (n1, n2, n3)
+if (n1, n2, n3) != (1, 1, 1): print('UYARI: dış bağımlılık yamaları tam uygulanmadı', (n1, n2, n3))
+
 # izleme betiğini çıkar (yeni ürün)
 html, n = re.subn(r'<script>\s*window\.GA4_MEASUREMENT_ID.*?</script>', '', html, count=1, flags=re.S)
 report['GA4 çıkarıldı'] = n
@@ -290,6 +303,17 @@ idx = html.rindex('</body>')
 FAST_JS = '<script id="qb-fast-fetch">\n/* Panelin veri yönlendiricisi (aa-master-data-router) her açılışta tüm soruyu tekrar süzüp JSON\'a çevirir.\n   Dilim zaten unvana göre hazır olduğundan, soru isteğini yönlendiriciden önce karşılar; sıralama bilgisini aynen yayınlar. */\n(function(){\n  \'use strict\';\n  var routerFetch=window.fetch;\n  function normName(v){\n    return String(v||\'\').replace(/İ/g,\'i\').replace(/I/g,\'i\').toLocaleLowerCase(\'tr\').normalize(\'NFD\').replace(/[̀-ͯ]/g,\'\')\n      .replace(/ğ/g,\'g\').replace(/ü/g,\'u\').replace(/ş/g,\'s\').replace(/ı/g,\'i\').replace(/ö/g,\'o\').replace(/ç/g,\'c\').replace(/[^a-z0-9]+/g,\' \').replace(/\\s+/g,\' \').trim();\n  }\n  function publishOrder(P){\n    var labels=P.topicIds.map(function(id){return window.QB_META.topicNames[id];});\n    window.AA_MASTER_TOPIC_ORDER_IDS=P.topicIds.slice();\n    window.AA_MASTER_TOPIC_ORDER=labels;\n    window.AA_MASTER_TOPIC_ORDER_SOURCE=\'question\';\n    var rank={}; labels.forEach(function(l,i){rank[normName(l)]=i;});\n    window.AA_SORT_TOPIC_LABELS=function(inp){\n      return (Array.isArray(inp)?inp.slice():[]).sort(function(a,b){\n        var ra=rank[normName(a)], rb=rank[normName(b)];\n        if(ra===undefined&&rb===undefined) return 0; if(ra===undefined) return 1; if(rb===undefined) return -1; return ra-rb;\n      });\n    };\n    window.AA_SORT_TOPICS=window.AA_SORT_TOPIC_LABELS;\n  }\n  window.fetch=async function(input,init){\n    var u=typeof input===\'string\'?input:(input&&input.url)||\'\';\n    if(/sorularicislerixx\\.json$/.test(u.split(\'#\')[0].split(\'?\')[0])){\n      var m=await window.QB_SLICE(), P=window.QB_ACTIVE;\n      publishOrder(P);\n      window.AA_MASTER_LAST_QUESTION_STATS={profile:P.id,total:m.questions.length,filtered:m.questions.length};\n      return window.QB_JSON(m.questions);\n    }\n    return routerFetch.apply(this,arguments);\n  };\n})();\n</script>\n'
 html = html[:idx] + FAST_JS + '<script id="qb-bank" type="application/x-qb-gzip-base64">' + b64 + '</script>\n<script id="qb-shell-js">\n' + shell_js + '\n</script>\n' + html[idx:]
 
-open(out_path, 'w', encoding='utf-8').write(html)
+# iç sayfa (tek başına da açılır; testler için isteğe bağlı kaydedilir)
+if os.environ.get('QB_PAGE_OUT'):
+    open(os.environ['QB_PAGE_OUT'], 'w', encoding='utf-8').write(html)
+
+# kapsayıcı: iç sayfa metin olarak saklanır, iframe(srcdoc) içinde çalışır
+assert '\ue000' not in html, 'kaçış belirteci sayfada zaten var'
+page_txt = html.replace('</script', '</scr\ue000ipt').replace('<!--', '<!\ue000--')
+host = open(os.path.join(shell_dir, 'host.html'), encoding='utf-8').read()
+plist = json.dumps([{'id': p['id'], 'key': p['key']} for p in profiles], ensure_ascii=False, separators=(',', ':'))
+host = host.replace('/*PROFILES*/[]/*END*/', plist)
+host = host.replace('/*PAGE*/', page_txt)
+open(out_path, 'w', encoding='utf-8').write(host)
 print('yama raporu:', report)
-print('yazıldı:', out_path, f'{len(html)/1e6:.1f} MB')
+print('yazıldı:', out_path, f'{len(host)/1e6:.1f} MB')

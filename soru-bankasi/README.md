@@ -6,6 +6,12 @@ Sorular konuya göre parçalanıp ayrı ayrı sıkıştırılmıştır; yalnızc
 `content://` gibi adreslerde localStorage kullanılamazsa yedek depolama devreye girer; seçim ve ilerleme sayfa yenilense de korunur
 (sekme kapanınca silinir).
 
+## Mimari (neden iç içe sayfa?)
+
+`index.html` yalnızca bir kapsayıcıdır; soru bankası sayfası (panel + kabuk + veri) içinde metin olarak durur ve bir `iframe`
+(`srcdoc`) içinde çalışır. Unvan değişince yalnızca iframe yeniden kurulur: **adres değişmez, sayfa yenilenmez, ağ isteği çıkmaz.**
+Telefonda dosya `content://` ile açıldığında yenileme/adres değişikliği "content not found" hatasına yol açtığı için bu yapı seçildi.
+
 - Ana sayfada unvan seçilir. Seçim `localStorage` (`qb_unvan`) içinde tutulur; `?u=<unvan_anahtarı>` ile de açılır
   (ör. `?u=vhki`, `?u=avukat`, `?u=sube_muduru`).
 - Soru bankası yalnızca seçili unvanın resmî sınav konularından oluşur.
@@ -19,4 +25,4 @@ Sorular konuya göre parçalanıp ayrı ayrı sıkıştırılmıştır; yalnızc
 python3 -I tools/build_bank.py <referans_panel.html> <soru_bankasi.json> soru-bankasi/index.html
 ```
 
-Kurumsal ana sayfa: `tools/shell/` (HTML, CSS, JS). Test araçları: `docs/analiz-araclari/`.
+Kurumsal ana sayfa: `tools/shell/shell.*`, kapsayıcı: `tools/shell/host.html`. İç sayfayı ayrıca görmek için `QB_PAGE_OUT=iç.html` ortam değişkeni verilebilir. Test araçları: `docs/analiz-araclari/`.

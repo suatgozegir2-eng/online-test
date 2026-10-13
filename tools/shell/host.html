@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AdaletSen Akademi · Online Çözümlü Soru Bankası</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #14181f; }
+  #qb-frame { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; background: #f4f5f7; }
+  #qb-hsplash { position: fixed; inset: 0; z-index: 2; background: #14181f; color: #fff; display: grid; place-items: center; text-align: center;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+  #qb-hsplash .m { width: 64px; height: 64px; border-radius: 16px; background: #fff; border-bottom: 4px solid #7a1020; margin: 0 auto 14px; }
+  #qb-hsplash b { display: block; font-size: 24px; letter-spacing: -.02em; }
+  #qb-hsplash span { display: block; margin-top: 6px; font-size: 15px; color: #c4cad4; }
+  #qb-hsplash small { display: block; margin-top: 16px; font-size: 12.5px; color: #8e98a6; }
+</style>
+<script id="qb-host-js">
+/* Ana belge yalnızca bir kapsayıcıdır. Soru bankası sayfası (panel + kabuk + veri) aşağıda metin olarak saklanır ve
+   bir iframe içinde (srcdoc) çalıştırılır. Unvan değişince yalnızca iframe yeniden kurulur: adres değişmez, sayfa yenilenmez.
+   Böylece content:// gibi adreslerde "content not found" hatası ve seçimin kaybolması olmaz. */
+(function () {
+  'use strict';
+  var PROFILES = /*PROFILES*/[]/*END*/;
+  function usable(n) { try { var s = window[n]; s.setItem('__qb', '1'); s.removeItem('__qb'); return true; } catch (e) { return false; } }
+  function shim(persist) {
+    var d = {};
+    if (persist) { try { if (/^qbls:/.test(window.name)) d = JSON.parse(window.name.slice(5)) || {}; } catch (e) {} }
+    function save() { if (persist) { try { window.name = 'qbls:' + JSON.stringify(d); } catch (e) {} } }
+    var api = {
+      getItem: function (k) { return Object.prototype.hasOwnProperty.call(d, k) ? d[k] : null; },
+      setItem: function (k, v) { d[k] = String(v); save(); },
+      removeItem: function (k) { delete d[k]; save(); },
+      clear: function () { d = {}; save(); },
+      key: function (i) { return Object.keys(d)[i] || null; }
+    };
+    Object.defineProperty(api, 'length', { get: function () { return Object.keys(d).length; } });
+    return api;
+  }
+  // iframe içindeki sayfa depolamayı buradan alır (kendi kaynağında engelliyse)
+  window.__QB_LS = usable('localStorage') ? window.localStorage : shim(true);
+  window.__QB_SS = usable('sessionStorage') ? window.sessionStorage : shim(false);
+
+  var byId = {};
+  PROFILES.forEach(function (p) { byId[p.id] = p; byId[p.key] = p; });
+  var pageCache = null, frame = null;
+
+  function pageHtml() {
+    if (pageCache) return pageCache;
+    var el = document.getElementById('qb-page');
+    pageCache = el.textContent.replace(/scr\uE000ipt/g, 'script').replace(/<!\uE000--/g, '<!' + '--');
+    el.textContent = ''; // bellekte iki kopya tutma
+    return pageCache;
+  }
+  function chosenId() {
+    var w = null;
+    try { w = new URLSearchParams(location.search).get('u'); } catch (e) {}
+    try { if (!w) { var m = /[#&]u=([^&]+)/.exec(location.hash); if (m) w = decodeURIComponent(m[1]); } } catch (e) {}
+    try { if (!w) w = window.__QB_LS.getItem('qb_unvan'); } catch (e) {}
+    return w && byId[w] ? byId[w].id : null;
+  }
+  function mount(id) {
+    var html = pageHtml();
+    var boot = '<scr' + 'ipt>window.QB_BOOT=' + JSON.stringify(id || '') + ';</scr' + 'ipt>';
+    html = html.replace('<head>', '<head>' + boot);
+    if (frame && frame.parentNode) frame.parentNode.removeChild(frame);
+    frame = document.createElement('iframe');
+    frame.id = 'qb-frame';
+    frame.title = 'AdaletSen Akademi Online Çözümlü Soru Bankası';
+    frame.addEventListener('load', function () {
+      var s = document.getElementById('qb-hsplash'); if (s && s.parentNode) s.parentNode.removeChild(s);
+    });
+    frame.srcdoc = html;
+    document.body.appendChild(frame);
+  }
+  // sayfa içinden çağrılır: seçimi sakla ve iframe'i yeni unvanla yeniden kur (gezinme/yenileme yok)
+  window.QB_SWITCH = function (id) {
+    try { window.__QB_LS.setItem('qb_unvan', id); } catch (e) {}
+    setTimeout(function () { mount(id); }, 0);
+  };
+  window.addEventListener('DOMContentLoaded', function () { mount(chosenId()); });
+})();
+</script>
+</head>
+<body>
+<div id="qb-hsplash" role="status"><div><div class="m" aria-hidden="true"></div><b>AdaletSen Akademi</b><span>Online Çözümlü Soru Bankası</span><small>Soru bankası hazırlanıyor…</small></div></div>
+<script id="qb-page" type="text/x-qb-page">/*PAGE*/</script>
+</body>
+</html>
