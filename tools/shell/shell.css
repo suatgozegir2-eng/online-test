@@ -86,13 +86,7 @@ html.qv-lock:root, html.qv-lock:root body, html.qb-ovl:root, html.qb-ovl:root bo
 .qb-tag { margin: 0; text-align: right; font-size: 13px; line-height: 1.5; color: rgba(255, 255, 255, .7); max-width: 300px; }
 
 .qb-sumwrap { margin-top: -30px; position: relative; z-index: 2; }
-.qb-summary { background: var(--card); border-radius: 14px; box-shadow: 0 6px 20px rgba(16, 24, 40, .12); padding: 11px 18px 12px; }
-.qb-prog { margin-top: 9px; }
-.qb-prog-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 12.5px; color: var(--ink-2); }
-.qb-prog-row b { color: var(--ink); font-variant-numeric: tabular-nums; }
-.qb-prog-row span:last-child { font-weight: 700; color: var(--ink); }
-.qb-prog-bar { height: 4px; background: var(--line-2); border-radius: 99px; margin-top: 6px; overflow: hidden; }
-.qb-prog-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #a3182c, #7a0f1f); border-radius: 99px; transition: width .4s; }
+.qb-summary { position: relative; overflow: hidden; background: var(--card); border-radius: 14px; box-shadow: 0 6px 20px rgba(16, 24, 40, .12); padding: 12px 18px 14px; }
 
 /* ---- bölümler ---- */
 .qb-sec { padding-top: 28px; }
@@ -206,7 +200,7 @@ html.qv-lock:root, html.qv-lock:root body, html.qb-ovl:root, html.qb-ovl:root bo
   .qb-select-wrap select { height: 50px; font-size: 15.5px; }
   .qb-hero-meta { margin-top: 8px; font-size: 12.5px; }
   .qb-sumwrap { margin-top: -28px; }
-  .qb-summary { border-radius: 14px; padding: 10px 14px 11px; }
+  .qb-summary { border-radius: 14px; padding: 10px 12px 13px; }
   .qb-sec { padding-top: 22px; }
   .qb-sec-h h2 { font-size: 17px; }
   .qb-modes { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -247,7 +241,27 @@ html.qv-lock:root, html.qv-lock:root body, html.qb-ovl:root, html.qb-ovl:root bo
 .qb-qk:disabled { opacity: .5; }
 @media (max-width: 380px) { .qb-qk { padding: 10px; gap: 9px; } .qb-qk b { font-size: 13px; } }
 
-.qb-sum-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; font-weight: 600; color: var(--ink-3); }
+
+/* özet kartı: tek satır, ilerleme kartın alt kenarında ince çizgi */
+.qb-sum-row { display: flex; align-items: center; gap: 0; font-size: 13px; font-weight: 600; color: var(--ink-3); }
+.qb-sum-row > span { flex: 1; text-align: center; padding: 2px 8px; white-space: nowrap; }
+.qb-sum-row > span + span { border-left: 1px solid var(--line); }
 .qb-sum-row b { font-size: 17px; font-weight: 800; color: var(--ink); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
-.qb-sum-row i { flex: none; width: 1px; height: 18px; background: var(--line); }
-.qb-sum-row span { flex: 1; text-align: center; }
+.qb-sum-prog { flex: 1.7 !important; }
+.qb-sum-prog em { font-style: normal; font-weight: 800; color: var(--brand); }
+.qb-sum-prog[hidden] { display: none; }
+.qb-prog-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--line-2); }
+.qb-prog-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #a3182c, #7a0f1f); transition: width .4s; }
+@media (max-width: 600px) { .qb-sum-prog { display: none !important; } .qb-sum-row b { font-size: 16px; } }
+
+/* çalışma kartları: daha belirgin */
+.qb-card { border: 1px solid #cdd2dc; box-shadow: 0 8px 22px rgba(16, 24, 40, .13); min-height: 138px; }
+.qb-card::before { content: ""; position: absolute; top: -1px; left: 22px; right: 22px; height: 3px; border-radius: 0 0 4px 4px; background: var(--brand); }
+.qb-card:hover:not(:disabled) { border-color: #cdd2dc; box-shadow: 0 14px 30px rgba(122, 15, 31, .2); }
+.qb-ic { color: #fff; background: linear-gradient(145deg, #a3182c, #6d0f1e); box-shadow: 0 5px 12px rgba(122, 15, 31, .32); }
+.qb-ct b { font-size: 16.5px; }
+.qb-ct small { color: var(--ink-2); }
+.qb-arr { width: 28px; height: 28px; padding: 6px; border-radius: 50%; background: #f6e7ea; color: var(--brand); }
+.qb-badge { background: var(--brand); color: #fff; }
+.qb-qk { border: 1px solid #cdd2dc; box-shadow: 0 5px 16px rgba(16, 24, 40, .1); }
+@media (max-width: 700px) { .qb-card { min-height: 124px; } .qb-ct b { font-size: 15px; } }
