@@ -3,8 +3,12 @@
 html body #nds, html body #aaMobileApp, html body #mobileApp, html body #aaStartupLoader,
 html body #nds-desktop-footer, html body #aaModuleHelpFloating, html body .aa-help-inline-btn { display: none !important; }
 
-/* panelin kendi html/body kuralları (koyu zemin, overflow:hidden) kabuğu bozmasın */
-html body { margin: 0 !important; background: #f4f5f7 !important; overflow-x: hidden !important; overflow-y: auto !important; height: auto !important; min-height: 100% !important; }
+/* panelin kendi html/body kuralları (koyu zemin, overflow:hidden) kabuğu bozmasın.
+   Mobilde panel `html{overflow:hidden!important}` verir; sayfa dokunmayla kaymaz. html de kaydırılabilir olmalı. */
+html:root { overflow-x: hidden !important; overflow-y: auto !important; height: auto !important; min-height: 100% !important; background: #f4f5f7 !important; -webkit-overflow-scrolling: touch; }
+html:root body { margin: 0 !important; background: #f4f5f7 !important; overflow-x: hidden !important; overflow-y: visible !important; height: auto !important; min-height: 100% !important; }
+html.qv-lock:root, html.qv-lock:root body, html.qb-ovl:root, html.qb-ovl:root body { overflow: hidden !important; }
+
 .qb {
   --ink: #14181f; --ink-2: #4a5360; --ink-3: #7b8594;
   --line: #e2e5ea; --line-2: #eef0f3; --bg: #f4f5f7; --card: #fff;

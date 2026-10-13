@@ -152,6 +152,24 @@
     };
   })();
 
+  /* ---- bir katman (sınav, sihirbaz, sonuç...) açıkken arkadaki ana sayfa kaymasın; kapanınca kaydırma geri gelir ---- */
+  (function () {
+    var IDS = ['nativeExamScreen', 'konuWizardOverlay', 'karisikWizardOverlay', 'benimDenemelerimOverlay', 'nds-lesson-overlay', 'reportCardModal',
+      'denemeSonucOverlay', 'aaDenemeDagilimOverlay', 'endConfirmModal', 'exitConfirmModal', 'aaTestPreflight', 'mobileSolutionModal'];
+    var tm = null;
+    function check() {
+      var open = IDS.some(function (id) {
+        var e = document.getElementById(id); if (!e) return false;
+        if (id === 'aaTestPreflight') return e.classList.contains('open');
+        var cs = getComputedStyle(e); return cs.display !== 'none' && cs.visibility !== 'hidden';
+      });
+      document.documentElement.classList.toggle('qb-ovl', open);
+    }
+    new MutationObserver(function () { clearTimeout(tm); tm = setTimeout(check, 60); })
+      .observe(document.body, { attributes: true, attributeFilter: ['style', 'class'], subtree: true });
+    check();
+  })();
+
   buildSelect(); renderSummary(); renderTopics(); setEnabled(false);
   document.documentElement.lang = 'tr';
 })();
