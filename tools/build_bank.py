@@ -195,6 +195,11 @@ pat = re.compile(r'(function formatSolution\(text\) \{\n\s*text = \(typeof aaSaf
 html, n = pat.subn(lambda mm: mm.group(1) + '    ' + GUARD + '\n', html)
 report['formatSolution'] = n
 
+# eski mobil "karışık" tıklama yakalayıcısı: metni "karışık" içeren her butonu çalıp eski mk33 ekranını açar
+sub1('mk33 yakalayıcı kapat',
+     r"if\(e\.target && e\.target\.closest && e\.target\.closest\('#aaMobileApp'\)\) return;",
+     "return; /* qb: eski karışık yakalayıcı devre dışı */")
+
 # izleme betiğini çıkar (yeni ürün)
 html, n = re.subn(r'<script>\s*window\.GA4_MEASUREMENT_ID.*?</script>', '', html, count=1, flags=re.S)
 report['GA4 çıkarıldı'] = n

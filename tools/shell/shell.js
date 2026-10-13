@@ -111,6 +111,28 @@
   setInterval(function () { if (!document.hidden) renderProgress(); }, 2000);
   document.addEventListener('visibilitychange', renderProgress);
 
+  /* ---- panelin sabit "VHKİ" metinleri: seçili unvan adıyla değiştir (sabit + sonradan üretilen) ---- */
+  if (window.QB_LABEL && window.QB_LABEL !== 'VHKİ') {
+    var RE = /VHKİ/g, LABEL = window.QB_LABEL, pend = false;
+    var sweep = function (node) {
+      if (!node) return;
+      if (node.nodeType === 3) { if (node.nodeValue.indexOf('VHKİ') > -1) node.nodeValue = node.nodeValue.replace(RE, LABEL); return; }
+      if (node.nodeType !== 1 || /^(SCRIPT|STYLE|TEXTAREA)$/.test(node.tagName)) return;
+      var w = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null), n, list = [];
+      while ((n = w.nextNode())) if (n.nodeValue.indexOf('VHKİ') > -1) list.push(n);
+      list.forEach(function (t) { t.nodeValue = t.nodeValue.replace(RE, LABEL); });
+    };
+    var queue = [];
+    new MutationObserver(function (ms) {
+      ms.forEach(function (m) {
+        if (m.type === 'characterData') queue.push(m.target);
+        else m.addedNodes.forEach(function (a) { queue.push(a); });
+      });
+      if (!pend) { pend = true; setTimeout(function () { pend = false; var q = queue; queue = []; q.forEach(sweep); }, 60); }
+    }).observe(document.body, { childList: true, subtree: true, characterData: true });
+    sweep(document.body);
+  }
+
   buildSelect(); renderSummary(); renderTopics(); setEnabled(false);
   document.documentElement.lang = 'tr';
 })();
