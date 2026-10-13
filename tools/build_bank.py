@@ -138,6 +138,12 @@ for k, line in enumerate(open(os.path.join(HERE, 'matematik_videolari.tsv'), enc
     title, url = line.split('\t')
     videos.append({'id': 'MAT_VIDEO_%03d' % k, 't': 'tekniker_teknisyen_matematik', 'st': title, 'q': '', 'o': [], 'a': -1,
                    'f': url.rsplit('/', 1)[1], 'd': '', 'm': url, 'r': None, 'n': ''})
+# sayısal mantık (ortak konu) videoları: VideoPress, yalnızca video
+for k, line in enumerate(open(os.path.join(HERE, 'sayisal_mantik_videolari.tsv'), encoding='utf-8').read().splitlines(), 1):
+    if not line.strip(): continue
+    title, vid = line.split('\t')
+    videos.append({'id': 'SM_VIDEO_%03d' % k, 't': 'gy_sayisal_mantik', 'st': title, 'q': '', 'o': [], 'a': -1,
+                   'f': vid, 'd': '', 'm': '', 'e': vid, 'r': None, 'n': ''})
 unknown = [v['t'] for v in videos if v['t'] not in topic_name]
 assert not unknown, unknown
 print(f'{len(videos)} video kaydı gömülecek (bağlantısız atlanan: {skipped}), 2 kayıtta ortak mp4 yerine Drive kullanılır')

@@ -128,7 +128,9 @@
   }
 
   /* ---- oynatıcı ---- */
+  function vpEmbed(id) { return 'https://videopress.com/embed/' + id + '?autoPlay=0&hd=1&loop=0&preloadContent=metadata'; }
   function playerHtml(v) {
+    if (v.e) return '<iframe src="' + esc(vpEmbed(v.e)) + '" title="Video çözümü" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
     if (state.alt && v.d) return '<iframe src="' + esc(drivePrev(v.d)) + '" title="Video çözümü" allow="autoplay; fullscreen" allowfullscreen></iframe>';
     if (v.m) return '<video src="' + esc(v.m) + '" controls playsinline webkit-playsinline preload="metadata" aria-label="Video çözümü">Tarayıcınız video oynatmayı desteklemiyor.</video>';
     if (v.d) return '<iframe src="' + esc(drivePrev(v.d)) + '" title="Video çözümü" allow="autoplay; fullscreen" allowfullscreen></iframe>';
@@ -176,7 +178,7 @@
       '<div class="qv-crumb"><span class="qv-c-t">' + esc(t.name) + '</span><span class="qv-c-n">Video <b>' + (state.i + 1) + '</b> / ' + t.items.length + '</span></div>' +
       '<div class="qv-chips" id="qvChips" role="tablist" aria-label="Videolar"></div>' +
       '<div class="qv-split">' +
-        (!v.q ? '<section class="qv-q qv-q-lite" aria-label="Konu"><div class="qv-q-in"><div class="qv-q-meta">Matematik · konu çözüm videosu</div><div class="qv-q-text qv-q-title">' + esc(v.st) + '</div><p class="qv-hint">Videoyu izleyin. Bitince “Sonraki” ile devam edebilirsiniz.</p></div></section>' :
+        (!v.q ? '<section class="qv-q qv-q-lite" aria-label="Konu"><div class="qv-q-in"><div class="qv-q-meta">Konu çözüm videosu</div><div class="qv-q-text qv-q-title">' + esc(v.st) + '</div><p class="qv-hint">Videoyu izleyin. Bitince “Sonraki” ile devam edebilirsiniz.</p></div></section>' :
         '<section class="qv-q" aria-label="Soru"><div class="qv-q-in">' +
           '<div class="qv-q-meta">' + esc(v.st || '') + '</div>' +
           '<div class="qv-q-text">' + esc(v.q) + '</div>' +
@@ -186,10 +188,11 @@
         '</div></section>') +
         '<section class="qv-v" aria-label="Video çözüm">' +
           '<div class="qv-v-top"><b>Video çözüm</b><span>' + esc(v.f) + '</span></div>' +
-          '<div class="qv-frame' + ((state.alt || !v.m) && v.d ? ' is-drive' : '') + '">' + playerHtml(v) + '</div>' +
+          '<div class="qv-frame' + ((state.alt || !v.m) && (v.d || v.e) ? ' is-drive' : '') + '">' + playerHtml(v) + '</div>' +
           '<div class="qv-tools">' +
             '<div class="qv-speed" aria-label="Oynatma hızı">' + [0.75, 1, 1.25, 1.5, 2].map(function (r) { return '<button type="button" data-a="rate" data-r="' + r + '">' + r + '×</button>'; }).join('') + '</div>' +
             '<button type="button" class="qv-link" data-a="alt" hidden></button>' +
+            (v.e ? '<a class="qv-link" href="https://videopress.com/v/' + esc(v.e) + '" target="_blank" rel="noopener noreferrer">Ayrı sekmede aç ↗</a>' : '') +
             (v.d ? '<a class="qv-link" href="' + esc(driveView(v.d)) + '" target="_blank" rel="noopener noreferrer">Ayrı sekmede aç ↗</a>' : '') +
             (v.r && v.r.d ? '<a class="qv-link" href="' + esc(driveView(v.r.d)) + '" target="_blank" rel="noopener noreferrer">Aynı konudan ek video ↗</a>' : '') +
           '</div>' +
