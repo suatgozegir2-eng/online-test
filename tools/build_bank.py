@@ -69,6 +69,74 @@ meta = {'updatedAt': d['updatedAt'], 'profiles': profiles,
         'topicNames': topic_name}
 print(f'{len(qs)} soru, {len(profiles)} unvan, {len(blobs)} konu parçası | json {len(raw)/1e6:.1f} MB -> gzip+b64 {len(b64)/1e6:.1f} MB')
 
+
+# ------------------------------------------------------------ soru çözüm videoları
+VIDEO_TOPIC_MAP = {
+    '657 sayılı Devlet Memurları Kanunu': 'kanun_657_dmk', 'Anayasa': 'gk_anayasa', '1 sayılı CBK': 'cbk_1_bolum_9',
+    'İçişleri Bakanlığı Personeli GYU Yönetmeliği': 'yonetmelik_icisleri_gorevde_yukselme_unvan',
+    'İçişleri Bakanlığı Personeli Atama ve Yer Değiştirme Yönetmeliği': 'yonetmelik_icisleri_atama_yer_degistirme',
+    'Bilgi Edinme Hakkı Kanunu': 'kanun_4982_bilgi_edinme',
+    '3071 sayılı Dilekçe Hakkının Kullanılmasına Dair Kanun': 'kanun_3071_dilekce',
+    '7315 sayılı Güvenlik Soruşturması ve Arşiv Araştırması Kanunu': 'kanun_7315_guvenlik_sorusturmasi',
+    '5442 sayılı İl İdaresi Kanunu': 'kanun_5442_il_idaresi',
+    '3628 sayılı Mal Bildiriminde Bulunulması, Rüşvet ve Yolsuzluklarla Mücadele Kanunu': 'kanun_3628_mal_bildirimi',
+    '7201 sayılı Tebligat Kanunu': 'kanun_7201_tebligat',
+    'Devlet Memurları Disiplin Yönetmeliği': 'yonetmelik_devlet_memurlari_disiplin',
+    'Resmi Yazışmalarda Uygulanacak Usul ve Esaslar Hakkında Yönetmelik': 'yonetmelik_resmi_yazisma',
+    'Valilik ve Kaymakamlık Birimleri Teşkilat, Görev ve Çalışma Yönetmeliği': 'yonetmelik_valilik_kaymakamlik',
+    'İçişleri Bakanlığı Merkez ve Taşra Teşkilatı Arşiv Hizmetleri Yönetmeliği': 'yonetmelik_icisleri_arsiv_hizmetleri',
+    'Mal Bildiriminde Bulunulması Hakkında Yönetmelik': 'yonetmelik_mal_bildirimi',
+}
+
+def extract_videos(src):
+    key = 'window.AA_VIDEO_SOLUTION_QUESTIONS = '
+    i = src.index(key) + len(key)
+    depth, instr, esc = 0, False, False
+    for k in range(i, len(src)):
+        c = src[k]
+        if instr:
+            if esc: esc = False
+            elif c == '\\': esc = True
+            elif c == '"': instr = False
+        elif c == '"': instr = True
+        elif c == '[': depth += 1
+        elif c == ']':
+            depth -= 1
+            if depth == 0: break
+    return json.loads(src[i:k + 1])
+
+def drive_id(url):
+    m = re.search(r'/file/d/([A-Za-z0-9_-]+)', url or '')
+    return m.group(1) if m else ''
+
+raw_videos = extract_videos(ref)
+mp4_count = {}
+for v in raw_videos:
+    if v.get('siteVideoUrl'): mp4_count[v['siteVideoUrl']] = mp4_count.get(v['siteVideoUrl'], 0) + 1
+videos = []
+skipped = []
+for v in raw_videos:
+    did = drive_id(v.get('videoUrl'))
+    mp4 = v.get('siteVideoUrl') or ''
+    if not did and not mp4:
+        skipped.append(v['id']); continue
+    # aynı mp4 iki farklı kayıtta kullanılmışsa hangisinin doğru olduğu belli değil: yalnızca kayda özgü Drive bağlantısı kullanılır
+    if mp4 and mp4_count[mp4] > 1 and did: mp4 = ''
+    assert v['topic'] in VIDEO_TOPIC_MAP, v['topic']
+    opts = [o if isinstance(o, str) else (o.get('text') or '') for o in v['options']]
+    rel = v.get('relatedVideo') or {}
+    videos.append({
+        'id': v['id'], 't': VIDEO_TOPIC_MAP[v['topic']], 'st': v.get('subtopic', ''),
+        'q': (v.get('question') or '').replace('**', ''), 'o': opts, 'a': int(v['answer']),
+        'f': v.get('videoFile', ''), 'd': did, 'm': mp4,
+        'r': {'t': rel.get('title', ''), 'd': drive_id(rel.get('url'))} if rel.get('url') else None,
+        'n': v.get('sourceNote', ''),
+    })
+unknown = [v['t'] for v in videos if v['t'] not in topic_name]
+assert not unknown, unknown
+print(f'{len(videos)} video kaydı gömülecek (bağlantısız atlanan: {skipped}), 2 kayıtta ortak mp4 yerine Drive kullanılır')
+VIDEOS_JSON = json.dumps(videos, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
+
 # ------------------------------------------------------- erken yapılandırma + veri
 CONFIG_JS = r'''<script id="qb-config">
 (function(){
@@ -263,7 +331,7 @@ sub1('mk33 yakalayıcı kapat',
      "return; /* qb: eski karışık yakalayıcı devre dışı */")
 
 # Mevzuat/Sunum/ders içerikleri bu üründe yok; bu betikler her soruda yinelemeli norm() çağırıp açılışı dondurur
-DEAD_SCRIPTS = ['aa-alt-konu-baslik-duzeltme-v1', 'aa-alt-konu-baslik-final-v2', 'aa-sunum-json-only-v1', 'aa-template-engine-v9', 'ag-script']
+DEAD_SCRIPTS = ['aa-alt-konu-baslik-duzeltme-v1', 'aa-alt-konu-baslik-final-v2', 'aa-sunum-json-only-v1', 'aa-template-engine-v9', 'ag-script', 'aa-video-single-question-script']
 removed = 0
 for sid in DEAD_SCRIPTS:
     html, n = re.subn(r'<script id="%s">.*?</script>' % re.escape(sid), '', html, count=1, flags=re.S)
@@ -287,6 +355,8 @@ shell_dir = os.path.join(HERE, 'shell')
 shell_css = open(os.path.join(shell_dir, 'shell.css'), encoding='utf-8').read()
 shell_html = open(os.path.join(shell_dir, 'shell.html'), encoding='utf-8').read()
 shell_js = open(os.path.join(shell_dir, 'shell.js'), encoding='utf-8').read()
+video_css = open(os.path.join(shell_dir, 'video.css'), encoding='utf-8').read()
+video_js = open(os.path.join(shell_dir, 'video.js'), encoding='utf-8').read()
 
 # charset ilk 1024 bayt içinde olmalı (content:// ile açılan dosyalarda kodlama tahmini bozulmasın)
 head_inject = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + CONFIG_JS + LOADER_JS
@@ -297,11 +367,11 @@ html, n = re.subn(r'<div id="aaStartupLoader".*?<!-- /aaStartupLoader -->', '', 
 report['eski açılış ekranı kaldırıldı'] = n
 html = html.replace("document.title=PANEL_NAME+' | AdaletSen Akademi';", "document.title=PANEL_NAME;")
 html = re.sub(r'<title>.*?</title>', '', html, flags=re.S)
-html = html.replace('</head>', '<title>AdaletSen Akademi · Online Çözümlü Soru Bankası</title>\n<style id="qb-shell-css">\n' + shell_css + '\n</style>\n</head>', 1)
+html = html.replace('</head>', '<title>AdaletSen Akademi · Online Çözümlü Soru Bankası</title>\n<style id="qb-shell-css">\n' + shell_css + '\n' + video_css + '\n</style>\n</head>', 1)
 html = html.replace('<body>', '<body>\n' + shell_html, 1)
 idx = html.rindex('</body>')
 FAST_JS = '<script id="qb-fast-fetch">\n/* Panelin veri yönlendiricisi (aa-master-data-router) her açılışta tüm soruyu tekrar süzüp JSON\'a çevirir.\n   Dilim zaten unvana göre hazır olduğundan, soru isteğini yönlendiriciden önce karşılar; sıralama bilgisini aynen yayınlar. */\n(function(){\n  \'use strict\';\n  var routerFetch=window.fetch;\n  function normName(v){\n    return String(v||\'\').replace(/İ/g,\'i\').replace(/I/g,\'i\').toLocaleLowerCase(\'tr\').normalize(\'NFD\').replace(/[̀-ͯ]/g,\'\')\n      .replace(/ğ/g,\'g\').replace(/ü/g,\'u\').replace(/ş/g,\'s\').replace(/ı/g,\'i\').replace(/ö/g,\'o\').replace(/ç/g,\'c\').replace(/[^a-z0-9]+/g,\' \').replace(/\\s+/g,\' \').trim();\n  }\n  function publishOrder(P){\n    var labels=P.topicIds.map(function(id){return window.QB_META.topicNames[id];});\n    window.AA_MASTER_TOPIC_ORDER_IDS=P.topicIds.slice();\n    window.AA_MASTER_TOPIC_ORDER=labels;\n    window.AA_MASTER_TOPIC_ORDER_SOURCE=\'question\';\n    var rank={}; labels.forEach(function(l,i){rank[normName(l)]=i;});\n    window.AA_SORT_TOPIC_LABELS=function(inp){\n      return (Array.isArray(inp)?inp.slice():[]).sort(function(a,b){\n        var ra=rank[normName(a)], rb=rank[normName(b)];\n        if(ra===undefined&&rb===undefined) return 0; if(ra===undefined) return 1; if(rb===undefined) return -1; return ra-rb;\n      });\n    };\n    window.AA_SORT_TOPICS=window.AA_SORT_TOPIC_LABELS;\n  }\n  window.fetch=async function(input,init){\n    var u=typeof input===\'string\'?input:(input&&input.url)||\'\';\n    if(/sorularicislerixx\\.json$/.test(u.split(\'#\')[0].split(\'?\')[0])){\n      var m=await window.QB_SLICE(), P=window.QB_ACTIVE;\n      publishOrder(P);\n      window.AA_MASTER_LAST_QUESTION_STATS={profile:P.id,total:m.questions.length,filtered:m.questions.length};\n      return window.QB_JSON(m.questions);\n    }\n    return routerFetch.apply(this,arguments);\n  };\n})();\n</script>\n'
-html = html[:idx] + FAST_JS + '<script id="qb-bank" type="application/x-qb-gzip-base64">' + b64 + '</script>\n<script id="qb-shell-js">\n' + shell_js + '\n</script>\n' + html[idx:]
+html = html[:idx] + FAST_JS + '<script id="qb-bank" type="application/x-qb-gzip-base64">' + b64 + '</script>\n<script id="qb-videos" type="application/json">' + VIDEOS_JSON + '</script>\n<script id="qb-shell-js">\n' + shell_js + '\n' + video_js + '\n</script>\n' + html[idx:]
 
 # iç sayfa (tek başına da açılır; testler için isteğe bağlı kaydedilir)
 if os.environ.get('QB_PAGE_OUT'):

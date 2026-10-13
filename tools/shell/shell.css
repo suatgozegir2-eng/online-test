@@ -71,7 +71,8 @@ html body { margin: 0 !important; background: #f4f5f7 !important; overflow-x: hi
 .qb-sec-h { margin-bottom: 20px; }
 .qb-sec-h h2 { margin: 0 0 6px; font-size: 22px; letter-spacing: -.015em; }
 .qb-sec-h p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
-.qb-modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.qb-modes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+@media (max-width: 1100px) and (min-width: 901px) { .qb-modes { grid-template-columns: repeat(2, 1fr); } }
 .qb-card { text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; box-shadow: var(--shadow); transition: transform .15s, border-color .15s, box-shadow .15s; }
 .qb-card:hover:not(:disabled) { transform: translateY(-2px); border-color: #d3a7ae; box-shadow: 0 2px 4px rgba(16,24,40,.05), 0 14px 30px rgba(122,16,32,.10); }
 .qb-card:focus-visible { outline: 3px solid #d3a7ae; outline-offset: 2px; }

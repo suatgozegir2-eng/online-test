@@ -83,10 +83,11 @@
   var READY = false;
   function setEnabled(on) {
     READY = on;
-    [].forEach.call(root.querySelectorAll('.qb-card'), function (b) { b.disabled = !CHOSEN || !on; });
+    [].forEach.call(root.querySelectorAll('.qb-card'), function (b) { b.disabled = !CHOSEN || (!on && b.getAttribute('data-mode') !== 'video'); });
   }
   function launch(mode) {
     if (!CHOSEN) { toast('Önce unvanınızı seçin.'); $('qbSelect').focus(); return; }
+    if (mode === 'video') { if (window.QB_OPEN_VIDEOS) window.QB_OPEN_VIDEOS(); return; }
     if (!READY) { toast('Soru bankası yükleniyor, lütfen bekleyin.'); return; }
     var mobile = window.innerWidth <= 900;
     try {
