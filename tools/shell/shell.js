@@ -45,7 +45,7 @@
     $('qbSumQ').textContent = nf.format(ACTIVE.questions);
     $('qbSumT').textContent = ACTIVE.topicIds.length;
     $('qbSumE').textContent = ACTIVE.total;
-    $('qbProg').hidden = false;
+    $('qbProg').hidden = false; renderExam();
     $('qbModesNote').textContent = 'Çalışma modunu seçin.';
     $('qbTopicsNote').textContent = 'Resmî sınavda yer alan ' + ACTIVE.topicIds.length + ' konu ve soru bankasındaki soru sayıları.';
     $('qbSrc').innerHTML = 'Kaynak: <a href="' + esc(META.announcementUrl) + '" target="_blank" rel="noopener">İçişleri Bakanlığı sınav duyurusu</a> (' + esc(META.announcementDate) + ')';
@@ -97,6 +97,48 @@
     $('qbPOk').textContent = nf.format(ok); $('qbPNo').textContent = nf.format(no);
     $('qbPBar').style.width = Math.min(100, solved / total * 100).toFixed(1) + '%';
     $('qbPPct').textContent = solved ? '%' + Math.round(ok / solved * 100) + ' başarı' : '%0';
+    var w = 0, f = 0;
+    try { w = window.getWrongQuestions(window.db.sorular).length; f = window.getFavoriteQuestions(window.db.sorular).length; } catch (e) {}
+    $('qbWrongN').textContent = w ? w + ' soru' : 'Henüz yok'; $('qbFavN').textContent = f ? f + ' soru' : 'Henüz yok';
+    $('qbDWrong').textContent = w ? String(w) : ''; $('qbDFav').textContent = f ? String(f) : '';
+    renderGoal();
+  }
+
+  /* ---- günlük hedef: bugün yanıtlanan soru sayısı (bu cihazda) ---- */
+  var GOALS = [10, 20, 30, 50, 100];
+  function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function lsGet(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function dayCount() { var r = lsGet('qb_daily', null); return r && r.d === today() ? (r.n | 0) : 0; }
+  function goalN() { var g = Number(lsGet('qb_goal', 20)); return GOALS.indexOf(g) > -1 ? g : 20; }
+  function renderGoal() {
+    var n = dayCount(), g = goalN();
+    $('qbGoalV').textContent = n + ' / ' + g; $('qbGoalN').textContent = g;
+    $('qbGoalBar').style.width = Math.min(100, n / g * 100) + '%';
+    $('qbGoal').classList.toggle('done', n >= g);
+  }
+  $('qbGoalEdit').addEventListener('click', function () {
+    var g = goalN(); lsSet('qb_goal', GOALS[(GOALS.indexOf(g) + 1) % GOALS.length]); renderGoal();
+  });
+  (function () {
+    var old = window.recordQuestionResult;
+    if (typeof old !== 'function') return;
+    window.recordQuestionResult = function (id, result) {
+      var r = old.apply(this, arguments);
+      if (id && (result === 'correct' || result === 'wrong')) { lsSet('qb_daily', { d: today(), n: dayCount() + 1 }); renderGoal(); }
+      return r;
+    };
+  })();
+
+  /* ---- sınav tarihi (küçük bilgi) ---- */
+  var EXAM_DATE = { y: 2026, m: 11, d: 28 }, EXAM_TIME = { gorevde_yukselme: '10.00', unvan_degisikligi: '14.00' };
+  function renderExam() {
+    var el = $('qbExam'); if (!CHOSEN) { el.hidden = true; return; }
+    var t0 = new Date(); t0.setHours(0, 0, 0, 0);
+    var days = Math.round((new Date(EXAM_DATE.y, EXAM_DATE.m - 1, EXAM_DATE.d) - t0) / 86400000);
+    if (days < 0) { el.hidden = true; return; }
+    el.hidden = false;
+    el.textContent = (days === 0 ? 'Sınav bugün' : days === 1 ? 'Sınava 1 gün kaldı' : 'Sınava ' + days + ' gün kaldı') + ' · 28 Kasım 2026' + (EXAM_TIME[ACTIVE.type] ? ', ' + EXAM_TIME[ACTIVE.type] : '');
   }
 
   /* ---- çekmece menü ---- */
@@ -140,6 +182,7 @@
     if (CHOSEN) s.push('<dt>Unvan</dt><dd>' + esc(ACTIVE.name) + '</dd>');
     var allQ = META.profiles.reduce(function (n, p) { return n + (p.questions || 0); }, 0);
     s.push('<dt>Soru bankası</dt><dd>' + META.profiles.length + ' unvan' + (allQ ? ' · toplam ' + nf.format(allQ) + ' soru kaydı' : '') + '</dd>');
+    s.push('<dt>Sınav tarihi</dt><dd>28 Kasım 2026 (yazılı). Görevde Yükselme 10.00, Unvan Değişikliği 14.00. Kesin bilgi için resmî duyuruya bakın.</dd>');
     if (META.updatedAt) s.push('<dt>Güncelleme</dt><dd>' + esc(META.updatedAt) + '</dd>');
     if (META.legislationCutoff) s.push('<dt>Mevzuat tarihi</dt><dd>' + esc(META.legislationCutoff) + '</dd>');
     if (META.announcementUrl) s.push('<dt>Kaynak</dt><dd><a href="' + esc(META.announcementUrl) + '" target="_blank" rel="noopener">İçişleri Bakanlığı sınav duyurusu</a>' + (META.announcementDate ? ' (' + esc(META.announcementDate) + ')' : '') + '</dd>');
@@ -163,7 +206,7 @@
   var READY = false;
   function setEnabled(on) {
     READY = on;
-    [].forEach.call(root.querySelectorAll('.qb-card'), function (b) { b.disabled = !CHOSEN || (!on && b.getAttribute('data-mode') !== 'video'); });
+    [].forEach.call(root.querySelectorAll('.qb-card, .qb-qk'), function (b) { b.disabled = !CHOSEN || (!on && b.getAttribute('data-mode') !== 'video'); });
   }
   function launch(mode) {
     closeDrawer(true);
@@ -171,6 +214,16 @@
     if (mode === 'video') { if (window.QB_OPEN_VIDEOS) window.QB_OPEN_VIDEOS(); return; }
     if (!READY) { toast('Soru bankası yükleniyor, lütfen bekleyin.'); return; }
     var mobile = window.innerWidth <= 900;
+    if (mode === 'wrong' || mode === 'fav') {
+      var list = [];
+      try { list = (mode === 'wrong' ? window.getWrongQuestions : window.getFavoriteQuestions)(window.db.sorular); } catch (e) {}
+      if (!list.length) { toast(mode === 'wrong' ? 'Henüz yanlış çözdüğünüz soru yok.' : 'Henüz favorilere eklediğiniz soru yok.'); return; }
+      try {
+        if (mobile) window.ndsOpenScreen(mode === 'wrong' ? 'wrong' : 'favorites');
+        else (mode === 'wrong' ? window.startWrongQuestionsExam : window.startFavoriteQuestionsExam)();
+      } catch (e) { console.error('Mod açılamadı', e); toast('Mod açılamadı. Sayfayı yenileyip tekrar deneyin.'); }
+      return;
+    }
     try {
       if (mode === 'topic') mobile ? window.ndsOpenScreen('topic') : window.openKonuWizard();
       else if (mode === 'mixed') mobile ? window.ndsOpenScreen('mixed') : window.openKarisikWizard();
