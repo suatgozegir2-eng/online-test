@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6b0f1d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="application-name" content="AdaletSen Akademi">
+<link rel="icon" type="image/png" href="/*FAVICON*/">
+<title>AdaletSen Akademi · Çözümlü Videolu Online Soru Bankası</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #14181f; }
+  #qb-frame { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; background: #f4f5f7; }
+  #qb-hsplash { position: fixed; inset: 0; z-index: 2; display: grid; place-items: center; text-align: center; color: #fff;
+    background: radial-gradient(120% 80% at 50% 0%, #26334f 0%, rgba(38, 51, 79, 0) 60%), linear-gradient(165deg, #0c1524 0%, #14203a 48%, #5a0b19 100%);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+  #qb-hsplash .in { display: flex; flex-direction: column; align-items: center; padding: 24px; max-width: 360px; }
+  #qb-hsplash .logo { width: 116px; height: 116px; border-radius: 50%; background: #fff center / 96% no-repeat url(/*LOGO*/); box-shadow: 0 0 0 6px rgba(255,255,255,.08), 0 18px 48px rgba(0,0,0,.45); }
+  #qb-hsplash b { margin-top: 26px; font-size: 25px; font-weight: 800; letter-spacing: -.01em; }
+  #qb-hsplash .sub { margin-top: 8px; font-size: 14.5px; line-height: 1.45; color: rgba(255,255,255,.82); }
+  #qb-hsplash .bar { display: block; width: 190px; height: 3px; margin-top: 30px; border-radius: 9px; background: rgba(255,255,255,.16); overflow: hidden; }
+  #qb-hsplash .bar i { display: block; width: 42%; height: 100%; border-radius: 9px; background: #fff; animation: qbh 1.15s ease-in-out infinite; }
+  #qb-hsplash small { margin-top: 14px; font-size: 12.5px; color: rgba(255,255,255,.6); }
+  @keyframes qbh { 0% { transform: translateX(-110%); } 100% { transform: translateX(260%); } }
+</style>
+<script id="qb-host-js">
+/* Ana belge yalnızca bir kapsayıcıdır. Soru bankası sayfası (panel + kabuk + veri) aşağıda metin olarak saklanır ve
+   bir iframe içinde (srcdoc) çalıştırılır. Unvan değişince yalnızca iframe yeniden kurulur: adres değişmez, sayfa yenilenmez.
+   Böylece content:// gibi adreslerde "content not found" hatası ve seçimin kaybolması olmaz. */
+(function () {
+  'use strict';
+  var PROFILES = /*PROFILES*/[]/*END*/;
+  function usable(n) { try { var s = window[n]; s.setItem('__qb', '1'); s.removeItem('__qb'); return true; } catch (e) { return false; } }
+  function shim(persist) {
+    var d = {};
+    if (persist) { try { if (/^qbls:/.test(window.name)) d = JSON.parse(window.name.slice(5)) || {}; } catch (e) {} }
+    function save() { if (persist) { try { window.name = 'qbls:' + JSON.stringify(d); } catch (e) {} } }
+    var api = {
+      getItem: function (k) { return Object.prototype.hasOwnProperty.call(d, k) ? d[k] : null; },
+      setItem: function (k, v) { d[k] = String(v); save(); },
+      removeItem: function (k) { delete d[k]; save(); },
+      clear: function () { d = {}; save(); },
+      key: function (i) { return Object.keys(d)[i] || null; }
+    };
+    Object.defineProperty(api, 'length', { get: function () { return Object.keys(d).length; } });
+    return api;
+  }
+  // iframe içindeki sayfa depolamayı buradan alır (kendi kaynağında engelliyse)
+  window.__QB_LS = usable('localStorage') ? window.localStorage : shim(true);
+  window.__QB_SS = usable('sessionStorage') ? window.sessionStorage : shim(false);
+
+  var byId = {};
+  PROFILES.forEach(function (p) { byId[p.id] = p; byId[p.key] = p; });
+  var pageCache = null, frame = null;
+
+  function pageHtml() {
+    if (pageCache) return pageCache;
+    var el = document.getElementById('qb-page');
+    pageCache = el.textContent.replace(/scr\uE000ipt/g, 'script').replace(/<!\uE000--/g, '<!' + '--');
+    el.textContent = ''; // bellekte iki kopya tutma
+    return pageCache;
+  }
+  function chosenId() {
+    var w = null;
+    try { w = new URLSearchParams(location.search).get('u'); } catch (e) {}
+    try { if (!w) { var m = /[#&]u=([^&]+)/.exec(location.hash); if (m) w = decodeURIComponent(m[1]); } } catch (e) {}
+    try { if (!w) w = window.__QB_LS.getItem('qb_unvan'); } catch (e) {}
+    return w && byId[w] ? byId[w].id : null;
+  }
+  function mount(id) {
+    var html = pageHtml();
+    var boot = '<scr' + 'ipt>window.QB_BOOT=' + JSON.stringify(id || '') + ';</scr' + 'ipt>';
+    html = html.replace('<head>', '<head>' + boot);
+    if (frame && frame.parentNode) frame.parentNode.removeChild(frame);
+    frame = document.createElement('iframe');
+    frame.id = 'qb-frame';
+    frame.title = 'AdaletSen Akademi Çözümlü Videolu Online Soru Bankası';
+    frame.addEventListener('load', function () {
+      var s = document.getElementById('qb-hsplash'); if (s && s.parentNode) s.parentNode.removeChild(s);
+    });
+    frame.srcdoc = html;
+    document.body.appendChild(frame);
+  }
+  // sayfa içinden çağrılır: seçimi sakla ve iframe'i yeni unvanla yeniden kur (gezinme/yenileme yok)
+  window.QB_SWITCH = function (id) {
+    try { window.__QB_LS.setItem('qb_unvan', id); } catch (e) {}
+    setTimeout(function () { mount(id); }, 0);
+  };
+  window.addEventListener('DOMContentLoaded', function () { mount(chosenId()); });
+})();
+</script>
+</head>
+<body>
+<div id="qb-hsplash" role="status"><div class="in"><span class="logo" role="img" aria-label="AdaletSen Akademi logosu"></span><b>AdaletSen Akademi</b><span class="sub">Çözümlü Videolu<br>Online Soru Bankası</span><span class="bar"><i></i></span><small>Hazırlanıyor…</small></div></div>
+<script id="qb-page" type="text/x-qb-page">/*PAGE*/</script>
+</body>
+</html>

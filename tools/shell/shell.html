@@ -1,0 +1,167 @@
+<div id="qb-splash" role="status" aria-live="polite">
+  <div class="qb-sp-in">
+    <span class="qb-sp-logo" role="img" aria-label="AdaletSen Akademi logosu"></span>
+    <b>AdaletSen Akademi</b>
+    <span class="qb-sp-sub">Çözümlü Videolu<br>Online Soru Bankası</span>
+    <span class="qb-sp-bar"><i></i></span>
+    <small id="qbSpMsg">Soru bankası hazırlanıyor…</small>
+  </div>
+</div>
+
+<div id="qb-app" class="qb">
+  <!-- Uygulama çubuğu -->
+  <header class="qb-bar">
+    <div class="qb-wrap qb-bar-in">
+      <button type="button" class="qb-ib qb-burger" id="qbBurger" aria-label="Menüyü aç" aria-controls="qbDrawer" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <a class="qb-brand" href="#" data-go="home" aria-label="AdaletSen Akademi ana sayfa">
+        <span class="qb-logo" role="img" aria-label="AdaletSen Akademi logosu"></span>
+        <span class="qb-brand-t"><b>AdaletSen Akademi</b><small>Çözümlü Videolu Online Soru Bankası</small></span>
+      </a>
+      <nav class="qb-dnav" aria-label="Ana gezinme">
+        <button type="button" class="on" data-go="home">Ana Sayfa</button>
+        <button type="button" data-mode="topic">Konu Bazlı</button>
+        <button type="button" data-mode="mixed">Karışık</button>
+        <button type="button" data-mode="myexams">Deneme</button>
+        <button type="button" data-mode="video">Video Çözümler</button>
+      </nav>
+      <button type="button" class="qb-who" id="qbWho" aria-label="Unvanı değiştir">
+        <svg class="qb-who-ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+        <span class="qb-who-k">Unvan</span><span class="qb-who-v" id="qbWhoV">Seçilmedi</span>
+        <svg class="qb-who-ch" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Çekmece menü -->
+  <div class="qb-scrim" id="qbScrim"></div>
+  <aside class="qb-drawer" id="qbDrawer" role="dialog" aria-modal="true" aria-label="Menü" aria-hidden="true">
+    <div class="qb-dh">
+      <button type="button" class="qb-ib qb-dclose" data-a="drawer-close" aria-label="Menüyü kapat"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <span class="qb-logo qb-logo-lg" role="img" aria-label="AdaletSen Akademi logosu"></span>
+      <b>AdaletSen Akademi</b>
+      <small>Çözümlü Videolu Online Soru Bankası</small>
+      <button type="button" class="qb-dunvan" data-go="unvan"><span class="k">Seçili unvan</span><span class="v" id="qbDUnvanV">Seçilmedi</span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+    </div>
+    <nav class="qb-dn" aria-label="Menü">
+      <button type="button" class="qb-di on" data-go="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/></svg><span>Ana Sayfa</span></button>
+      <div class="qb-dsep">Çalışma</div>
+      <button type="button" class="qb-di" data-mode="topic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg><span>Konu Bazlı Test</span></button>
+      <button type="button" class="qb-di" data-mode="mixed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg><span>Karışık Test</span></button>
+      <button type="button" class="qb-di" data-mode="myexams"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9 2h6"/></svg><span>Deneme Oluştur</span></button>
+      <button type="button" class="qb-di" data-mode="video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9.5 5 2.5-5 2.5z"/></svg><span>Video Çözümlü Sorular</span><em id="qbDVid"></em></button>
+      <button type="button" class="qb-di" data-mode="wrong"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span>Yanlışlarım</span><em id="qbDWrong"></em></button>
+      <button type="button" class="qb-di" data-mode="fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg><span>Favorilerim</span><em id="qbDFav"></em></button>
+      <div class="qb-dsep">Uygulama</div>
+      <button type="button" class="qb-di" data-go="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>İlerlemem</span></button>
+      <button type="button" class="qb-di" data-go="topics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg><span>Sorumlu Konular</span></button>
+      <button type="button" class="qb-di" data-go="unvan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span>Unvanı Değiştir</span></button>
+      <button type="button" class="qb-di" data-go="about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>Hakkında</span></button>
+    </nav>
+    <div class="qb-df">© 2026 AdaletSen Akademi</div>
+  </aside>
+
+  <main class="qb-main">
+    <!-- Üst alan: unvan seçimi (kompakt) -->
+    <section class="qb-hero" id="qbHero">
+      <div class="qb-wrap qb-hero-in">
+        <div class="qb-pick" id="qbPick">
+          <span class="qb-eyebrow">Unvanınız</span>
+          <div class="qb-select-wrap">
+            <select id="qbSelect" aria-label="Unvan seçimi"></select>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <p class="qb-hero-meta" id="qbHeroMeta">Başlamak için unvanınızı seçin.</p>
+        </div>
+        <p class="qb-tag">İçişleri Bakanlığı<br>Görevde Yükselme ve Unvan Değişikliği Sınavları</p>
+      </div>
+    </section>
+
+    <div class="qb-wrap qb-sumwrap">
+      <section class="qb-summary" id="qbSummary" aria-live="polite" aria-label="Soru bankası özeti">
+        <div class="qb-sum-row">
+          <span><b id="qbSumQ">—</b> soru</span><span><b id="qbSumT">—</b> konu</span><span><b id="qbSumV">—</b> video</span>
+          <span class="qb-sum-prog" id="qbProg" hidden>Çözülen <b id="qbPSolved">0</b> · <em id="qbPPct">%0</em></span>
+        </div>
+        <div class="qb-prog-bar"><i id="qbPBar"></i></div>
+        <span hidden><b id="qbSumE"></b><b id="qbPOk"></b><b id="qbPNo"></b></span>
+      </section>
+    </div>
+
+    <section class="qb-wrap qb-sec" id="qbModesSec" aria-labelledby="qbModesH">
+      <div class="qb-sec-h"><h2 id="qbModesH">Çalışma modları</h2><p id="qbModesNote">Başlamak için önce unvanınızı seçin.</p></div>
+      <div class="qb-modes">
+        <button type="button" class="qb-card" data-mode="topic">
+          <span class="qb-ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+          <span class="qb-ct"><b>Konu Bazlı Test</b><small>Konu ve alt konu seçerek odaklanın</small></span>
+          <svg class="qb-arr" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+        <button type="button" class="qb-card" data-mode="mixed">
+          <span class="qb-ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg></span>
+          <span class="qb-ct"><b>Karışık Test</b><small>Birden çok konudan karışık havuz</small></span>
+          <svg class="qb-arr" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+        <button type="button" class="qb-card" data-mode="myexams">
+          <span class="qb-ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9 2h6"/></svg></span>
+          <span class="qb-ct"><b>Deneme Oluştur</b><small>Resmî dağılımlı, süreli deneme</small></span>
+          <svg class="qb-arr" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+        <button type="button" class="qb-card" data-mode="video">
+          <span class="qb-ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9.5 5 2.5-5 2.5z"/></svg></span>
+          <span class="qb-ct"><b>Video Çözümlü Sorular</b><small>Çözümü videodan izleyin</small><span class="qb-badge" id="qbVidBadge"></span></span>
+          <svg class="qb-arr" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+      </div>
+      <div class="qb-quick">
+        <button type="button" class="qb-qk" data-mode="wrong"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span><b>Yanlışlarım</b><small id="qbWrongN">—</small></span></button>
+        <button type="button" class="qb-qk" data-mode="fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg><span><b>Favorilerim</b><small id="qbFavN">—</small></span></button>
+      </div>
+      <button type="button" class="qb-cont" id="qbCont" hidden>
+        <span class="qb-cont-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <span class="qb-cont-t"><small>Kaldığınız yerden devam edin</small><b id="qbContT">—</b></span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+    </section>
+
+    <section class="qb-wrap qb-sec" id="qbTopicsSec" aria-labelledby="qbTopicsH">
+      <button type="button" class="qb-acc" id="qbTopicsToggle" aria-expanded="false" aria-controls="qbTopicsBody">
+        <span class="qb-acc-t"><b id="qbTopicsH">Sorumlu olduğunuz konular</b><small id="qbTopicsNote">Seçtiğiniz unvanın resmî sınavında yer alan konular.</small></span>
+        <span class="qb-acc-n" id="qbTopicsCount"></span>
+        <svg class="qb-acc-ch" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="qb-acc-body" id="qbTopicsBody" hidden>
+        <div class="qb-gap" id="qbGap" hidden></div>
+        <ol class="qb-tlist" id="qbTopics"><li class="qb-empty">Unvan seçildiğinde konular burada listelenir.</li></ol>
+        <button type="button" class="qb-more" id="qbMore" hidden></button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="qb-foot">
+    <div class="qb-wrap qb-foot-in">
+      <span>© 2026 AdaletSen Akademi · Çözümlü Videolu Online Soru Bankası</span>
+      <span id="qbSrc">Kaynak: İçişleri Bakanlığı sınav duyurusu</span>
+    </div>
+  </footer>
+
+  <!-- Alt gezinme (mobil) -->
+  <nav class="qb-tabs" aria-label="Hızlı gezinme">
+    <button type="button" class="qb-tab on" data-go="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/></svg><span>Ana Sayfa</span></button>
+    <button type="button" class="qb-tab" data-mode="topic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg><span>Konu</span></button>
+    <button type="button" class="qb-tab" data-mode="mixed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg><span>Karışık</span></button>
+    <button type="button" class="qb-tab" data-mode="myexams"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9 2h6"/></svg><span>Deneme</span></button>
+    <button type="button" class="qb-tab" data-mode="video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9.5 5 2.5-5 2.5z"/></svg><span>Video</span></button>
+  </nav>
+
+  <!-- Hakkında -->
+  <div class="qb-sheet" id="qbAbout" hidden>
+    <div class="qb-sheet-bg" data-a="about-close"></div>
+    <div class="qb-sheet-box" role="dialog" aria-modal="true" aria-label="Hakkında">
+      <div class="qb-sheet-h"><b>Hakkında</b><button type="button" class="qb-ib" data-a="about-close" aria-label="Kapat"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="qb-sheet-body" id="qbAboutBody"></div>
+    </div>
+  </div>
+
+  <div class="qb-toast" id="qbToast" role="status" aria-live="polite"></div>
+</div>
