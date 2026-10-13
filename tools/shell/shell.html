@@ -1,0 +1,92 @@
+<div id="qb-app" class="qb">
+  <header class="qb-top">
+    <div class="qb-wrap qb-top-in">
+      <a class="qb-brand" href="#" aria-label="Online Soru Bankası ana sayfa">
+        <span class="qb-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M9 8h6M9 12h4"/></svg>
+        </span>
+        <span class="qb-brand-t"><b>Online Soru Bankası</b><small>İçişleri Bakanlığı · Sınav Hazırlık</small></span>
+      </a>
+      <button type="button" class="qb-who" id="qbWho" aria-label="Unvanı değiştir">
+        <span class="qb-who-k">Unvan</span>
+        <span class="qb-who-v" id="qbWhoV">Seçilmedi</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="qb-hero">
+      <div class="qb-wrap qb-hero-in">
+        <div class="qb-hero-copy">
+          <p class="qb-eyebrow">Görevde Yükselme ve Unvan Değişikliği Sınavları</p>
+          <h1>Unvanınıza özel<br>online soru bankası</h1>
+          <p class="qb-lead">Soru bankası, seçtiğiniz unvanın resmî sınav konularından oluşur. Konu bazlı çalışın, karışık test çözün veya kendi denemenizi oluşturun.</p>
+          <div class="qb-pick" id="qbPick">
+            <label for="qbSelect">Unvanınızı seçin</label>
+            <div class="qb-select-wrap">
+              <select id="qbSelect" aria-label="Unvan seçimi"></select>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
+        </div>
+        <aside class="qb-summary" id="qbSummary" aria-live="polite">
+          <div class="qb-sum-head"><span id="qbSumType">—</span><b id="qbSumName">Unvan seçilmedi</b></div>
+          <dl class="qb-sum-grid">
+            <div><dt>Soru</dt><dd id="qbSumQ">—</dd></div>
+            <div><dt>Konu</dt><dd id="qbSumT">—</dd></div>
+            <div><dt>Resmî sınav</dt><dd id="qbSumE">—</dd></div>
+          </dl>
+          <div class="qb-prog" id="qbProg" hidden>
+            <div class="qb-prog-row"><span>Çözülen</span><b id="qbPSolved">0</b></div>
+            <div class="qb-prog-bar"><i id="qbPBar"></i></div>
+            <div class="qb-prog-row qb-prog-sub"><span><i class="ok"></i>Doğru <b id="qbPOk">0</b></span><span><i class="no"></i>Yanlış <b id="qbPNo">0</b></span><span id="qbPPct">%0</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="qb-wrap qb-sec" aria-labelledby="qbModesH">
+      <div class="qb-sec-h"><h2 id="qbModesH">Çalışma modları</h2><p id="qbModesNote">Başlamak için önce unvanınızı seçin.</p></div>
+      <div class="qb-modes">
+        <button type="button" class="qb-card" data-mode="topic">
+          <span class="qb-ic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+          <h3>Konu Bazlı Test</h3>
+          <p>Bir konu ve alt konuları seçin, soru sayısını belirleyin ve o konuya odaklanın.</p>
+          <span class="qb-go">Başla <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button type="button" class="qb-card" data-mode="mixed">
+          <span class="qb-ic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg></span>
+          <h3>Karışık Test</h3>
+          <p>Birden fazla konudan oluşan bir havuz kurun; sorular karışık sırayla gelir.</p>
+          <span class="qb-go">Başla <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button type="button" class="qb-card" data-mode="myexams">
+          <span class="qb-ic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9 2h6"/></svg></span>
+          <h3>Deneme Oluştur</h3>
+          <p>Resmî konu dağılımına uygun, süreli ve değerlendirmeli kendi denemenizi hazırlayın.</p>
+          <span class="qb-go">Başla <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="qb-wrap qb-sec" aria-labelledby="qbTopicsH">
+      <div class="qb-sec-h"><h2 id="qbTopicsH">Sorumlu olduğunuz konular</h2><p id="qbTopicsNote">Seçtiğiniz unvanın resmî sınavında yer alan konular ve soru bankasındaki soru sayıları.</p></div>
+      <div class="qb-gap" id="qbGap" hidden></div>
+      <div class="qb-tbl-wrap">
+        <table class="qb-tbl">
+          <thead><tr><th class="n">#</th><th>Konu</th><th class="r">Sınavda</th><th class="r">Soru bankası</th></tr></thead>
+          <tbody id="qbTopics"><tr><td colspan="4" class="qb-empty">Unvan seçildiğinde konular burada listelenir.</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="qb-foot">
+    <div class="qb-wrap qb-foot-in">
+      <span>© 2026 AdaletSen Akademi · Online Soru Bankası</span>
+      <span id="qbSrc">Kaynak: İçişleri Bakanlığı sınav duyurusu</span>
+    </div>
+  </footer>
+  <div class="qb-toast" id="qbToast" role="status" aria-live="polite"></div>
+</div>
