@@ -1,16 +1,29 @@
 /* ===== Modül ve sınav ekranları: kullanım kolaylığı düzeltmeleri =====
    Panelin sihirbazları ve sınav ekranları aynen kullanılır; yalnızca taşma, kesilme ve sıkışma sorunları giderilir. */
 
-/* --- Konu/Karışık sihirbazı (masaüstü): ana eylem düğmesi hep görünür --- */
-#konuWizardBox, #karisikWizardBox { height: min(760px, 94dvh); max-height: 94dvh; }
-#konuWizardBox .konu-right { padding: 30px 38px 26px; overflow: hidden; }
+/* --- Konu/Karışık sihirbazı (masaüstü): ana eylem düğmesi hep görünür, alt konu alanı geniş --- */
+#konuWizardBox, #karisikWizardBox { height: min(800px, 96dvh); max-height: 96dvh; }
+#konuWizardBox .konu-right { padding: 26px 32px 22px; overflow: hidden; display: flex; flex-direction: column; }
+#konuWizardBox .konu-right h2 { font-size: 21px; margin-bottom: 14px; }
 #konuWizardBox .konu-right h2::after {
   content: "Alt konu seçmezseniz, seçili konunun tüm alt konularından soru gelir.";
-  display: block; margin-top: 6px; font-size: 13px; font-weight: 500; letter-spacing: 0; color: var(--text-muted, #64748b);
+  display: block; margin-top: 4px; font-size: 13px; font-weight: 500; letter-spacing: 0; color: var(--text-muted, #64748b);
 }
-#konuWizardBox #altKonuArea { flex: 1 1 auto; min-height: 0; overflow-y: auto; margin-bottom: 14px; padding-right: 4px; }
+#konuWizardBox #altKonuArea { flex: 1 1 auto; min-height: 0; overflow-y: auto; margin-bottom: 12px; padding-right: 4px; }
 #konuWizardBox .altkonu-grid { max-height: none !important; overflow: visible !important; }
-#konuWizardBox .konu-summary, #konuWizardBox .slider-area { flex: none; }
+#konuWizardBox .konu-summary { display: none !important; }
+#konuWizardBox .slider-area { flex: none; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 18px; align-items: center; padding: 14px 18px 12px; }
+#konuWizardBox .slider-area > .quick-counts { grid-column: 2; grid-row: 1; margin: 0; display: flex; gap: 6px; justify-content: flex-end; }
+#konuWizardBox .slider-area > div:nth-child(2) { grid-column: 1; grid-row: 1; margin: 0 !important; justify-content: flex-start !important; gap: 12px; }
+#konuWizardBox .slider-area > div:nth-child(2) > div { gap: 8px !important; }
+#konuWizardBox #sliderVal { display: none; }
+#konuWizardBox #soruSlider { grid-column: 1 / -1; grid-row: 2; margin: 0; }
+#konuWizardBox .slider-area > .aa-exclude-correct { grid-column: 1; grid-row: 3; margin: 0; padding: 0; border: 0; background: none; font-size: 13px; }
+#konuWizardBox .slider-area > .aa-exclude-correct small { display: none; }
+#konuWizardBox #startExamBtn { grid-column: 2; grid-row: 3; width: auto !important; min-width: 250px; margin: 0 !important; padding: 14px 22px !important; }
+#konuWizardBox .start-help { grid-column: 1 / -1; grid-row: 4; margin: 0; font-size: 12.5px; min-height: 0; }
+#konuWizardBox .quick-count-btn.qb-all { font-weight: 800; }
+#konuWizardBox .altkonu-card.selected::after { content: "✓"; position: absolute; right: 12px; bottom: 8px; font-weight: 800; color: #800000; }
 
 /* --- Sınav ekranı (masaüstü): Önceki/Sonraki çubuğu çözüm açılsa da altta kalır --- */
 #nativeExamScreen.aa-ex-single .exam-main .aa-ex-bar {
@@ -25,10 +38,30 @@
   #denemeSonucOverlay .deneme-summary-grid > *:first-child { grid-column: 1 / -1; }
 }
 
+/* --- Mobil konu bazlı test: sayfa kayar, alt çubuk (soru sayısı + Başlat) hep görünür --- */
+@media (max-width: 900px) {
+  #m-screen-topic > .m-card:nth-of-type(1) { padding: 12px 14px 14px; }
+  #m-screen-topic .m-card-head { flex-wrap: wrap; row-gap: 2px; }
+  #m-screen-topic .m-card-head::after { content: "Seçmezseniz tüm alt konulardan soru gelir."; flex-basis: 100%; order: 3; margin-top: 0; font-size: 12px; font-weight: 500; color: #7b8594; }
+  #m-screen-topic #mTopicSubList { max-height: none; overflow: visible; }
+  #m-screen-topic #mTopicSubList > * { min-height: 52px; }
+  #m-screen-topic > .m-card:last-child {
+    position: sticky; bottom: 0; z-index: 5; margin: 12px -16px 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    border-radius: 18px 18px 0 0; border: 0; border-top: 1px solid #e3e6ec; box-shadow: 0 -8px 24px rgba(16, 24, 40, .12);
+  }
+  #m-screen-topic > .m-card:last-child .m-range-row { margin-bottom: 4px; }
+  #m-screen-topic > .m-card:last-child .m-range { margin: 4px 0 6px; }
+  #m-screen-topic > .m-card:last-child .aa-exclude-correct { margin: 4px 0 10px; padding: 0; border: 0; background: none; font-size: 13px; }
+  #m-screen-topic > .m-card:last-child .aa-exclude-correct small { display: none; }
+  #m-screen-topic .qb-mchips { display: flex; gap: 8px; margin-bottom: 8px; }
+  #m-screen-topic .qb-mchips button { flex: 1; height: 38px; border: 1px solid #d9dde5; background: #fff; border-radius: 10px; font: inherit; font-size: 13px; font-weight: 700; color: #334155; }
+  #m-screen-topic .qb-mchips button.on { background: #7a0f1f; border-color: #7a0f1f; color: #fff; }
+  #m-screen-topic .qb-mmax { font-weight: 500; color: #7b8594; font-size: 13px; margin-left: 4px; }
+}
+
 /* --- Mobil sihirbazlar --- */
 @media (max-width: 900px) {
   #nds-lesson-overlay .m-wizard-pill { display: none; }                       /* üst çubuktaki başlıkla aynı */
-  #mTopicSubList::after { content: "Seçim yapmazsanız tüm alt konulardan soru gelir."; display: block; grid-column: 1 / -1; margin-top: 10px; font-size: 12px; color: #7b8594; }
   #m-screen-myexams .aa-dist-btn, #m-screen-myexams .aa-dist-btn:hover {
     display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin: 0 0 12px;
     background: #fff !important; color: #7a1020 !important; border: 1px solid #e3c4c9 !important; box-shadow: none !important;

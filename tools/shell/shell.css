@@ -73,7 +73,7 @@ html.qv-lock:root, html.qv-lock:root body, html.qb-ovl:root, html.qb-ovl:root bo
 .qb-df { flex: none; padding: 14px 18px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line-2); font-size: 12px; color: var(--ink-3); }
 
 /* ---- üst alan (kompakt) ---- */
-.qb-hero { background: linear-gradient(180deg, #5f0b19 0%, #6d0f1e 100%); color: #fff; padding: 20px 0 66px; }
+.qb-hero { background: linear-gradient(180deg, #5f0b19 0%, #6d0f1e 100%); color: #fff; padding: 16px 0 46px; }
 .qb-hero-in { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; }
 .qb-pick { flex: 1; max-width: 560px; min-width: 0; }
 .qb-eyebrow { display: block; margin-bottom: 8px; font-size: 11.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: rgba(255, 255, 255, .72); }
@@ -85,23 +85,14 @@ html.qv-lock:root, html.qv-lock:root body, html.qb-ovl:root, html.qb-ovl:root bo
 .qb-hero-meta { margin: 10px 2px 0; font-size: 13px; line-height: 1.45; color: rgba(255, 255, 255, .82); }
 .qb-tag { margin: 0; text-align: right; font-size: 13px; line-height: 1.5; color: rgba(255, 255, 255, .7); max-width: 300px; }
 
-.qb-sumwrap { margin-top: -44px; position: relative; z-index: 2; }
-.qb-summary { background: var(--card); border-radius: 18px; box-shadow: 0 8px 28px rgba(16, 24, 40, .14); padding: 16px 8px 14px; }
-.qb-sum-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-.qb-sum-grid div { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 2px 4px; }
-.qb-sum-grid div + div { border-left: 1px solid var(--line-2); }
-.qb-sum-grid b { font-size: 21px; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.qb-sum-grid span { font-size: 11.5px; font-weight: 600; color: var(--ink-3); }
-.qb-prog { margin: 14px 10px 0; padding-top: 12px; border-top: 1px solid var(--line-2); }
-.qb-prog-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--ink-2); }
+.qb-sumwrap { margin-top: -30px; position: relative; z-index: 2; }
+.qb-summary { background: var(--card); border-radius: 14px; box-shadow: 0 6px 20px rgba(16, 24, 40, .12); padding: 11px 18px 12px; }
+.qb-prog { margin-top: 9px; }
+.qb-prog-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 12.5px; color: var(--ink-2); }
 .qb-prog-row b { color: var(--ink); font-variant-numeric: tabular-nums; }
 .qb-prog-row span:last-child { font-weight: 700; color: var(--ink); }
-.qb-prog-bar { height: 7px; background: var(--line-2); border-radius: 99px; margin: 8px 0 9px; overflow: hidden; }
+.qb-prog-bar { height: 4px; background: var(--line-2); border-radius: 99px; margin-top: 6px; overflow: hidden; }
 .qb-prog-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #a3182c, #7a0f1f); border-radius: 99px; transition: width .4s; }
-.qb-prog-sub { display: flex; gap: 18px; font-size: 12.5px; color: var(--ink-2); }
-.qb-prog-sub b { color: var(--ink); }
-.qb-prog-sub i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
-.qb-prog-sub i.ok { background: #22c55e; } .qb-prog-sub i.no { background: #ef4444; }
 
 /* ---- bölümler ---- */
 .qb-sec { padding-top: 28px; }
@@ -209,14 +200,13 @@ html.qv-lock:root, html.qv-lock:root body, html.qb-ovl:root, html.qb-ovl:root bo
   .qb-who:active { background: rgba(255, 255, 255, .16); }
   .qb-who-ic { display: block; }
   .qb-who-k, .qb-who-v, .qb-who-ch { display: none; }
-  .qb-hero { padding: 14px 0 58px; }
+  .qb-hero { padding: 12px 0 40px; }
   .qb-hero-in { display: block; }
   .qb-tag { display: none; }
   .qb-select-wrap select { height: 50px; font-size: 15.5px; }
   .qb-hero-meta { margin-top: 8px; font-size: 12.5px; }
-  .qb-sumwrap { margin-top: -40px; }
-  .qb-summary { border-radius: 16px; padding: 14px 4px 12px; }
-  .qb-sum-grid b { font-size: 19px; }
+  .qb-sumwrap { margin-top: -28px; }
+  .qb-summary { border-radius: 14px; padding: 10px 14px 11px; }
   .qb-sec { padding-top: 22px; }
   .qb-sec-h h2 { font-size: 17px; }
   .qb-modes { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -241,7 +231,6 @@ html.qv-lock:root, html.qv-lock:root body, html.qb-ovl:root, html.qb-ovl:root bo
 }
 @media (max-width: 360px) {
   .qb-brand-t small { display: none; }
-  .qb-sum-grid b { font-size: 17px; }
   .qb-ct small { display: none; }
   .qb-card { min-height: 116px; }
 }
@@ -257,3 +246,8 @@ html.qv-lock:root, html.qv-lock:root body, html.qb-ovl:root, html.qb-ovl:root bo
 .qb-qk:active:not(:disabled) { background: #fafbfc; }
 .qb-qk:disabled { opacity: .5; }
 @media (max-width: 380px) { .qb-qk { padding: 10px; gap: 9px; } .qb-qk b { font-size: 13px; } }
+
+.qb-sum-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; font-weight: 600; color: var(--ink-3); }
+.qb-sum-row b { font-size: 17px; font-weight: 800; color: var(--ink); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.qb-sum-row i { flex: none; width: 1px; height: 18px; background: var(--line); }
+.qb-sum-row span { flex: 1; text-align: center; }

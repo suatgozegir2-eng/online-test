@@ -80,17 +80,14 @@
 
     <div class="qb-wrap qb-sumwrap">
       <section class="qb-summary" id="qbSummary" aria-live="polite" aria-label="Soru bankası özeti">
-        <div class="qb-sum-grid">
-          <div><b id="qbSumQ">—</b><span>Soru</span></div>
-          <div><b id="qbSumT">—</b><span>Konu</span></div>
-          <div><b id="qbSumV">—</b><span>Video</span></div>
-          <div><b id="qbSumE">—</b><span>Sınav</span></div>
+        <div class="qb-sum-row">
+          <span><b id="qbSumQ">—</b> soru</span><i></i><span><b id="qbSumT">—</b> konu</span><i></i><span><b id="qbSumV">—</b> video</span>
         </div>
         <div class="qb-prog" id="qbProg" hidden>
           <div class="qb-prog-row"><span>Çözülen <b id="qbPSolved">0</b></span><span id="qbPPct">%0</span></div>
           <div class="qb-prog-bar"><i id="qbPBar"></i></div>
-          <div class="qb-prog-sub"><span><i class="ok"></i>Doğru <b id="qbPOk">0</b></span><span><i class="no"></i>Yanlış <b id="qbPNo">0</b></span></div>
         </div>
+        <span hidden><b id="qbSumE"></b><b id="qbPOk"></b><b id="qbPNo"></b></span>
       </section>
     </div>
 

@@ -280,6 +280,40 @@
     check();
   })();
 
+  /* ---- konu bazlı test: hızlı soru sayısı düğmeleri (panelin kendi kaydırıcılarını sürer) ---- */
+  (function () {
+    function bump(range, n) {
+      var max = parseInt(range.max || '1', 10), v = Math.max(1, Math.min(n, max));
+      range.value = v;
+      range.dispatchEvent(new Event('input', { bubbles: true })); range.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    // masaüstü: "Tümü" düğmesi
+    var q = document.querySelector('#konuWizardBox .quick-counts');
+    if (q && !q.querySelector('.qb-all')) {
+      var all = document.createElement('button'); all.type = 'button'; all.className = 'quick-count-btn qb-all'; all.textContent = 'Tümü';
+      all.addEventListener('click', function () { var s = $('soruSlider'); if (s) { bump(s, parseInt(s.max || '1', 10)); var i = $('soruCountInput'); if (i) i.value = s.value; } });
+      q.appendChild(all);
+    }
+    // mobil: düğme sırası + üst sınır
+    var range = $('mTopicCount'); if (!range) return;
+    var row = range.parentNode.querySelector('.m-range-row'), lab = $('mTopicCountLabel');
+    var chips = document.createElement('div'); chips.className = 'qb-mchips';
+    [10, 20, 30, 50, 'Tümü'].forEach(function (n) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = n === 'Tümü' ? 'Tümü' : n; b.setAttribute('data-n', n);
+      b.addEventListener('click', function () { bump(range, n === 'Tümü' ? parseInt(range.max || '1', 10) : n); sync(); });
+      chips.appendChild(b);
+    });
+    row.parentNode.insertBefore(chips, row.nextSibling);
+    var mx = document.createElement('span'); mx.className = 'qb-mmax'; lab.parentNode.appendChild(mx);
+    function sync() {
+      mx.textContent = '/ ' + range.max; var v = String(range.value), max = String(range.max);
+      [].forEach.call(chips.children, function (b) { var n = b.getAttribute('data-n'); b.classList.toggle('on', n === 'Tümü' ? v === max : n === v); });
+    }
+    range.addEventListener('input', sync); range.addEventListener('change', sync);
+    new MutationObserver(sync).observe(range, { attributes: true, attributeFilter: ['max', 'min'] });
+    sync();
+  })();
+
   buildSelect(); renderSummary(); renderTopics(); renderVideoInfo(); setEnabled(false);
   window.addEventListener('load', renderVideoInfo);
   document.documentElement.lang = 'tr';
