@@ -23,7 +23,7 @@
   var last = lsGet('qb_vid_last_' + ACTIVE.id, null);
   var rate = Number(lsGet('qb_vid_rate', 1)) || 1;
 
-  var state = { ti: 0, i: 0, sel: {}, shown: {}, alt: false }, railTi = -1;
+  var state = { ti: 0, i: 0, sel: {}, shown: {}, alt: false, view: 'list' }, railTi = -1;
   var root = null, refs = {};
 
   function $(s, c) { return (c || root).querySelector(s); }
@@ -34,6 +34,18 @@
   function driveView(id) { return 'https://drive.google.com/file/d/' + id + '/view'; }
   function drivePrev(id) { return 'https://drive.google.com/file/d/' + id + '/preview'; }
   function isMobile() { return window.innerWidth <= 900; }
+
+  /* ---- ana sayfa ile paylaşılan bilgi ---- */
+  function info() {
+    var r = lsGet('qb_vid_last_' + (ACTIVE && ACTIVE.id), null), res = null;
+    if (r && CHOSEN) {
+      var k = TOPICS.findIndex(function (t) { return t.id === r.t; });
+      if (k >= 0) res = { topic: TOPICS[k].name, n: Math.min(Math.max(0, r.i | 0), TOPICS[k].items.length - 1) + 1, of: TOPICS[k].items.length };
+    }
+    return { topics: TOPICS.length, total: TOTAL, resume: res };
+  }
+  window.QB_VIDEO_INFO = info;
+  function changed() { try { window.dispatchEvent(new Event('qb:video-changed')); } catch (e) {} }
 
   /* ---- ana sayfa kartı ---- */
   function initCard() {
@@ -52,16 +64,15 @@
     root.setAttribute('role', 'dialog'); root.setAttribute('aria-modal', 'true'); root.setAttribute('aria-label', 'Video çözümlü sorular');
     root.innerHTML =
       '<header class="qv-bar">' +
-        '<button type="button" class="qv-back" data-a="close" aria-label="Kapat ve soru bankasına dön"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Soru bankası</span></button>' +
-        '<div class="qv-title"><b>Video Çözümlü Sorular</b><small>' + esc(ACTIVE.name) + '</small></div>' +
-        '<button type="button" class="qv-topicbtn" data-a="sheet" aria-haspopup="dialog"><span class="qv-tb-l">Konu</span><span class="qv-tb-v" id="qvTb"></span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>' +
+        '<button type="button" class="qv-back" data-a="back" aria-label="Geri"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Soru bankası</span></button>' +
+        '<div class="qv-title"><b id="qvTitleT">Video Çözümlü Sorular</b><small id="qvTitleS">' + esc(ACTIVE.name) + '</small></div>' +
+        '<button type="button" class="qv-x" data-a="close" aria-label="Kapat"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>' +
       '</header>' +
       '<div class="qv-body">' +
-        '<aside class="qv-rail" aria-label="Konular"><div class="qv-rail-h"><b>Konular</b><span>' + TOPICS.length + ' konu · ' + TOTAL + ' video</span></div><div class="qv-topics" id="qvTopics"></div></aside>' +
+        '<aside class="qv-rail" aria-label="Konular"><div id="qvResume"></div><div class="qv-rail-h"><b>Konular</b><span>' + TOPICS.length + ' konu · ' + TOTAL + ' video</span></div><div class="qv-topics" id="qvTopics"></div></aside>' +
         '<main class="qv-main" id="qvMain"></main>' +
       '</div>' +
-      '<nav class="qv-nav" id="qvNav" aria-label="Videolar arasında gezin"></nav>' +
-      '<div class="qv-sheet" id="qvSheet" hidden><div class="qv-sheet-bg" data-a="sheetclose"></div><div class="qv-sheet-box" role="dialog" aria-label="Konu seçin"><div class="qv-sheet-h"><b>Konu seçin</b><button type="button" data-a="sheetclose" aria-label="Kapat">×</button></div><div class="qv-topics" id="qvSheetTopics"></div></div></div>';
+      '<nav class="qv-nav" id="qvNav" aria-label="Videolar arasında gezin"></nav>';
     document.body.appendChild(root);
     root.addEventListener('click', onClick);
     window.addEventListener('keydown', onKey, true); // yakalama aşaması: panelin eski tuş yutucularından bağımsız
@@ -76,7 +87,7 @@
     return TOPICS.map(function (t, ti) {
       var n = t.items.length, k = seenCount(t), on = ti === state.ti;
       var list = '';
-      if (on) {
+      if (on && !isMobile()) {
         list = '<ol class="qv-vl">' + t.items.map(function (v, i) {
           return '<li><button type="button" class="qv-vi' + (i === state.i ? ' on' : '') + (seen[v.id] ? ' seen' : '') + '" data-a="go" data-i="' + i + '" aria-current="' + (i === state.i ? 'true' : 'false') + '">' +
             '<em>' + (i + 1) + '</em><span>' + esc(v.st || v.f.replace(/\.mp4$/i, '')) + '</span>' + (seen[v.id] ? '<i class="qv-ck" aria-label="İzlendi">✓</i>' : '') + '</button></li>';
@@ -84,21 +95,36 @@
       }
       return '<div class="qv-topic' + (on ? ' on' : '') + '">' +
         '<button type="button" class="qv-th" data-a="topic" data-ti="' + ti + '" aria-expanded="' + on + '">' +
-          '<span class="qv-tn">' + esc(t.name) + '</span>' +
+          '<span class="qv-tno">' + (ti + 1) + '</span><span class="qv-tn">' + esc(t.name) + '</span>' +
           '<span class="qv-tm">' + n + ' video' + (k ? ' · ' + k + ' izlendi' : '') + '</span>' +
           '<span class="qv-tp"><i style="width:' + Math.round(k / n * 100) + '%"></i></span>' +
+          '<svg class="qv-tc" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>' +
         '</button>' + list + '</div>';
     }).join('');
   }
+  function renderResume() {
+    var r = $('#qvResume'), i = info().resume;
+    if (!i) { r.innerHTML = ''; return; }
+    r.innerHTML = '<button type="button" class="qv-resume" data-a="resume"><span class="qv-rs-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="qv-rs-t"><small>Kaldığınız yerden devam edin</small><b>' + esc(i.topic) + ' · Video ' + i.n + '/' + i.of + '</b></span></button>';
+  }
   function renderTopics() {
     $('#qvTopics').innerHTML = topicHtml();
-    $('#qvSheetTopics').innerHTML = topicHtml().replace(/<ol class="qv-vl">[\s\S]*?<\/ol>/g, '');
-    $('#qvTb').textContent = topic().name;
+    renderResume(); syncBar();
     if (!isMobile()) {
       var changed = railTi !== state.ti; railTi = state.ti;
       var el = changed ? $('#qvTopics .qv-topic.on') : $('#qvTopics .qv-vi.on');
       if (el && el.scrollIntoView) { try { el.scrollIntoView({ block: changed ? 'start' : 'nearest' }); } catch (e) {} }
     }
+  }
+
+  function syncBar() {
+    if (!root) return;
+    var play = state.view === 'play' && isMobile();
+    root.classList.toggle('qv-play', play); root.classList.toggle('qv-list', !play);
+    var t = $('#qvTitleT'), sub = $('#qvTitleS');
+    if (play) { t.textContent = topic().name; sub.textContent = 'Video ' + (state.i + 1) + ' / ' + topic().items.length; }
+    else { t.textContent = 'Video Çözümlü Sorular'; sub.textContent = ACTIVE.name; }
+    var b = $('.qv-back span'); if (b) b.textContent = play ? 'Konular' : 'Soru bankası';
   }
 
   /* ---- oynatıcı ---- */
@@ -136,6 +162,7 @@
 
   /* ---- soru + video ---- */
   function renderMain() {
+    syncBar();
     var t = topic(), v = item(), sel = state.sel[v.id], shown = !!state.shown[v.id];
     var choices = v.o.map(function (o, i) {
       var cls = '';
@@ -189,9 +216,15 @@
     var f = $('.qv-frame iframe'); if (f) f.src = 'about:blank';
   }
   function go(ti, i) {
-    stopMedia(); state.alt = false; state.ti = ti; state.i = i;
-    renderTopics(); renderMain();
+    stopMedia(); state.alt = false; state.ti = ti; state.i = i; state.view = 'play';
+    renderTopics(); renderMain(); changed();
   }
+  function firstUnseen(ti) {
+    var it = TOPICS[ti].items, k = 0;
+    for (; k < it.length; k++) if (!seen[it[k].id]) break;
+    return k >= it.length ? 0 : k;
+  }
+  function showList() { stopMedia(); state.view = 'list'; var box = $('.qv-frame'); if (box && item()) { state.alt = false; renderMain(); } renderTopics(); var r = $('.qv-rail'); if (r) r.scrollTop = 0; }
   function step(d) {
     var t = topic(), ni = state.i + d;
     if (ni >= 0 && ni < t.items.length) return go(state.ti, ni);
@@ -202,9 +235,9 @@
     var a = e.target.closest && e.target.closest('[data-a]'); if (!a) return;
     var act = a.getAttribute('data-a');
     if (act === 'close') close();
-    else if (act === 'sheet') { $('#qvSheet').hidden = false; }
-    else if (act === 'sheetclose') { $('#qvSheet').hidden = true; }
-    else if (act === 'topic') { var ti = +a.getAttribute('data-ti'); $('#qvSheet').hidden = true; if (ti !== state.ti) go(ti, 0); else if (!isMobile()) renderTopics(); }
+    else if (act === 'back') { if (state.view === 'play' && isMobile()) showList(); else close(); }
+    else if (act === 'resume') { var r = info().resume, k = r ? TOPICS.findIndex(function (t) { return t.name === r.topic; }) : -1; if (k >= 0) go(k, r.n - 1); }
+    else if (act === 'topic') { var ti = +a.getAttribute('data-ti'); if (isMobile()) go(ti, firstUnseen(ti)); else if (ti !== state.ti) go(ti, 0); else renderTopics(); }
     else if (act === 'go') go(state.ti, +a.getAttribute('data-i'));
     else if (act === 'prev') step(-1);
     else if (act === 'next') { markSeen(item().id); step(1); }
@@ -225,7 +258,7 @@
   function onKey(e) {
     if (!root || root.hidden) return;
     var tg = e.target, tag = tg && tg.tagName;
-    if (e.key === 'Escape') { if (!$('#qvSheet').hidden) $('#qvSheet').hidden = true; else close(); return; }
+    if (e.key === 'Escape') { if (state.view === 'play' && isMobile()) showList(); else close(); return; }
     if (/INPUT|SELECT|TEXTAREA|VIDEO/.test(tag)) return;
     if (e.key === 'ArrowLeft') step(-1);
     if (e.key === 'ArrowRight') step(1);
@@ -242,17 +275,18 @@
       });
       var ti = 0, i = 0;
       if (last) { var k = TOPICS.findIndex(function (t) { return t.id === last.t; }); if (k >= 0) { ti = k; i = Math.min(Math.max(0, last.i | 0), TOPICS[k].items.length - 1); } }
-      state.ti = ti; state.i = i; renderTopics(); renderMain();
-    }
+      state.ti = ti; state.i = i; state.view = 'list'; renderTopics(); renderMain();
+    } else if (isMobile()) { state.view = 'list'; renderTopics(); }
     root.hidden = false; document.documentElement.classList.add('qv-lock');
     var b = $('.qv-back'); if (b) b.focus();
+    changed();
   }
   function close() {
     if (!root) return; stopMedia(); root.hidden = true; document.documentElement.classList.remove('qv-lock');
-    var sh = $('#qvSheet'); if (sh) sh.hidden = true;
     var c = document.querySelector('.qb-card[data-mode="video"]'); if (c) c.focus();
     // iframe kapatılmıştı: bir sonraki açılışta oynatıcıyı yeniden kur
     if (TOPICS.length) { var box = $('.qv-frame'); if (box) { state.alt = false; renderMain(); } }
+    changed();
   }
 
   window.QB_OPEN_VIDEOS = open;

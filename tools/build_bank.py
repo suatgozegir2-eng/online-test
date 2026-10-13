@@ -277,7 +277,7 @@ def sub1(name, pat, repl, flags=0, count=1):
 sub1('head fixedProfile', r'fixedProfile: "icisleri_vhki",', 'fixedProfile: window.AA_UNVAN_ID,')
 sub1('head activeProfile', r'window\.AA_ACTIVE_PROFILE = "icisleri_vhki";', 'window.AA_ACTIVE_PROFILE = window.AA_UNVAN_ID;')
 sub1('head panelName', r'panelName: "İçişleri Bakanlığı VHKİ Hazırlık Paneli",',
-     'panelName: "AdaletSen Akademi Online Çözümlü Soru Bankası",')
+     'panelName: "AdaletSen Akademi Çözümlü Videolu Online Soru Bankası",')
 sub1('head exams', r'exams: \["VHKİ"\],', 'exams: [window.QB_LABEL],')
 
 # tüm bloklardaki "fallback" profilleri çalışma anındakiyle değiştir
@@ -286,12 +286,12 @@ html = html.replace("'icisleri_vhki')", "window.AA_UNVAN_ID)")
 # egm unvan görünüm yaması (21056)
 sub1('egm display const',
      r'var UNVAN="VHKİ",PROFILE="icisleri_vhki",PANEL_NAME="İçişleri Bakanlığı VHKİ Hazırlık Paneli",',
-     'var UNVAN=window.QB_LABEL,PROFILE=window.AA_UNVAN_ID,PANEL_NAME="AdaletSen Akademi Online Çözümlü Soru Bankası",')
+     'var UNVAN=window.QB_LABEL,PROFILE=window.AA_UNVAN_ID,PANEL_NAME="AdaletSen Akademi Çözümlü Videolu Online Soru Bankası",')
 
 # deneme motoru (23555): unvan, plan, toplam soru, süre
 sub1('deneme const',
      r'var UNVAN="VHKİ", PROFILE="icisleri_vhki", PANEL_NAME="İçişleri Bakanlığı VHKİ Hazırlık Paneli";',
-     'var UNVAN=window.QB_LABEL, PROFILE=window.AA_UNVAN_ID, PANEL_NAME="AdaletSen Akademi Online Çözümlü Soru Bankası";')
+     'var UNVAN=window.QB_LABEL, PROFILE=window.AA_UNVAN_ID, PANEL_NAME="AdaletSen Akademi Çözümlü Videolu Online Soru Bankası";')
 sub1('deneme total',
      r'var EXAM_TOTAL=80, DEFAULT_DURATION_MIN=120, PLAN_VERSION=PROFILE\+\'_resmi_duyuru_2026_v4\';',
      "var EXAM_TOTAL=window.QB_ACTIVE.total, DEFAULT_DURATION_MIN=Math.round(EXAM_TOTAL*1.5), PLAN_VERSION=PROFILE+'_resmi_duyuru_2026_v4';")
@@ -368,7 +368,11 @@ report['GA4 çıkarıldı'] = n
 
 # ---------------------------------------------- kabuk: eski gizle, yenisi ekle
 shell_dir = os.path.join(HERE, 'shell')
-shell_css = open(os.path.join(shell_dir, 'shell.css'), encoding='utf-8').read()
+import base64 as _b64
+def _datauri(name):
+    return 'data:image/png;base64,' + _b64.b64encode(open(os.path.join(shell_dir, name), 'rb').read()).decode()
+LOGO_URI, FAV_URI = _datauri('logo.png'), _datauri('favicon.png')
+shell_css = open(os.path.join(shell_dir, 'shell.css'), encoding='utf-8').read().replace('/*LOGO*/', LOGO_URI)
 shell_html = open(os.path.join(shell_dir, 'shell.html'), encoding='utf-8').read()
 shell_js = open(os.path.join(shell_dir, 'shell.js'), encoding='utf-8').read()
 video_css = open(os.path.join(shell_dir, 'video.css'), encoding='utf-8').read()
@@ -385,7 +389,7 @@ html, n = re.subn(r'<div id="aaStartupLoader".*?<!-- /aaStartupLoader -->', '', 
 report['eski açılış ekranı kaldırıldı'] = n
 html = html.replace("document.title=PANEL_NAME+' | AdaletSen Akademi';", "document.title=PANEL_NAME;")
 html = re.sub(r'<title>.*?</title>', '', html, flags=re.S)
-html = html.replace('</head>', '<title>AdaletSen Akademi · Online Çözümlü Soru Bankası</title>\n<style id="qb-shell-css">\n' + shell_css + '\n' + video_css + '\n' + modules_css + '\n</style>\n</head>', 1)
+html = html.replace('</head>', '<title>AdaletSen Akademi · Çözümlü Videolu Online Soru Bankası</title>\n<style id="qb-shell-css">\n' + shell_css + '\n' + video_css + '\n' + modules_css + '\n</style>\n</head>', 1)
 html = html.replace('<body>', '<body>\n' + shell_html, 1)
 idx = html.rindex('</body>')
 FAST_JS = '<script id="qb-fast-fetch">\n/* Panelin veri yönlendiricisi (aa-master-data-router) her açılışta tüm soruyu tekrar süzüp JSON\'a çevirir.\n   Dilim zaten unvana göre hazır olduğundan, soru isteğini yönlendiriciden önce karşılar; sıralama bilgisini aynen yayınlar. */\n(function(){\n  \'use strict\';\n  var routerFetch=window.fetch;\n  function normName(v){\n    return String(v||\'\').replace(/İ/g,\'i\').replace(/I/g,\'i\').toLocaleLowerCase(\'tr\').normalize(\'NFD\').replace(/[̀-ͯ]/g,\'\')\n      .replace(/ğ/g,\'g\').replace(/ü/g,\'u\').replace(/ş/g,\'s\').replace(/ı/g,\'i\').replace(/ö/g,\'o\').replace(/ç/g,\'c\').replace(/[^a-z0-9]+/g,\' \').replace(/\\s+/g,\' \').trim();\n  }\n  function publishOrder(P){\n    var labels=P.topicIds.map(function(id){return window.QB_META.topicNames[id];});\n    window.AA_MASTER_TOPIC_ORDER_IDS=P.topicIds.slice();\n    window.AA_MASTER_TOPIC_ORDER=labels;\n    window.AA_MASTER_TOPIC_ORDER_SOURCE=\'question\';\n    var rank={}; labels.forEach(function(l,i){rank[normName(l)]=i;});\n    window.AA_SORT_TOPIC_LABELS=function(inp){\n      return (Array.isArray(inp)?inp.slice():[]).sort(function(a,b){\n        var ra=rank[normName(a)], rb=rank[normName(b)];\n        if(ra===undefined&&rb===undefined) return 0; if(ra===undefined) return 1; if(rb===undefined) return -1; return ra-rb;\n      });\n    };\n    window.AA_SORT_TOPICS=window.AA_SORT_TOPIC_LABELS;\n  }\n  window.fetch=async function(input,init){\n    var u=typeof input===\'string\'?input:(input&&input.url)||\'\';\n    if(/sorularicislerixx\\.json$/.test(u.split(\'#\')[0].split(\'?\')[0])){\n      var m=await window.QB_SLICE(), P=window.QB_ACTIVE;\n      publishOrder(P);\n      window.AA_MASTER_LAST_QUESTION_STATS={profile:P.id,total:m.questions.length,filtered:m.questions.length};\n      return window.QB_JSON(m.questions);\n    }\n    return routerFetch.apply(this,arguments);\n  };\n})();\n</script>\n'
@@ -401,6 +405,7 @@ page_txt = html.replace('</script', '</scr\ue000ipt').replace('<!--', '<!\ue000-
 host = open(os.path.join(shell_dir, 'host.html'), encoding='utf-8').read()
 plist = json.dumps([{'id': p['id'], 'key': p['key']} for p in profiles], ensure_ascii=False, separators=(',', ':'))
 host = host.replace('/*PROFILES*/[]/*END*/', plist)
+host = host.replace('/*LOGO*/', LOGO_URI).replace('/*FAVICON*/', FAV_URI)
 host = host.replace('/*PAGE*/', page_txt)
 open(out_path, 'w', encoding='utf-8').write(host)
 print('yama raporu:', report)

@@ -3,16 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AdaletSen Akademi · Online Çözümlü Soru Bankası</title>
+<meta name="theme-color" content="#6b0f1d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="application-name" content="AdaletSen Akademi">
+<link rel="icon" type="image/png" href="/*FAVICON*/">
+<title>AdaletSen Akademi · Çözümlü Videolu Online Soru Bankası</title>
 <style>
   html, body { margin: 0; height: 100%; background: #14181f; }
   #qb-frame { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; background: #f4f5f7; }
-  #qb-hsplash { position: fixed; inset: 0; z-index: 2; background: #14181f; color: #fff; display: grid; place-items: center; text-align: center;
+  #qb-hsplash { position: fixed; inset: 0; z-index: 2; display: grid; place-items: center; text-align: center; color: #fff;
+    background: radial-gradient(120% 80% at 50% 0%, #26334f 0%, rgba(38, 51, 79, 0) 60%), linear-gradient(165deg, #0c1524 0%, #14203a 48%, #5a0b19 100%);
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
-  #qb-hsplash .m { width: 64px; height: 64px; border-radius: 16px; background: #fff; border-bottom: 4px solid #7a1020; margin: 0 auto 14px; }
-  #qb-hsplash b { display: block; font-size: 24px; letter-spacing: -.02em; }
-  #qb-hsplash span { display: block; margin-top: 6px; font-size: 15px; color: #c4cad4; }
-  #qb-hsplash small { display: block; margin-top: 16px; font-size: 12.5px; color: #8e98a6; }
+  #qb-hsplash .in { display: flex; flex-direction: column; align-items: center; padding: 24px; max-width: 360px; }
+  #qb-hsplash .logo { width: 116px; height: 116px; border-radius: 50%; background: #fff center / 96% no-repeat url(/*LOGO*/); box-shadow: 0 0 0 6px rgba(255,255,255,.08), 0 18px 48px rgba(0,0,0,.45); }
+  #qb-hsplash b { margin-top: 26px; font-size: 25px; font-weight: 800; letter-spacing: -.01em; }
+  #qb-hsplash .sub { margin-top: 8px; font-size: 14.5px; line-height: 1.45; color: rgba(255,255,255,.82); }
+  #qb-hsplash .bar { display: block; width: 190px; height: 3px; margin-top: 30px; border-radius: 9px; background: rgba(255,255,255,.16); overflow: hidden; }
+  #qb-hsplash .bar i { display: block; width: 42%; height: 100%; border-radius: 9px; background: #fff; animation: qbh 1.15s ease-in-out infinite; }
+  #qb-hsplash small { margin-top: 14px; font-size: 12.5px; color: rgba(255,255,255,.6); }
+  @keyframes qbh { 0% { transform: translateX(-110%); } 100% { transform: translateX(260%); } }
 </style>
 <script id="qb-host-js">
 /* Ana belge yalnızca bir kapsayıcıdır. Soru bankası sayfası (panel + kabuk + veri) aşağıda metin olarak saklanır ve
@@ -65,7 +75,7 @@
     if (frame && frame.parentNode) frame.parentNode.removeChild(frame);
     frame = document.createElement('iframe');
     frame.id = 'qb-frame';
-    frame.title = 'AdaletSen Akademi Online Çözümlü Soru Bankası';
+    frame.title = 'AdaletSen Akademi Çözümlü Videolu Online Soru Bankası';
     frame.addEventListener('load', function () {
       var s = document.getElementById('qb-hsplash'); if (s && s.parentNode) s.parentNode.removeChild(s);
     });
@@ -82,7 +92,7 @@
 </script>
 </head>
 <body>
-<div id="qb-hsplash" role="status"><div><div class="m" aria-hidden="true"></div><b>AdaletSen Akademi</b><span>Online Çözümlü Soru Bankası</span><small>Soru bankası hazırlanıyor…</small></div></div>
+<div id="qb-hsplash" role="status"><div class="in"><span class="logo" role="img" aria-label="AdaletSen Akademi logosu"></span><b>AdaletSen Akademi</b><span class="sub">Çözümlü Videolu<br>Online Soru Bankası</span><span class="bar"><i></i></span><small>Hazırlanıyor…</small></div></div>
 <script id="qb-page" type="text/x-qb-page">/*PAGE*/</script>
 </body>
 </html>
