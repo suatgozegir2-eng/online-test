@@ -142,6 +142,16 @@
     sweep(document.body);
   }
 
+  /* ---- mobil sihirbazlardaki "Geri" eski paneldeki ana ekrana dönmeye çalışır; bizde ana sayfaya dönmek = üstteki katmanı kapatmak ---- */
+  (function () {
+    var old = window.mobileNav;
+    window.mobileNav = function (screen) {
+      if (screen === 'topic' || screen === 'mixed' || screen === 'myexams') return typeof old === 'function' ? old.apply(this, arguments) : undefined;
+      if (typeof window.ndsCloseScreen === 'function') { try { window.ndsCloseScreen(); return; } catch (e) {} }
+      return typeof old === 'function' ? old.apply(this, arguments) : undefined;
+    };
+  })();
+
   buildSelect(); renderSummary(); renderTopics(); setEnabled(false);
   document.documentElement.lang = 'tr';
 })();

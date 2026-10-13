@@ -331,7 +331,8 @@ sub1('mk33 yakalayıcı kapat',
      "return; /* qb: eski karışık yakalayıcı devre dışı */")
 
 # Mevzuat/Sunum/ders içerikleri bu üründe yok; bu betikler her soruda yinelemeli norm() çağırıp açılışı dondurur
-DEAD_SCRIPTS = ['aa-alt-konu-baslik-duzeltme-v1', 'aa-alt-konu-baslik-final-v2', 'aa-sunum-json-only-v1', 'aa-template-engine-v9', 'ag-script', 'aa-video-single-question-script']
+DEAD_SCRIPTS = ['aa-alt-konu-baslik-duzeltme-v1', 'aa-alt-konu-baslik-final-v2', 'aa-sunum-json-only-v1', 'aa-template-engine-v9', 'ag-script', 'aa-video-single-question-script',
+                'aa-real-phone-mobile-test-fix-v2']  # son betik: Başlat'ı pointerup'ta başlatıp tıklamayı sonraki katmana düşürüyordu
 removed = 0
 for sid in DEAD_SCRIPTS:
     html, n = re.subn(r'<script id="%s">.*?</script>' % re.escape(sid), '', html, count=1, flags=re.S)
@@ -346,6 +347,21 @@ html, n3 = re.subn(r'<script>\(\(\)=>\{\s*const names=\{all:\'Genel Türkiye Sı
 report['pdf.js + liderlik tablosu kaldırıldı'] = (n1, n2, n3)
 if (n1, n2, n3) != (1, 1, 1): print('UYARI: dış bağımlılık yamaları tam uygulanmadı', (n1, n2, n3))
 
+
+# ---- görünür metinler: bu üründe "Premium", "Akademi Denemeleri" ve "Benim Denemelerim" yok
+html = html.replace('Benim Denemelerim ve Akademi Denemeleri, Bakanlığın', 'Denemeler, Bakanlığın')
+html = html.replace("Sınav süresi panel standardı olarak '+DEFAULT_DURATION_MIN+' dakikadır.", "Önerilen sınav süresi '+DEFAULT_DURATION_MIN+' dakikadır.")
+html = html.replace('Premium Deneme Özeti', 'Deneme Özeti').replace('Premium Analiz', 'Analiz').replace('premium kart görünümünde', 'kart görünümünde')
+n_bd = html.count('Benim Denemelerim')
+html = html.replace('Benim Denemelerim', 'Deneme Oluştur')
+report['görünür metin yamaları'] = n_bd
+
+# karışık test konu listesi: alfabetik değil, unvanın resmî konu sırası
+old_sort = "topics.sort(function(a,b){ return a.localeCompare(b,'tr'); });"
+new_sort = "if(typeof window.AA_SORT_TOPIC_LABELS==='function'){ var __st=window.AA_SORT_TOPIC_LABELS(topics); topics.length=0; Array.prototype.push.apply(topics,__st); } else { topics.sort(function(a,b){ return a.localeCompare(b,'tr'); }); }"
+assert html.count(old_sort) == 1, html.count(old_sort)
+html = html.replace(old_sort, new_sort)
+
 # izleme betiğini çıkar (yeni ürün)
 html, n = re.subn(r'<script>\s*window\.GA4_MEASUREMENT_ID.*?</script>', '', html, count=1, flags=re.S)
 report['GA4 çıkarıldı'] = n
@@ -356,6 +372,8 @@ shell_css = open(os.path.join(shell_dir, 'shell.css'), encoding='utf-8').read()
 shell_html = open(os.path.join(shell_dir, 'shell.html'), encoding='utf-8').read()
 shell_js = open(os.path.join(shell_dir, 'shell.js'), encoding='utf-8').read()
 video_css = open(os.path.join(shell_dir, 'video.css'), encoding='utf-8').read()
+modules_css = open(os.path.join(shell_dir, 'modules.css'), encoding='utf-8').read()
+chart_js = open(os.path.join(shell_dir, 'chartfallback.js'), encoding='utf-8').read()
 video_js = open(os.path.join(shell_dir, 'video.js'), encoding='utf-8').read()
 
 # charset ilk 1024 bayt içinde olmalı (content:// ile açılan dosyalarda kodlama tahmini bozulmasın)
@@ -367,11 +385,11 @@ html, n = re.subn(r'<div id="aaStartupLoader".*?<!-- /aaStartupLoader -->', '', 
 report['eski açılış ekranı kaldırıldı'] = n
 html = html.replace("document.title=PANEL_NAME+' | AdaletSen Akademi';", "document.title=PANEL_NAME;")
 html = re.sub(r'<title>.*?</title>', '', html, flags=re.S)
-html = html.replace('</head>', '<title>AdaletSen Akademi · Online Çözümlü Soru Bankası</title>\n<style id="qb-shell-css">\n' + shell_css + '\n' + video_css + '\n</style>\n</head>', 1)
+html = html.replace('</head>', '<title>AdaletSen Akademi · Online Çözümlü Soru Bankası</title>\n<style id="qb-shell-css">\n' + shell_css + '\n' + video_css + '\n' + modules_css + '\n</style>\n</head>', 1)
 html = html.replace('<body>', '<body>\n' + shell_html, 1)
 idx = html.rindex('</body>')
 FAST_JS = '<script id="qb-fast-fetch">\n/* Panelin veri yönlendiricisi (aa-master-data-router) her açılışta tüm soruyu tekrar süzüp JSON\'a çevirir.\n   Dilim zaten unvana göre hazır olduğundan, soru isteğini yönlendiriciden önce karşılar; sıralama bilgisini aynen yayınlar. */\n(function(){\n  \'use strict\';\n  var routerFetch=window.fetch;\n  function normName(v){\n    return String(v||\'\').replace(/İ/g,\'i\').replace(/I/g,\'i\').toLocaleLowerCase(\'tr\').normalize(\'NFD\').replace(/[̀-ͯ]/g,\'\')\n      .replace(/ğ/g,\'g\').replace(/ü/g,\'u\').replace(/ş/g,\'s\').replace(/ı/g,\'i\').replace(/ö/g,\'o\').replace(/ç/g,\'c\').replace(/[^a-z0-9]+/g,\' \').replace(/\\s+/g,\' \').trim();\n  }\n  function publishOrder(P){\n    var labels=P.topicIds.map(function(id){return window.QB_META.topicNames[id];});\n    window.AA_MASTER_TOPIC_ORDER_IDS=P.topicIds.slice();\n    window.AA_MASTER_TOPIC_ORDER=labels;\n    window.AA_MASTER_TOPIC_ORDER_SOURCE=\'question\';\n    var rank={}; labels.forEach(function(l,i){rank[normName(l)]=i;});\n    window.AA_SORT_TOPIC_LABELS=function(inp){\n      return (Array.isArray(inp)?inp.slice():[]).sort(function(a,b){\n        var ra=rank[normName(a)], rb=rank[normName(b)];\n        if(ra===undefined&&rb===undefined) return 0; if(ra===undefined) return 1; if(rb===undefined) return -1; return ra-rb;\n      });\n    };\n    window.AA_SORT_TOPICS=window.AA_SORT_TOPIC_LABELS;\n  }\n  window.fetch=async function(input,init){\n    var u=typeof input===\'string\'?input:(input&&input.url)||\'\';\n    if(/sorularicislerixx\\.json$/.test(u.split(\'#\')[0].split(\'?\')[0])){\n      var m=await window.QB_SLICE(), P=window.QB_ACTIVE;\n      publishOrder(P);\n      window.AA_MASTER_LAST_QUESTION_STATS={profile:P.id,total:m.questions.length,filtered:m.questions.length};\n      return window.QB_JSON(m.questions);\n    }\n    return routerFetch.apply(this,arguments);\n  };\n})();\n</script>\n'
-html = html[:idx] + FAST_JS + '<script id="qb-bank" type="application/x-qb-gzip-base64">' + b64 + '</script>\n<script id="qb-videos" type="application/json">' + VIDEOS_JSON + '</script>\n<script id="qb-shell-js">\n' + shell_js + '\n' + video_js + '\n</script>\n' + html[idx:]
+html = html[:idx] + FAST_JS + '<script id="qb-bank" type="application/x-qb-gzip-base64">' + b64 + '</script>\n<script id="qb-videos" type="application/json">' + VIDEOS_JSON + '</script>\n<script id="qb-shell-js">\n' + chart_js + '\n' + shell_js + '\n' + video_js + '\n</script>\n' + html[idx:]
 
 # iç sayfa (tek başına da açılır; testler için isteğe bağlı kaydedilir)
 if os.environ.get('QB_PAGE_OUT'):

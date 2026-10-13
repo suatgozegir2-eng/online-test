@@ -1,0 +1,50 @@
+/* ===== Modül ve sınav ekranları: kullanım kolaylığı düzeltmeleri =====
+   Panelin sihirbazları ve sınav ekranları aynen kullanılır; yalnızca taşma, kesilme ve sıkışma sorunları giderilir. */
+
+/* --- Konu/Karışık sihirbazı (masaüstü): ana eylem düğmesi hep görünür --- */
+#konuWizardBox, #karisikWizardBox { height: min(760px, 94dvh); max-height: 94dvh; }
+#konuWizardBox .konu-right { padding: 30px 38px 26px; overflow: hidden; }
+#konuWizardBox .konu-right h2::after {
+  content: "Alt konu seçmezseniz, seçili konunun tüm alt konularından soru gelir.";
+  display: block; margin-top: 6px; font-size: 13px; font-weight: 500; letter-spacing: 0; color: var(--text-muted, #64748b);
+}
+#konuWizardBox #altKonuArea { flex: 1 1 auto; min-height: 0; overflow-y: auto; margin-bottom: 14px; padding-right: 4px; }
+#konuWizardBox .altkonu-grid { max-height: none !important; overflow: visible !important; }
+#konuWizardBox .konu-summary, #konuWizardBox .slider-area { flex: none; }
+
+/* --- Sınav ekranı (masaüstü): Önceki/Sonraki çubuğu çözüm açılsa da altta kalır --- */
+#nativeExamScreen.aa-ex-single .exam-main .aa-ex-bar {
+  position: sticky !important; bottom: 0 !important; z-index: 6; margin-top: 8px !important; padding: 16px 0 14px !important;
+  background: linear-gradient(to top, #f2f3f7 70%, rgba(242, 243, 247, 0)) !important;
+}
+
+/* --- Deneme sonuç ekranı --- */
+#denemeSonucOverlay .deneme-bottom-grid { align-items: start; }
+@media (max-width: 900px) {
+  #denemeSonucOverlay .deneme-summary-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+  #denemeSonucOverlay .deneme-summary-grid > *:first-child { grid-column: 1 / -1; }
+}
+
+/* --- Mobil sihirbazlar --- */
+@media (max-width: 900px) {
+  #nds-lesson-overlay .m-wizard-pill { display: none; }                       /* üst çubuktaki başlıkla aynı */
+  #mTopicSubList::after { content: "Seçim yapmazsanız tüm alt konulardan soru gelir."; display: block; grid-column: 1 / -1; margin-top: 10px; font-size: 12px; color: #7b8594; }
+  #m-screen-myexams .aa-dist-btn, #m-screen-myexams .aa-dist-btn:hover {
+    display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin: 0 0 12px;
+    background: #fff !important; color: #7a1020 !important; border: 1px solid #e3c4c9 !important; box-shadow: none !important;
+  }
+
+  /* --- Mobil sınav üst çubuğu: sayaç iki satıra bölünmesin --- */
+  .mexam-topbar-row { gap: 6px; }
+  .mexam-counter-inline { white-space: nowrap; flex: none; padding-left: 10px; padding-right: 10px; }
+  .mexam-timer-inline { flex: none; white-space: nowrap; }
+  .mexam-icon-btn { white-space: nowrap; padding-left: 10px; padding-right: 10px; }
+}
+@media (max-width: 380px) {
+  html body #nativeExamScreen .mexam-topbar-row { gap: 4px !important; padding-left: 8px !important; padding-right: 8px !important; }
+  html body #nativeExamScreen .mexam-timer-inline { font-size: 13px !important; padding-left: 8px !important; padding-right: 8px !important; }
+  html body #nativeExamScreen .mexam-counter-inline { font-size: 12px !important; padding-left: 8px !important; padding-right: 8px !important; min-width: 0 !important; }
+  html body #nativeExamScreen .mexam-top-actions { gap: 4px !important; }
+  html body #nativeExamScreen .mexam-icon-btn { font-size: 11px !important; padding-left: 7px !important; padding-right: 7px !important; }
+  html body #nativeExamScreen .mexam-top-actions .aa-pdf-download { flex-basis: 34px !important; min-width: 34px !important; width: 34px !important; }
+}
