@@ -2,6 +2,9 @@
 
 `index.html` tek dosyadır; sunucu gerekmez. 20 unvanın 29.363 sorusu içine gömülüdür (gzip+base64) ve ağ isteği çıkmaz
 (Font Awesome, Inter ve Chart.js yine CDN'den gelir; çevrimdışıyken ikonlar ve sonuç grafiği görünmez).
+Sorular konuya göre parçalanıp ayrı ayrı sıkıştırılmıştır; yalnızca seçili unvanın konuları açılır (telefonda hızlı açılış).
+`content://` gibi adreslerde localStorage kullanılamazsa yedek depolama devreye girer; seçim ve ilerleme sayfa yenilense de korunur
+(sekme kapanınca silinir).
 
 - Ana sayfada unvan seçilir. Seçim `localStorage` (`qb_unvan`) içinde tutulur; `?u=<unvan_anahtarı>` ile de açılır
   (ör. `?u=vhki`, `?u=avukat`, `?u=sube_muduru`).

@@ -42,7 +42,7 @@
     $('qbSumName').textContent = ACTIVE.name;
     $('qbSumQ').textContent = nf.format(ACTIVE.questions);
     $('qbSumT').textContent = ACTIVE.topicIds.length;
-    $('qbSumE').textContent = ACTIVE.total + ' soru';
+    $('qbSumE').textContent = ACTIVE.total;
     $('qbProg').hidden = false;
     $('qbModesNote').textContent = ACTIVE.name + ' için çalışma modunu seçin.';
     $('qbTopicsNote').textContent = ACTIVE.name + ' resmî sınavında yer alan konular ve soru bankasındaki soru sayıları.';
@@ -99,11 +99,19 @@
     b.addEventListener('click', function () { launch(b.getAttribute('data-mode')); });
   });
 
+  function hideSplash() {
+    var sp = $('qb-splash'); if (!sp || sp.classList.contains('done')) return;
+    sp.classList.add('done'); setTimeout(function () { if (sp.parentNode) sp.parentNode.removeChild(sp); }, 450);
+  }
   function questionsReady() {
     var ok = !!(window.db && window.db.sorular && window.db.sorular.length && typeof window.openKonuWizard === 'function');
-    setEnabled(ok); if (ok) renderProgress();
+    setEnabled(ok); if (ok) { renderProgress(); hideSplash(); }
     return ok;
   }
+  // yedek: bir şey ters giderse açılış ekranı sonsuza dek kalmasın, hata görünsün
+  setTimeout(function () {
+    if (!READY) { var m = $('qbSpMsg'); if (m) m.textContent = 'Yükleme beklenenden uzun sürüyor… Sayfayı yenileyin ya da farklı bir tarayıcıda (Chrome) açın.'; }
+  }, 12000);
   window.addEventListener('aa:questions-loaded', function () { setTimeout(questionsReady, 50); });
   window.addEventListener('aa:questions-error', function () { toast('Soru bankası yüklenemedi.'); });
   var tries = 0, iv = setInterval(function () { if (questionsReady() || ++tries > 120) clearInterval(iv); }, 250);

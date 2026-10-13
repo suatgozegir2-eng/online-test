@@ -50,24 +50,55 @@ for q in d['questions']:
     if q.get('difficulty'): o['d'] = q['difficulty']
     qs.append(o)
 
-bank = {'topics': topic_name, 'questions': qs}
-raw = json.dumps(bank, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
-b64 = base64.b64encode(gzip.compress(raw, 9)).decode('ascii')
+# konuya göre parçala: bir unvan yalnızca kendi konularının parçalarını açar (sorular konular arasında paylaşılmaz)
+shards = {}
+for q in qs:
+    shards.setdefault(q['t'], []).append(q)
+blobs = {}
+raw_total = 0
+for tid, items in shards.items():
+    raw = json.dumps(items, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+    raw_total += len(raw)
+    blobs[tid] = base64.b64encode(gzip.compress(raw, 9)).decode('ascii')
+b64 = json.dumps(blobs, separators=(',', ':'))
+raw = b'x' * raw_total
 meta = {'updatedAt': d['updatedAt'], 'profiles': profiles,
         'announcementDate': d['officialScope']['announcementDate'],
         'announcementUrl': d['officialScope']['announcementUrl'],
         'legislationCutoff': d['officialScope']['legislationCutoffDate'],
         'topicNames': topic_name}
-print(f'{len(qs)} soru, {len(profiles)} unvan | json {len(raw)/1e6:.1f} MB -> gzip+b64 {len(b64)/1e6:.1f} MB')
+print(f'{len(qs)} soru, {len(profiles)} unvan, {len(blobs)} konu parçası | json {len(raw)/1e6:.1f} MB -> gzip+b64 {len(b64)/1e6:.1f} MB')
 
 # ------------------------------------------------------- erken yapılandırma + veri
 CONFIG_JS = r'''<script id="qb-config">
 (function(){
   'use strict';
+  /* content:// / bazı gömülü tarayıcılarda localStorage/sessionStorage SecurityError fırlatır; panel kodu bunlara korumasız yazar.
+     Kullanılamıyorsa bellek içi yedek depolama kur; localStorage yedeği window.name içinde sayfa yenilemesinden sağ çıkar. */
+  function usable(n){ try{ var s=window[n]; s.setItem('__qb','1'); s.removeItem('__qb'); return true; }catch(e){ return false; } }
+  function shim(persist){
+    var d={};
+    if(persist){ try{ if(/^qbls:/.test(window.name)) d=JSON.parse(window.name.slice(5))||{}; }catch(e){} }
+    function save(){ if(persist){ try{ window.name='qbls:'+JSON.stringify(d); }catch(e){} } }
+    var api={
+      getItem:function(k){ return Object.prototype.hasOwnProperty.call(d,k)?d[k]:null; },
+      setItem:function(k,v){ d[k]=String(v); save(); },
+      removeItem:function(k){ delete d[k]; save(); },
+      clear:function(){ d={}; save(); },
+      key:function(i){ return Object.keys(d)[i]||null; }
+    };
+    Object.defineProperty(api,'length',{get:function(){ return Object.keys(d).length; }});
+    return api;
+  }
+  window.QB_STORAGE_SHIM=[];
+  if(!usable('localStorage')){ try{ Object.defineProperty(window,'localStorage',{value:shim(true),configurable:true}); window.QB_STORAGE_SHIM.push('local'); }catch(e){} }
+  if(!usable('sessionStorage')){ try{ Object.defineProperty(window,'sessionStorage',{value:shim(false),configurable:true}); window.QB_STORAGE_SHIM.push('session'); }catch(e){} }
+
   var META=%(meta)s;
   var by={}; META.profiles.forEach(function(p){by[p.id]=p; by[p.key]=p;});
   var wanted=null;
   try{ wanted=new URLSearchParams(location.search).get('u'); }catch(e){}
+  try{ if(!wanted){ var hm=/[#&]u=([^&]+)/.exec(location.hash); if(hm) wanted=decodeURIComponent(hm[1]); } }catch(e){}
   try{ if(!wanted) wanted=localStorage.getItem('qb_unvan'); }catch(e){}
   var chosen=wanted&&by[wanted]?by[wanted]:null;
   var active=chosen||META.profiles[0];
@@ -77,8 +108,10 @@ CONFIG_JS = r'''<script id="qb-config">
   window.AA_UNVAN_ID=active.id;
   window.QB_LABEL=active.key==='vhki'?'VHKİ':active.name;
   window.QB_SET_UNVAN=function(id){
+    var p=by[id]; var key=p?p.key:id;
     try{ localStorage.setItem('qb_unvan',id); }catch(e){}
-    try{ var u=new URL(location.href); u.searchParams.delete('u'); location.href=u.toString(); }catch(e){ location.reload(); }
+    try{ location.hash='u='+encodeURIComponent(key); }catch(e){}
+    location.reload();
   };
 })();
 </script>
@@ -87,39 +120,62 @@ CONFIG_JS = r'''<script id="qb-config">
 LOADER_JS = r'''<script id="qb-data-loader">
 (function(){
   'use strict';
-  var nativeFetch=window.fetch.bind(window), bankP=null;
-  function bank(){
-    if(bankP) return bankP;
-    bankP=(async function(){
+  var nativeFetch=window.fetch.bind(window);
+  // gömülü veri: { konuId: gzip+base64 parça }. Yalnızca seçili unvanın konuları paralel açılır.
+  var shardsP=null;
+  function shards(){
+    if(shardsP) return shardsP;
+    shardsP=(async function(){
       var el=document.getElementById('qb-bank');
-      if(!el||typeof DecompressionStream==='undefined') throw new Error('Tarayıcı gömülü soru bankasını açamıyor (DecompressionStream yok).');
-      var bin=atob(el.textContent.trim()), buf=new Uint8Array(bin.length);
-      for(var i=0;i<bin.length;i++) buf[i]=bin.charCodeAt(i);
-      var s=new Response(buf).body.pipeThrough(new DecompressionStream('gzip'));
-      return JSON.parse(await new Response(s).text());
+      if(!el){ // veri sayfa sonunda: ayrıştırma bitene kadar bekle
+        await new Promise(function(res){
+          function chk(){ el=document.getElementById('qb-bank'); if(el) res(); }
+          if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',chk,{once:true}); else chk();
+        });
+      }
+      if(typeof DecompressionStream==='undefined') throw new Error('Tarayıcı gömülü soru bankasını açamıyor (DecompressionStream yok).');
+      return JSON.parse(el.textContent);
     })();
-    bankP.catch(function(){ bankP=null; });
-    return bankP;
+    shardsP.catch(function(){ shardsP=null; });
+    return shardsP;
   }
-  window.QB_BANK_READY=bank;
-  // seçili unvana ait dilim: panelin beklediği master biçimi
-  async function slice(){
-    var b=await bank(), P=window.QB_ACTIVE, idx=window.QB_META.profiles.indexOf(P);
-    var tids={}; P.topicIds.forEach(function(t){tids[t]=1;});
-    var topics=P.topicIds.map(function(t){return {id:t,name:b.topics[t],profiles:[P.id]};});
+  async function gunzipJson(b64){
+    var bin=atob(b64), buf=new Uint8Array(bin.length);
+    for(var i=0;i<bin.length;i++) buf[i]=bin.charCodeAt(i);
+    var s=new Response(buf).body.pipeThrough(new DecompressionStream('gzip'));
+    return JSON.parse(await new Response(s).text());
+  }
+  window.QB_BANK_READY=shards;
+  var sliceP=null;
+  function slice(){ return sliceP||(sliceP=slice0()); }
+  async function slice0(){
+    var all=await shards(), P=window.QB_ACTIVE, idx=window.QB_META.profiles.indexOf(P), names=window.QB_META.topicNames;
+    var parts=await Promise.all(P.topicIds.map(function(t){ return all[t]?gunzipJson(all[t]):[]; }));
+    var topics=P.topicIds.map(function(t){return {id:t,name:names[t],profiles:[P.id]};});
     var out=[];
-    b.questions.forEach(function(q){
-      if(q.p.indexOf(idx)<0||!tids[q.t]) return;
-      var n=b.topics[q.t], o={id:q.id,topicId:q.t,konu:n,topic:n,altKonu:q.a,text:q.x,options:q.o,
-        answer:q.c,correct_answer:q.c,solution:q.s,profiles:[P.id]};
-      if(q.v) o.visual=q.v; if(q.ov) o.optionVisuals=q.ov; if(q.d) o.difficulty=q.d;
-      out.push(o);
+    parts.forEach(function(list){
+      list.forEach(function(q){
+        if(q.p.indexOf(idx)<0) return;
+        var n=names[q.t], o={id:q.id,topicId:q.t,konu:n,topic:n,altKonu:q.a,text:q.x,options:q.o,
+          answer:q.c,correct_answer:q.c,solution:q.s,profiles:[P.id]};
+        if(q.v) o.visual=q.v; if(q.ov) o.optionVisuals=q.ov; if(q.d) o.difficulty=q.d;
+        out.push(o);
+      });
     });
     var prof={}; prof[P.id]={name:P.name,topicIds:P.topicIds,officialQuestionCounts:P.counts,officialTotalQuestions:P.total};
     return {topics:topics,profiles:prof,questions:out,contents:[]};
   }
+  window.QB_SLICE=slice;
   var EMPTY_CONTENT={topics:[],contents:[],cards:[],items:[],profiles:{}};
-  function json(o){ return new Response(JSON.stringify(o),{status:200,headers:{'Content-Type':'application/json; charset=utf-8','X-QB-Embedded':'1'}}); }
+  // JSON.stringify + parse maliyetini atla: json() doğrudan nesne döndürür
+  function json(o){
+    return {ok:true,status:200,statusText:'OK',url:'',redirected:false,type:'basic',bodyUsed:false,
+      headers:new Headers({'Content-Type':'application/json; charset=utf-8','X-QB-Embedded':'1'}),
+      json:function(){return Promise.resolve(o);},
+      text:function(){return Promise.resolve(JSON.stringify(o));},
+      clone:function(){return json(o);}};
+  }
+  window.QB_JSON=json;
   window.fetch=async function(input,init){
     var u=typeof input==='string'?input:(input&&input.url)||'';
     u=u.split('#')[0].split('?')[0];
@@ -147,7 +203,7 @@ def sub1(name, pat, repl, flags=0, count=1):
 sub1('head fixedProfile', r'fixedProfile: "icisleri_vhki",', 'fixedProfile: window.AA_UNVAN_ID,')
 sub1('head activeProfile', r'window\.AA_ACTIVE_PROFILE = "icisleri_vhki";', 'window.AA_ACTIVE_PROFILE = window.AA_UNVAN_ID;')
 sub1('head panelName', r'panelName: "İçişleri Bakanlığı VHKİ Hazırlık Paneli",',
-     'panelName: "İçişleri Bakanlığı " + window.QB_LABEL + " Online Soru Bankası",')
+     'panelName: "AdaletSen Akademi Online Çözümlü Soru Bankası",')
 sub1('head exams', r'exams: \["VHKİ"\],', 'exams: [window.QB_LABEL],')
 
 # tüm bloklardaki "fallback" profilleri çalışma anındakiyle değiştir
@@ -156,12 +212,12 @@ html = html.replace("'icisleri_vhki')", "window.AA_UNVAN_ID)")
 # egm unvan görünüm yaması (21056)
 sub1('egm display const',
      r'var UNVAN="VHKİ",PROFILE="icisleri_vhki",PANEL_NAME="İçişleri Bakanlığı VHKİ Hazırlık Paneli",',
-     'var UNVAN=window.QB_LABEL,PROFILE=window.AA_UNVAN_ID,PANEL_NAME="İçişleri Bakanlığı "+window.QB_LABEL+" Online Soru Bankası",')
+     'var UNVAN=window.QB_LABEL,PROFILE=window.AA_UNVAN_ID,PANEL_NAME="AdaletSen Akademi Online Çözümlü Soru Bankası",')
 
 # deneme motoru (23555): unvan, plan, toplam soru, süre
 sub1('deneme const',
      r'var UNVAN="VHKİ", PROFILE="icisleri_vhki", PANEL_NAME="İçişleri Bakanlığı VHKİ Hazırlık Paneli";',
-     'var UNVAN=window.QB_LABEL, PROFILE=window.AA_UNVAN_ID, PANEL_NAME="İçişleri Bakanlığı "+window.QB_LABEL+" Online Soru Bankası";')
+     'var UNVAN=window.QB_LABEL, PROFILE=window.AA_UNVAN_ID, PANEL_NAME="AdaletSen Akademi Online Çözümlü Soru Bankası";')
 sub1('deneme total',
      r'var EXAM_TOTAL=80, DEFAULT_DURATION_MIN=120, PLAN_VERSION=PROFILE\+\'_resmi_duyuru_2026_v4\';',
      "var EXAM_TOTAL=window.QB_ACTIVE.total, DEFAULT_DURATION_MIN=Math.round(EXAM_TOTAL*1.5), PLAN_VERSION=PROFILE+'_resmi_duyuru_2026_v4';")
@@ -200,6 +256,15 @@ sub1('mk33 yakalayıcı kapat',
      r"if\(e\.target && e\.target\.closest && e\.target\.closest\('#aaMobileApp'\)\) return;",
      "return; /* qb: eski karışık yakalayıcı devre dışı */")
 
+# Mevzuat/Sunum/ders içerikleri bu üründe yok; bu betikler her soruda yinelemeli norm() çağırıp açılışı dondurur
+DEAD_SCRIPTS = ['aa-alt-konu-baslik-duzeltme-v1', 'aa-alt-konu-baslik-final-v2', 'aa-sunum-json-only-v1', 'aa-template-engine-v9', 'ag-script']
+removed = 0
+for sid in DEAD_SCRIPTS:
+    html, n = re.subn(r'<script id="%s">.*?</script>' % re.escape(sid), '', html, count=1, flags=re.S)
+    removed += n
+    if n == 0: print('UYARI: betik bulunamadı ->', sid)
+report['işlevsiz betik kaldırıldı'] = removed
+
 # izleme betiğini çıkar (yeni ürün)
 html, n = re.subn(r'<script>\s*window\.GA4_MEASUREMENT_ID.*?</script>', '', html, count=1, flags=re.S)
 report['GA4 çıkarıldı'] = n
@@ -210,13 +275,20 @@ shell_css = open(os.path.join(shell_dir, 'shell.css'), encoding='utf-8').read()
 shell_html = open(os.path.join(shell_dir, 'shell.html'), encoding='utf-8').read()
 shell_js = open(os.path.join(shell_dir, 'shell.js'), encoding='utf-8').read()
 
-head_inject = CONFIG_JS + LOADER_JS + '<script id="qb-bank" type="application/x-qb-gzip-base64">' + b64 + '</script>\n'
+# charset ilk 1024 bayt içinde olmalı (content:// ile açılan dosyalarda kodlama tahmini bozulmasın)
+head_inject = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + CONFIG_JS + LOADER_JS
 html = html.replace('<head>', '<head>\n' + head_inject, 1)
+
+# panelin eski açılış ekranını kaldır (betikleri eleman yoksa sessizce çıkar)
+html, n = re.subn(r'<div id="aaStartupLoader".*?<!-- /aaStartupLoader -->', '', html, count=1, flags=re.S)
+report['eski açılış ekranı kaldırıldı'] = n
+html = html.replace("document.title=PANEL_NAME+' | AdaletSen Akademi';", "document.title=PANEL_NAME;")
 html = re.sub(r'<title>.*?</title>', '', html, flags=re.S)
-html = html.replace('</head>', '<title>İçişleri Bakanlığı Online Soru Bankası</title>\n<style id="qb-shell-css">\n' + shell_css + '\n</style>\n</head>', 1)
+html = html.replace('</head>', '<title>AdaletSen Akademi · Online Çözümlü Soru Bankası</title>\n<style id="qb-shell-css">\n' + shell_css + '\n</style>\n</head>', 1)
 html = html.replace('<body>', '<body>\n' + shell_html, 1)
 idx = html.rindex('</body>')
-html = html[:idx] + '<script id="qb-shell-js">\n' + shell_js + '\n</script>\n' + html[idx:]
+FAST_JS = '<script id="qb-fast-fetch">\n/* Panelin veri yönlendiricisi (aa-master-data-router) her açılışta tüm soruyu tekrar süzüp JSON\'a çevirir.\n   Dilim zaten unvana göre hazır olduğundan, soru isteğini yönlendiriciden önce karşılar; sıralama bilgisini aynen yayınlar. */\n(function(){\n  \'use strict\';\n  var routerFetch=window.fetch;\n  function normName(v){\n    return String(v||\'\').replace(/İ/g,\'i\').replace(/I/g,\'i\').toLocaleLowerCase(\'tr\').normalize(\'NFD\').replace(/[̀-ͯ]/g,\'\')\n      .replace(/ğ/g,\'g\').replace(/ü/g,\'u\').replace(/ş/g,\'s\').replace(/ı/g,\'i\').replace(/ö/g,\'o\').replace(/ç/g,\'c\').replace(/[^a-z0-9]+/g,\' \').replace(/\\s+/g,\' \').trim();\n  }\n  function publishOrder(P){\n    var labels=P.topicIds.map(function(id){return window.QB_META.topicNames[id];});\n    window.AA_MASTER_TOPIC_ORDER_IDS=P.topicIds.slice();\n    window.AA_MASTER_TOPIC_ORDER=labels;\n    window.AA_MASTER_TOPIC_ORDER_SOURCE=\'question\';\n    var rank={}; labels.forEach(function(l,i){rank[normName(l)]=i;});\n    window.AA_SORT_TOPIC_LABELS=function(inp){\n      return (Array.isArray(inp)?inp.slice():[]).sort(function(a,b){\n        var ra=rank[normName(a)], rb=rank[normName(b)];\n        if(ra===undefined&&rb===undefined) return 0; if(ra===undefined) return 1; if(rb===undefined) return -1; return ra-rb;\n      });\n    };\n    window.AA_SORT_TOPICS=window.AA_SORT_TOPIC_LABELS;\n  }\n  window.fetch=async function(input,init){\n    var u=typeof input===\'string\'?input:(input&&input.url)||\'\';\n    if(/sorularicislerixx\\.json$/.test(u.split(\'#\')[0].split(\'?\')[0])){\n      var m=await window.QB_SLICE(), P=window.QB_ACTIVE;\n      publishOrder(P);\n      window.AA_MASTER_LAST_QUESTION_STATS={profile:P.id,total:m.questions.length,filtered:m.questions.length};\n      return window.QB_JSON(m.questions);\n    }\n    return routerFetch.apply(this,arguments);\n  };\n})();\n</script>\n'
+html = html[:idx] + FAST_JS + '<script id="qb-bank" type="application/x-qb-gzip-base64">' + b64 + '</script>\n<script id="qb-shell-js">\n' + shell_js + '\n</script>\n' + html[idx:]
 
 open(out_path, 'w', encoding='utf-8').write(html)
 print('yama raporu:', report)
