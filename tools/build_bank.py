@@ -379,6 +379,20 @@ video_css = open(os.path.join(shell_dir, 'video.css'), encoding='utf-8').read()
 modules_css = open(os.path.join(shell_dir, 'modules.css'), encoding='utf-8').read()
 chart_js = open(os.path.join(shell_dir, 'chartfallback.js'), encoding='utf-8').read()
 video_js = open(os.path.join(shell_dir, 'video.js'), encoding='utf-8').read()
+math_js = open(os.path.join(shell_dir, 'mathrender.js'), encoding='utf-8').read()
+katex_js = open(os.path.join(shell_dir, 'vendor', 'katex.min.js'), encoding='utf-8').read()
+assert '</script' not in katex_js
+# KaTeX stili: yalnızca kullanılan yazı tipleri, base64 olarak gömülür (çevrimdışı çalışır)
+katex_css = open(os.path.join(shell_dir, 'vendor', 'katex.min.css'), encoding='utf-8').read()
+def _font_rule(m):
+    name = re.search(r'url\(fonts/(KaTeX_[\w-]+)\.woff2\)', m.group(0)).group(1)
+    fp = os.path.join(shell_dir, 'vendor', 'fonts', name + '.woff2')
+    if not os.path.exists(fp): return ''
+    fam = re.search(r'font-family:([^;}]+)', m.group(0)).group(1)
+    st = re.search(r'font-style:(\w+)', m.group(0)); wt = re.search(r'font-weight:(\w+)', m.group(0))
+    return '@font-face{font-family:%s;src:url(data:font/woff2;base64,%s) format("woff2");%s%s}' % (
+        fam, _b64.b64encode(open(fp, 'rb').read()).decode(), ('font-style:' + st.group(1) + ';') if st else '', ('font-weight:' + wt.group(1) + ';') if wt else '')
+katex_css = re.sub(r'@font-face\{[^}]*\}', _font_rule, katex_css) + '\n.qb-math .katex{font-size:1.08em}\n'
 
 # charset ilk 1024 bayt içinde olmalı (content:// ile açılan dosyalarda kodlama tahmini bozulmasın)
 head_inject = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + CONFIG_JS + LOADER_JS
@@ -389,11 +403,11 @@ html, n = re.subn(r'<div id="aaStartupLoader".*?<!-- /aaStartupLoader -->', '', 
 report['eski açılış ekranı kaldırıldı'] = n
 html = html.replace("document.title=PANEL_NAME+' | AdaletSen Akademi';", "document.title=PANEL_NAME;")
 html = re.sub(r'<title>.*?</title>', '', html, flags=re.S)
-html = html.replace('</head>', '<title>AdaletSen Akademi · Çözümlü Videolu Online Soru Bankası</title>\n<style id="qb-shell-css">\n' + shell_css + '\n' + video_css + '\n' + modules_css + '\n</style>\n</head>', 1)
+html = html.replace('</head>', '<title>AdaletSen Akademi · Çözümlü Videolu Online Soru Bankası</title>\n<style id="qb-shell-css">\n' + shell_css + '\n' + video_css + '\n' + modules_css + '\n' + katex_css + '\n</style>\n</head>', 1)
 html = html.replace('<body>', '<body>\n' + shell_html, 1)
 idx = html.rindex('</body>')
 FAST_JS = '<script id="qb-fast-fetch">\n/* Panelin veri yönlendiricisi (aa-master-data-router) her açılışta tüm soruyu tekrar süzüp JSON\'a çevirir.\n   Dilim zaten unvana göre hazır olduğundan, soru isteğini yönlendiriciden önce karşılar; sıralama bilgisini aynen yayınlar. */\n(function(){\n  \'use strict\';\n  var routerFetch=window.fetch;\n  function normName(v){\n    return String(v||\'\').replace(/İ/g,\'i\').replace(/I/g,\'i\').toLocaleLowerCase(\'tr\').normalize(\'NFD\').replace(/[̀-ͯ]/g,\'\')\n      .replace(/ğ/g,\'g\').replace(/ü/g,\'u\').replace(/ş/g,\'s\').replace(/ı/g,\'i\').replace(/ö/g,\'o\').replace(/ç/g,\'c\').replace(/[^a-z0-9]+/g,\' \').replace(/\\s+/g,\' \').trim();\n  }\n  function publishOrder(P){\n    var labels=P.topicIds.map(function(id){return window.QB_META.topicNames[id];});\n    window.AA_MASTER_TOPIC_ORDER_IDS=P.topicIds.slice();\n    window.AA_MASTER_TOPIC_ORDER=labels;\n    window.AA_MASTER_TOPIC_ORDER_SOURCE=\'question\';\n    var rank={}; labels.forEach(function(l,i){rank[normName(l)]=i;});\n    window.AA_SORT_TOPIC_LABELS=function(inp){\n      return (Array.isArray(inp)?inp.slice():[]).sort(function(a,b){\n        var ra=rank[normName(a)], rb=rank[normName(b)];\n        if(ra===undefined&&rb===undefined) return 0; if(ra===undefined) return 1; if(rb===undefined) return -1; return ra-rb;\n      });\n    };\n    window.AA_SORT_TOPICS=window.AA_SORT_TOPIC_LABELS;\n  }\n  window.fetch=async function(input,init){\n    var u=typeof input===\'string\'?input:(input&&input.url)||\'\';\n    if(/sorularicislerixx\\.json$/.test(u.split(\'#\')[0].split(\'?\')[0])){\n      var m=await window.QB_SLICE(), P=window.QB_ACTIVE;\n      publishOrder(P);\n      window.AA_MASTER_LAST_QUESTION_STATS={profile:P.id,total:m.questions.length,filtered:m.questions.length};\n      return window.QB_JSON(m.questions);\n    }\n    return routerFetch.apply(this,arguments);\n  };\n})();\n</script>\n'
-html = html[:idx] + FAST_JS + '<script id="qb-bank" type="application/x-qb-gzip-base64">' + b64 + '</script>\n<script id="qb-videos" type="application/json">' + VIDEOS_JSON + '</script>\n<script id="qb-shell-js">\n' + chart_js + '\n' + shell_js + '\n' + video_js + '\n</script>\n' + html[idx:]
+html = html[:idx] + FAST_JS + '<script id="qb-bank" type="application/x-qb-gzip-base64">' + b64 + '</script>\n<script id="qb-videos" type="application/json">' + VIDEOS_JSON + '</script>\n<script id="qb-katex">\n' + katex_js + '\n</script>\n<script id="qb-shell-js">\n' + chart_js + '\n' + shell_js + '\n' + video_js + '\n' + math_js + '\n</script>\n' + html[idx:]
 
 # iç sayfa (tek başına da açılır; testler için isteğe bağlı kaydedilir)
 if os.environ.get('QB_PAGE_OUT'):
