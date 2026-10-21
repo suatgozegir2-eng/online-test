@@ -186,34 +186,63 @@ window.ADALET_QUESTIONS_URL = (window.AA_PANEL_CONFIG && window.AA_PANEL_CONFIG.
     return out;
   }
   // SGK içerik JSON'u (type: sgkContentMapping) kaynak odaklıdır: topics[].items[] içinde
-  // pdf/sunum/video/podcast dizileri bulunur. Panel ise contents[].items[] içinde tek bağlantılı
-  // satırlar bekler; burada her kaynak bağlantısı bir satıra açılır.
+  // pdf/sunum/video/podcast dizileri bulunur. Panel ise contents[].items[] içinde ders başına
+  // tek bağlantılı satırlar bekler; burada kayıtlar ders bazında tekilleştirilir.
   function aaPrettyResLabel(l){
     return String(l||'').replace(/\.(pdf|mp4|m4a|mp3)$/i,'').replace(/_/g,' ').replace(/\s+/g,' ').trim();
   }
   function aaAdaptSgkContent(master){
     if(!master || master.type!=='sgkContentMapping' || !Array.isArray(master.topics)) return master;
+    var KINDS=['pdf','sunum','video','podcast'];
+    function urlsOf(v){ return Array.isArray(v)?v.filter(Boolean):(v?[v]:[]); }
+    function baseName(u){ try{ return decodeURIComponent(String(u).split('?')[0].split('/').pop()); }catch(e){ return String(u).split('/').pop(); } }
+    // Aynı dersin yeniden yüklenmiş sürümleri (ör. "-1" kopyası) aynı alana birden çok bağlantı olarak
+    // girilmiş. Bunlar tek ders sayılır, ilk bağlantı kullanılır. Yalnız her bağlantı farklı bir sıra
+    // numarasıyla başlıyorsa (1-..., 2-...) ayrı bölüm/bölüm serisi kabul edilir.
+    function isSeries(list){
+      if(list.length<2) return false;
+      var seen={};
+      for(var i=0;i<list.length;i++){
+        var m=baseName(list[i]).match(/^(\d+)[-_]/);
+        if(!m || seen[m[1]]) return false;
+        seen[m[1]]=1;
+      }
+      return true;
+    }
     var contents=[];
     master.topics.forEach(function(t){
       if(!t) return;
       var label=String(t.label||t.officialExamTopic||'').trim();
-      var items=[];
+      // Aynı alt konulara bağlı ve birbirini tamamlayan kayıtlar (biri PDF+podcast, biri yalnız video) tek derstir.
+      var groups=[], byRefs={};
       (t.items||[]).forEach(function(it){
         if(!it) return;
-        var kinds=['pdf','sunum','video','podcast'], lists={}, max=0;
-        kinds.forEach(function(k){
-          lists[k]=Array.isArray(it[k])?it[k].filter(Boolean):(it[k]?[it[k]]:[]);
-          if(lists[k].length>max) max=lists[k].length;
-        });
-        if(!max) return;
-        var base=aaPrettyResLabel(it.label)||label;
-        for(var i=0;i<max;i++){
-          var row={altKonu: max>1 ? base+' ('+(i+1)+'/'+max+')' : base, id: it.id+(max>1?'_'+(i+1):'')};
-          kinds.forEach(function(k){ row[k]=lists[k][i]||''; });
-          items.push(row);
+        var refs=(it.subtopicRefs||[]).slice().sort().join('|'), g=refs?byRefs[refs]:null;
+        var has={}; KINDS.forEach(function(k){ has[k]=urlsOf(it[k]).length>0; });
+        var fits=g && KINDS.every(function(k){ return !(has[k] && g.has[k]); });
+        if(fits){
+          g.items.push(it); KINDS.forEach(function(k){ if(has[k]) g.has[k]=true; });
+        }else{
+          g={items:[it],has:has}; groups.push(g); if(refs) byRefs[refs]=g;
         }
       });
-      contents.push({id:t.id, topicId:t.id, konu:label, topic:label, items:items});
+      var rows=[];
+      groups.forEach(function(g){
+        var first=g.items[0], base=aaPrettyResLabel(first.label)||label;
+        var row={altKonu:base,id:first.id}, series={};
+        KINDS.forEach(function(k){
+          var all=[]; g.items.forEach(function(it){ all=all.concat(urlsOf(it[k])); });
+          if(isSeries(all)){ series[k]=all; row[k]=''; } else row[k]=all[0]||'';
+        });
+        if(KINDS.some(function(k){ return row[k]; })) rows.push(row);
+        Object.keys(series).forEach(function(k){
+          series[k].forEach(function(u,n){
+            var r={altKonu:base+' — Bölüm '+(n+1),id:first.id+'_'+k+'_'+(n+1)};
+            KINDS.forEach(function(x){ r[x]=''; }); r[k]=u; rows.push(r);
+          });
+        });
+      });
+      contents.push({id:t.id, topicId:t.id, konu:label, topic:label, items:rows});
     });
     return Object.assign({},master,{contents:contents});
   }
