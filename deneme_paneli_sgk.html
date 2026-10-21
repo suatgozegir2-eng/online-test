@@ -225,12 +225,25 @@ body{background:var(--bg)}
   .hero-chips span{font-size:.76rem;padding:4px 10px}
 }
 </style>
+<style id="board">
+.b-sec{margin-top:20px}.b-sec h3{font-size:1.05rem;font-weight:800;margin-bottom:8px}.b-sec h3 small{color:var(--muted);font-weight:600;font-size:.82rem;margin-left:6px}
+.b-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.b-tbl{width:100%;border-collapse:collapse;font-size:.94rem;min-width:360px}
+.b-tbl th{background:var(--bg2);text-align:left;font-weight:800;font-size:.8rem;color:var(--muted);padding:9px 12px;letter-spacing:.02em}
+.b-tbl td{padding:9px 12px;border-top:1px solid var(--line)}
+.b-tbl td.n,.b-tbl th.n{text-align:right;font-variant-numeric:tabular-nums}
+.b-tbl tr.top td:first-child{font-weight:900;color:var(--bordo)}
+.b-msg{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--bg2);border:1px dashed var(--line2);color:var(--muted);font-size:.92rem}
+.b-msg.err{background:#fef2f2;border-color:#fecaca;color:#991b1b}
+.b-more{margin-top:8px}
+#hdrBoard{display:none}@media(min-width:700px){#hdrBoard{display:inline-block}}
+</style>
 </head>
 <body>
 <div id="landingTop">
 <header class="site-head"><div class="wrap">
   <a class="site-brand" href="https://adaletsenakademi.com" target="_blank" rel="noopener"><span class="seal" role="img" aria-label="AdaletSen Akademi logosu"></span><span><strong>AdaletSen Akademi</strong><small>İçişleri · Adalet · GSB · SGK Denemeleri</small></span></a>
-  <span style="display:flex;gap:8px;align-items:center"><a class="site-link" href="#resultsCard" id="hdrResults">Sonuçlarımı Gör</a><a class="site-link" href="https://www.shopier.com/adaletsenakademi" target="_blank" rel="noopener">Paketleri Gör</a></span>
+  <span style="display:flex;gap:8px;align-items:center"><a class="site-link" href="#resultsCard" id="hdrResults">Sonuçlarımı Gör</a><a class="site-link" href="#boardCard" id="hdrBoard">Sıralamalar</a><a class="site-link" href="https://www.shopier.com/adaletsenakademi" target="_blank" rel="noopener">Paketleri Gör</a></span>
 </div></header>
 <section class="hero"><div class="wrap">
   <span class="hero-pill">Ücretsiz · Güncel soru havuzları</span>
@@ -297,6 +310,7 @@ body{background:var(--bg)}
         <div class="start-wrap">
           <button class="btn btn-purple" id="startBtn" type="button">Sınavı Başlat</button>
           <button class="btn btn-out" id="showResultsBtn" type="button" style="margin-top:10px">Sonuçlarımı Gör</button>
+          <button class="btn btn-out" id="showBoardBtn" type="button">Tüm Sıralamayı Gör</button>
         </div>
         <div class="free-note" id="examEntryNote">İçişleri Bakanlığı 1. ve 2. hafta denemeleri açıktır. Haftanı seçerek katıl; aynı unvanda iki haftanın soruları birbirinden farklıdır.</div>
       </div>
@@ -326,6 +340,21 @@ body{background:var(--bg)}
         </div>
         <div class="start-wrap"><button class="btn btn-purple" id="lookupBtn" type="button">Sonucumu Getir</button></div>
         <div class="free-note" style="background:var(--bg2);border-color:var(--line);color:var(--muted)">Adı ve soyadı sınavda yazdığın şekilde gir. Sıralama, sonucun kaydedildiği andan itibaren güncel katılımcı sayısına göre hesaplanır.</div>
+      </div>
+    </section>
+
+
+    <section class="choice-box exam-entry" id="boardCard" style="display:none;margin-top:16px">
+      <div class="entry-head"><div><h2>Sıralamalar</h2><p>Kurumu, unvanı ve (İçişleri için) ili seç; aynı denemeyi çözen tüm katılımcıların sıralamasını gör. Adlar yalnızca baş harfleriyle gösterilir.</p></div></div>
+      <div class="form-area show">
+        <div class="form-grid">
+          <div class="field"><label for="bMin">Kurum</label><select id="bMin"><option value="icisleri">İçişleri Bakanlığı</option><option value="adalet">Adalet Bakanlığı</option><option value="sgk">Sosyal Güvenlik Kurumu</option><option value="gsb">Gençlik ve Spor Bakanlığı</option></select></div>
+          <div class="field"><label for="bRole">Unvan</label><select id="bRole"></select></div>
+          <div class="field" id="bWeekField"><label for="bWeek">Hafta</label><select id="bWeek"></select></div>
+          <div class="field" id="bProvField"><label for="bProv">İl (isteğe bağlı)</label><select id="bProv"><option value="">Tüm iller</option></select></div>
+        </div>
+        <div class="start-wrap"><button class="btn btn-purple" id="bGo" type="button">Sıralamayı Getir</button></div>
+        <div id="bOut"></div>
       </div>
     </section>
 
@@ -3712,6 +3741,78 @@ renderLandingOffer = function(){
   if(com) com.style.display = (has || selectedMinistry === 'gsb') ? 'none' : '';
 };
 syncMinistryTabs(); renderLandingOffer();
+
+// ---- Sıralamalar (herkese açık liste; adlar sunucuda ve burada baş harfe indirilir) ----
+(function(){
+  const bMin=document.getElementById('bMin'), bRole=document.getElementById('bRole'), bWeek=document.getElementById('bWeek'), bProv=document.getElementById('bProv'), bOut=document.getElementById('bOut');
+  Array.from(provinceSelect.options).forEach(o => { if(o.value) bProv.appendChild(o.cloneNode(true)); });
+  const ini = x => { x = String(x || '').trim(); return x ? x.charAt(0).toLocaleUpperCase('tr-TR') + '.' : ''; };
+  const maskRow = r => r.name && /^[^\s]\.(\s[^\s]\.)?$/.test(String(r.name).trim()) ? String(r.name).trim() : (ini(r.ad) + ' ' + ini(r.soyad)).trim() || '—';
+  function boardFill(){
+    const m = bMin.value, ic = m === 'icisleri';
+    bRole.innerHTML = '<option value="">Unvan seçiniz</option>' + CONFIG[m].roles.map(r => '<option value="' + r.id + '">' + escapeHtml(r.label) + '</option>').join('');
+    bWeek.innerHTML = Object.entries(ICISLERI_WEEKS).map(([w, e]) => '<option value="' + w + '">' + e.label + '</option>').join('');
+    bWeek.value = String(CURRENT_WEEK);
+    document.getElementById('bWeekField').style.display = ic ? '' : 'none';
+    document.getElementById('bProvField').style.display = ic ? '' : 'none';
+    bOut.innerHTML = '';
+  }
+  function boardParams(){
+    const m = bMin.value;
+    const examId = m === 'gsb' ? GSB_EXAM_ID : m === 'adalet' ? ADALET_EXAM_ID : m === 'sgk' ? SGK_EXAM_ID : (ICISLERI_WEEKS[bWeek.value] || ICISLERI_WEEKS['2']).examId;
+    const weekLabel = m === 'gsb' ? '1. GSB Mülakat Denemesi' : m === 'adalet' ? '1. Adalet Bakanlığı Denemesi' : m === 'sgk' ? SGK_WEEK_LABEL : (ICISLERI_WEEKS[bWeek.value] || ICISLERI_WEEKS['2']).label;
+    return {action:'leaderboard', bakanlik:CONFIG[m].label, ministry:m, roleId:bRole.value, unvan:EXAM_CONFIG[bRole.value]?.label || '', examId, hafta:weekLabel, province:bProv.value || '', limit:500};
+  }
+  function tableHtml(rows, title, sub){
+    if(!rows.length) return '<div class="b-sec"><h3>' + title + '</h3><div class="b-msg">Bu seçim için henüz katılımcı yok.</div></div>';
+    const body = r => '<tr class="' + (r.rank <= 3 ? 'top' : '') + '"><td>' + r.rank + '</td><td>' + escapeHtml(r.name) + '</td>' + (r.prov !== undefined ? '<td>' + escapeHtml(r.prov) + '</td>' : '') + '<td class="n">' + r.puan + '</td><td class="n">' + r.dogru + '/' + r.yanlis + '/' + r.bos + '</td></tr>';
+    const withProv = rows[0].prov !== undefined;
+    const head = '<thead><tr><th>Sıra</th><th>Ad Soyad</th>' + (withProv ? '<th>İl</th>' : '') + '<th class="n">Puan</th><th class="n">D/Y/B</th></tr></thead>';
+    const first = rows.slice(0, 100), rest = rows.slice(100);
+    const id = 'bt' + Math.random().toString(36).slice(2, 7);
+    return '<div class="b-sec"><h3>' + title + '<small>' + sub + '</small></h3><div class="b-wrap"><table class="b-tbl" id="' + id + '">' + head + '<tbody>' + first.map(body).join('') + '</tbody></table></div>' +
+      (rest.length ? '<button type="button" class="btn btn-out b-more" data-t="' + id + '">Kalan ' + rest.length + ' kişiyi göster</button>' : '') + '</div>';
+  }
+  async function boardLoad(){
+    if(!bRole.value){ alert('Lütfen unvan seçiniz.'); return; }
+    const btn = document.getElementById('bGo'); btn.classList.add('loading'); btn.textContent = 'Sıralama getiriliyor...';
+    try {
+      const m = bMin.value;
+      const res = await postToNewSheet(boardParams(), NEW_SHEET_API_URL);
+      if(!res || !res.ok || !Array.isArray(res.rows)) throw new Error(res && res.error ? res.error : 'Sıralama servisi bu listeyi henüz sunmuyor.');
+      const all = res.rows.map((r, i) => ({
+        rank: Number(r.rank) || i + 1, name: maskRow(r), prov: m === 'icisleri' ? String(r.province || r.il || '') : undefined,
+        puan: Number(r.puan ?? r.score ?? 0), dogru: Number(r.dogru ?? r.correct ?? 0), yanlis: Number(r.yanlis ?? r.wrong ?? 0), bos: Number(r.bos ?? r.blank ?? 0)
+      })).sort((a, b) => a.rank - b.rank);
+      const role = EXAM_CONFIG[bRole.value]?.label || '';
+      let html = tableHtml(all, 'Türkiye Sıralaması', role + ' · ' + all.length + ' katılımcı');
+      if(m === 'icisleri' && bProv.value){
+        const pv = normalizeText(bProv.value);
+        const il = all.filter(r => normalizeText(r.prov) === pv).map((r, i) => ({...r, rank: i + 1}));
+        html += tableHtml(il, bProv.value + ' İl Sıralaması', il.length + ' katılımcı');
+      }
+      bOut.innerHTML = html;
+      bOut.querySelectorAll('.b-more').forEach(b => b.addEventListener('click', () => {
+        const t = document.getElementById(b.dataset.t); const sec = b.closest('.b-sec'); const isIl = sec.querySelector('h3').textContent.indexOf('İl Sıralaması') >= 0;
+        b.remove();
+        const rowsAll = (isIl ? all.filter(r => normalizeText(r.prov) === normalizeText(bProv.value)).map((r, i) => ({...r, rank: i + 1})) : all).slice(100);
+        t.querySelector('tbody').insertAdjacentHTML('beforeend', rowsAll.map(r => '<tr><td>' + r.rank + '</td><td>' + escapeHtml(r.name) + '</td>' + (r.prov !== undefined ? '<td>' + escapeHtml(r.prov) + '</td>' : '') + '<td class="n">' + r.puan + '</td><td class="n">' + r.dogru + '/' + r.yanlis + '/' + r.bos + '</td></tr>').join(''));
+      }));
+    } catch(err){
+      bOut.innerHTML = '<div class="b-msg err">Sıralama alınamadı: ' + escapeHtml(err.message) + '</div>';
+    } finally { btn.classList.remove('loading'); btn.textContent = 'Sıralamayı Getir'; }
+  }
+  function toggleBoard(show){
+    const card = document.getElementById('boardCard');
+    const open = show === undefined ? card.style.display === 'none' : show;
+    card.style.display = open ? '' : 'none';
+    if(open){ if(!bRole.options.length){ bMin.value = selectedMinistry || 'icisleri'; boardFill(); } card.scrollIntoView({behavior:'smooth', block:'start'}); }
+  }
+  bMin.addEventListener('change', boardFill);
+  document.getElementById('bGo').addEventListener('click', boardLoad);
+  document.getElementById('showBoardBtn').addEventListener('click', () => toggleBoard());
+  document.getElementById('hdrBoard').addEventListener('click', e => { e.preventDefault(); toggleBoard(true); });
+})();
 </script>
 </body>
 </html>
