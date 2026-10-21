@@ -11,8 +11,8 @@
 <script>
 window.db = window.db || { sorular: [], konular: {} };
 window.AA_DATA_SOURCES = {
-  questions: "https://adaletsenakademi.com/wp-content/uploads/2026/10/sgksoru.json",
-  content: "https://adaletsenakademi.com/wp-content/uploads/2026/10/sgkiceriksonx.json",
+  questions: "https://adaletsenakademi.com/wp-content/uploads/2026/10/sgksorukesin.json",
+  content: "https://adaletsenakademi.com/wp-content/uploads/2026/10/sgkicerikkesin.json",
 };
 // Şef referans panelinin kimliği ve üç yetkili JSON kaynağı sabittir.
 // WordPress sayfasından kalan başka panel ayarları bu değerleri ezemez.
@@ -242,6 +242,14 @@ window.ADALET_QUESTIONS_URL = (window.AA_PANEL_CONFIG && window.AA_PANEL_CONFIG.
           });
         });
       });
+      // Panel, genel "Ders N" etiketlerini içerik satırlarının sırasına göre eşler; satırlar ders numarasına göre dizilir.
+      (function(){
+        var num=function(r){ var m=/Ders[\s_\u2013\u2014-]*0*(\d+)/.exec(String(r.altKonu||'')); return m?parseInt(m[1],10):null; };
+        var numbered=[], rest=[];
+        rows.forEach(function(r){ (num(r)!==null?numbered:rest).push(r); });
+        numbered.sort(function(a,b){ return num(a)-num(b); });
+        rows=numbered.concat(rest);
+      })();
       contents.push({id:t.id, topicId:t.id, konu:label, topic:label, items:rows});
     });
     return Object.assign({},master,{contents:contents});
@@ -549,6 +557,15 @@ function aaExtractQuestions(data) {
   return flattened;
 }
 
+window.AA_SORT_ALT_KONU = function(list){
+  // Alt konular ders sırasına göre dizilir (etikette "Ders N" veya "- N." varsa; numaralar benzersizse).
+  var key = function(a){ var m = /Ders[\s_\u2013\u2014-]*0*(\d+)/i.exec(a) || /-\s*(\d+)\.\s/.exec(a); return m ? parseInt(m[1], 10) : null; };
+  if(!Array.isArray(list) || list.length < 2) return list;
+  if(!list.every(function(a){ return key(a) !== null; })) return list;
+  var ks = list.map(key);
+  if(new Set(ks).size !== ks.length) return list;
+  return list.sort(function(x, y){ return key(x) - key(y); });
+};
 async function loadData() {
   window.db = window.db || { sorular: [], konular: {} };
 
@@ -598,6 +615,7 @@ async function loadData() {
 
     Object.keys(konularMap).forEach(k => {
       konularMap[k] = Array.from(konularMap[k]);
+      window.AA_SORT_ALT_KONU(konularMap[k]);
     });
 
     db.konular = konularMap;
@@ -24400,6 +24418,7 @@ function rebuild(){
       var a=String((q && (q.altKonu||q.alt_konu)) || '').trim();
       if(a && map[k].indexOf(a)<0) map[k].push(a);
     });
+    order.forEach(function(k){ if(window.AA_SORT_ALT_KONU) window.AA_SORT_ALT_KONU(map[k]); });
     if(order.length) window.db.konular = map;
     try{ if(typeof window.initMobileTopicBuilder==='function') window.initMobileTopicBuilder(); }catch(e){}
   }catch(e){}
