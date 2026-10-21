@@ -274,7 +274,12 @@ window.ADALET_QUESTIONS_URL = (window.AA_PANEL_CONFIG && window.AA_PANEL_CONFIG.
       var allowed=topicIdsFor(master,profile);
       // SGK içerik JSON'unda profil listesi yok; kayıtlı konuların hepsi bu panele aittir.
       if(clean===MASTER_C && !master.profiles && Array.isArray(master.contents)){
-        master.contents.forEach(function(c){ if(c&&c.topicId) allowed.add(String(c.topicId)); });
+        // Konu listesi, aynı profilin soru JSON'undaki konularından alınır (Şef ve Memur farklı konu kümelerine sahiptir).
+        var qAllowed=null;
+        try{ var qm=await loadMaster(MASTER_Q,MASTER_Q,{cache:'default'}); qAllowed=topicIdsFor(qm,profile); }catch(e){}
+        master.contents.forEach(function(c){
+          if(c&&c.topicId&&(!qAllowed||!qAllowed.size||qAllowed.has(String(c.topicId)))) allowed.add(String(c.topicId));
+        });
       }
       publishTopicOrder(master,profile,clean===MASTER_Q?'question':'content');
       if(!allowed.size){
@@ -282,7 +287,7 @@ window.ADALET_QUESTIONS_URL = (window.AA_PANEL_CONFIG && window.AA_PANEL_CONFIG.
       }
       if(clean===MASTER_Q){
         var all=Array.isArray(master)?master:(Array.isArray(master.questions)?master.questions:[]);
-        var filtered=all.filter(function(q){ return allowed.has(String(q.topicId||'')); });
+        var filtered=all.filter(function(q){ return allowed.has(String(q.topicId||'')) && (!Array.isArray(q.profiles)||!q.profiles.length||q.profiles.indexOf(profile)>-1); });
         window.AA_MASTER_LAST_QUESTION_STATS={profile:profile,total:all.length,filtered:filtered.length};
         return jsonResponse(filtered);
       }
