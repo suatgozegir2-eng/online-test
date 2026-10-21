@@ -236,14 +236,52 @@ body{background:var(--bg)}
 .b-msg{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--bg2);border:1px dashed var(--line2);color:var(--muted);font-size:.92rem}
 .b-msg.err{background:#fef2f2;border-color:#fecaca;color:#991b1b}
 .b-more{margin-top:8px}
-#hdrBoard{display:none}@media(min-width:700px){#hdrBoard{display:inline-block}}
+</style>
+<style id="ui3">
+.site-head{position:relative}
+.hdr-links{display:flex;gap:8px;align-items:center}
+.site-link.hl{background:#fff;color:var(--bordo);border-color:#fff;display:inline-flex;align-items:center;gap:6px}
+.site-link.hl:hover{background:#ffe9e9}
+.hdr-burger{display:none;flex:none;width:44px;height:44px;border-radius:12px;border:1.5px solid rgba(255,255,255,.55);background:transparent;cursor:pointer;padding:0;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.hdr-burger i{display:block;width:20px;height:2.5px;border-radius:2px;background:#fff;transition:transform .2s,opacity .2s}
+.hdr-burger[aria-expanded=true] i:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.hdr-burger[aria-expanded=true] i:nth-child(2){opacity:0}
+.hdr-burger[aria-expanded=true] i:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+.hdr-menu{position:absolute;right:12px;top:calc(100% + 6px);z-index:50;min-width:230px;background:#fff;color:var(--ink);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.28);padding:8px;display:flex;flex-direction:column;gap:4px}
+.hdr-menu[hidden]{display:none}
+.hm-item{font:inherit;font-weight:700;font-size:1rem;text-align:left;background:none;border:0;border-radius:10px;padding:13px 14px;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:9px;text-decoration:none}
+.hm-item:hover{background:var(--bg3)}
+.hm-hl{background:var(--purple);color:#fff}.hm-hl:hover{background:var(--purple-d)}
+.btn-rank{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;background:#1e2329;color:#fff;border:0;font-weight:800;font-size:1.04rem;min-height:52px;margin-top:10px;border-radius:var(--r);box-shadow:0 6px 16px rgba(30,35,41,.28);cursor:pointer;transition:transform .15s,background .15s}
+.btn-rank:hover{background:#000;transform:translateY(-1px)}
+.btn-rank svg{color:#ffc83d}
+.start-wrap #showBoardBtn{order:1}.start-wrap #showResultsBtn{order:2}
+@media(max-width:699px){
+  .hdr-links{display:none}
+  .hdr-burger{display:flex}
+}
+@media(max-width:640px){
+  .site-head .wrap{min-height:58px}
+  .hero{padding:12px 0 44px}
+  .hero-pill,.hero p,.hero-chips,#entryDescription{display:none}
+  .hero h1{font-size:1.3rem;margin:0}
+  .landing-pull{margin-top:-30px}
+  .entry-head{padding-top:18px}
+  .entry-head h2{font-size:1.15rem}
+}
 </style>
 </head>
 <body>
 <div id="landingTop">
 <header class="site-head"><div class="wrap">
   <a class="site-brand" href="https://adaletsenakademi.com" target="_blank" rel="noopener"><span class="seal" role="img" aria-label="AdaletSen Akademi logosu"></span><span><strong>AdaletSen Akademi</strong><small>İçişleri · Adalet · GSB · SGK Denemeleri</small></span></a>
-  <span style="display:flex;gap:8px;align-items:center"><a class="site-link" href="#resultsCard" id="hdrResults">Sonuçlarımı Gör</a><a class="site-link" href="#boardCard" id="hdrBoard">Sıralamalar</a><a class="site-link" href="https://www.shopier.com/adaletsenakademi" target="_blank" rel="noopener">Paketleri Gör</a></span>
+  <span class="hdr-links"><a class="site-link" href="#resultsCard" id="hdrResults">Sonuçlarımı Gör</a><a class="site-link hl" href="#boardCard" id="hdrBoard"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.35A5.01 5.01 0 0 1 13 14.9V17h3v2H8v-2h3v-2.1A5.01 5.01 0 0 1 8.35 12H8a4 4 0 0 1-4-4V5h3V3zm-1 4v1a2 2 0 0 0 1.2 1.83A6.9 6.9 0 0 1 7 8V7H6zm12 0h-1v1c0 .63-.07 1.24-.2 1.83A2 2 0 0 0 18 8V7z"/></svg> Sıralamayı Gör</a><a class="site-link" href="https://www.shopier.com/adaletsenakademi" target="_blank" rel="noopener">Paketleri Gör</a></span>
+  <button type="button" class="hdr-burger" id="hdrBurger" aria-label="Menü" aria-expanded="false" aria-controls="hdrMenu"><i></i><i></i><i></i></button>
+  <nav class="hdr-menu" id="hdrMenu" hidden>
+    <button type="button" class="hm-item hm-hl" data-go="hdrBoard"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.35A5.01 5.01 0 0 1 13 14.9V17h3v2H8v-2h3v-2.1A5.01 5.01 0 0 1 8.35 12H8a4 4 0 0 1-4-4V5h3V3zm-1 4v1a2 2 0 0 0 1.2 1.83A6.9 6.9 0 0 1 7 8V7H6zm12 0h-1v1c0 .63-.07 1.24-.2 1.83A2 2 0 0 0 18 8V7z"/></svg> Sıralamayı Gör</button>
+    <button type="button" class="hm-item" data-go="hdrResults">Sonuçlarımı Gör</button>
+    <a class="hm-item" href="https://www.shopier.com/adaletsenakademi" target="_blank" rel="noopener">Paketleri Gör</a>
+  </nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <span class="hero-pill">Ücretsiz · Güncel soru havuzları</span>
@@ -310,7 +348,7 @@ body{background:var(--bg)}
         <div class="start-wrap">
           <button class="btn btn-purple" id="startBtn" type="button">Sınavı Başlat</button>
           <button class="btn btn-out" id="showResultsBtn" type="button" style="margin-top:10px">Sonuçlarımı Gör</button>
-          <button class="btn btn-out" id="showBoardBtn" type="button">Tüm Sıralamayı Gör</button>
+          <button class="btn btn-rank" id="showBoardBtn" type="button"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.35A5.01 5.01 0 0 1 13 14.9V17h3v2H8v-2h3v-2.1A5.01 5.01 0 0 1 8.35 12H8a4 4 0 0 1-4-4V5h3V3zm-1 4v1a2 2 0 0 0 1.2 1.83A6.9 6.9 0 0 1 7 8V7H6zm12 0h-1v1c0 .63-.07 1.24-.2 1.83A2 2 0 0 0 18 8V7z"/></svg> Sıralamayı Gör</button>
         </div>
         <div class="free-note" id="examEntryNote">İçişleri Bakanlığı 1. ve 2. hafta denemeleri açıktır. Haftanı seçerek katıl; aynı unvanda iki haftanın soruları birbirinden farklıdır.</div>
       </div>
@@ -339,7 +377,7 @@ body{background:var(--bg)}
           </div>
         </div>
         <div class="start-wrap"><button class="btn btn-purple" id="lookupBtn" type="button">Sonucumu Getir</button></div>
-        <div class="free-note" style="background:var(--bg2);border-color:var(--line);color:var(--muted)">Adı ve soyadı sınavda yazdığın şekilde gir. Sıralama, sonucun kaydedildiği andan itibaren güncel katılımcı sayısına göre hesaplanır.</div>
+        <div class="free-note" style="background:var(--bg2);border-color:var(--line);color:var(--muted)">Adı ve soyadı sınavda yazdığın şekilde gir. Sıralama, sonucun kaydedildiği andan itibaren güncel katılımcı sayısına göre hesaplanır. İşaretlediğin cevaplar ve çözümler sınavı çözdüğün cihazın tarayıcısında saklanır; aynı cihaz ve tarayıcıdan bakmalısın.</div>
       </div>
     </section>
 
@@ -3129,7 +3167,9 @@ async function finishExam(auto){
     participantCount: null
   };
   safeStoreResult(activeExam.payload, record);
+  const reviewArchived = saveReviewArchive(activeExam.payload, record);
   renderResult(record);
+  if(!reviewArchived) warnReviewNotSaved();
   showFinishPromoOverlay(record);
   setCloudStatus("warn", "Sonuç Google Sheet'e kaydediliyor...");
   try {
@@ -3661,13 +3701,16 @@ async function lookupMyResult(){
     try { cloud = await fetchResultFromCloud(payload); } catch(e) {}
     if(cloud && cloud.ok && (cloud.result || cloud.rank || cloud.rankTurkey || cloud.participantCount)){
       const record = normalizeCloudResult(cloud, local ? {...local, ...payload} : payload);
-      if(!(local && Array.isArray(local.reviewQuestions) && local.reviewQuestions.length)){
+      attachReviewArchive(record, payload);
+      if(!(Array.isArray(record.reviewQuestions) && record.reviewQuestions.length)){
         record.reviewNotice = '<div class="review-head"><div><h3>Sınav Çözüm Kâğıdı</h3><p>Soru ve cevap detayları yalnızca sınavı çözdüğünüz cihazda saklanır. Puanınız ve sıralama özeti yukarıda görüntülenir.</p></div></div>';
       }
       renderResult(record);
       return;
     }
-    if(local){ renderResult(local); return; }
+    if(local){ renderResult(attachReviewArchive(local, payload)); return; }
+    const arch = loadReviewArchive(payload);
+    if(arch && arch.record){ renderResult(attachReviewArchive({...arch.record, ...payload, rankTurkey: null, participantCount: null}, payload)); return; }
     alert(ministry === "gsb" ? "Bu cihazda bu ad, soyad ve unvan için GSB sonucu bulunamadı. Sınavı çözdüğün cihazda tekrar dene." : "Bu ad, soyad ve sınav için kayıtlı sonuç bulunamadı. Bilgilerini kontrol ederek tekrar dene.");
   } finally {
     btn.classList.remove('loading'); btn.textContent = "Sonucumu Getir";
@@ -3812,6 +3855,74 @@ syncMinistryTabs(); renderLandingOffer();
   document.getElementById('bGo').addEventListener('click', boardLoad);
   document.getElementById('showBoardBtn').addEventListener('click', () => toggleBoard());
   document.getElementById('hdrBoard').addEventListener('click', e => { e.preventDefault(); toggleBoard(true); });
+})();
+
+// ---- Çözüm kâğıdı arşivi: işaretlenen cevaplar + sorular + çözümler, sonuç kaydından bağımsız saklanır ----
+const REVIEW_PREFIX = 'aa_review__', REVIEW_KEEP = 8;
+const REVIEW_KEYS = ['id','topic','konu','ders','altKonu','text','question','soru','soruMetni','options','choices','siklar','a','b','c','d','e','answer','correct','correct_answer','correctAnswer','correct_option','correctOption','dogruCevap','doğruCevap','dogru_cevap','cevap','correctLetter','correctIndex','correct_index','dogruIndex','doğruIndex','solution','explanation','aciklama','açıklama','cozum','çözüm','answer_explanation','visual','optionVisuals','section','displayTopic','stageTitle','originalTopic','bankNumber'];
+function slimReviewQuestion(q){ const o = {}; REVIEW_KEYS.forEach(k => { if(q && q[k] !== undefined && q[k] !== null) o[k] = q[k]; }); return o; }
+function reviewArchiveKey(payload){ return REVIEW_PREFIX + resultKey(payload); }
+function pruneReviewArchives(keep, exceptKey){
+  try{
+    const items = [];
+    for(let i = 0; i < localStorage.length; i++){
+      const k = localStorage.key(i);
+      if(k && k.indexOf(REVIEW_PREFIX) === 0 && k !== exceptKey){
+        let t = 0; try{ t = Date.parse(JSON.parse(localStorage.getItem(k)).savedAt) || 0; }catch(e){}
+        items.push({k, t});
+      }
+    }
+    items.sort((a, b) => b.t - a.t);
+    items.slice(Math.max(0, keep)).forEach(x => localStorage.removeItem(x.k));
+  }catch(e){}
+}
+function saveReviewArchive(payload, record){
+  const key = reviewArchiveKey(payload);
+  const body = {
+    v: 1, savedAt: new Date().toISOString(),
+    answers: (record.answers || []).slice(),
+    questions: (record.reviewQuestions || []).map(slimReviewQuestion),
+    record: {correct: record.correct, wrong: record.wrong, blank: record.blank, total: record.total, score: record.score, finishedAt: record.finishedAt, durationSeconds: record.durationSeconds}
+  };
+  let text; try{ text = JSON.stringify(body); }catch(e){ return false; }
+  for(let keep = REVIEW_KEEP - 1; keep >= 0; keep--){
+    try{
+      pruneReviewArchives(keep, key);
+      localStorage.setItem(key, text);
+      return localStorage.getItem(key) === text;
+    }catch(e){ /* kota doldu: daha az arşiv tutup yeniden dene */ }
+  }
+  return false;
+}
+function loadReviewArchive(payload){
+  try{
+    const raw = localStorage.getItem(reviewArchiveKey(payload));
+    if(!raw) return null;
+    const a = JSON.parse(raw);
+    return a && Array.isArray(a.questions) && a.questions.length ? a : null;
+  }catch(e){ return null; }
+}
+function attachReviewArchive(rec, payload){
+  if(rec && !(Array.isArray(rec.reviewQuestions) && rec.reviewQuestions.length)){
+    const a = loadReviewArchive(payload);
+    if(a){ rec.reviewQuestions = a.questions; rec.answers = a.answers; delete rec.reviewNotice; }
+  }
+  return rec;
+}
+function warnReviewNotSaved(){
+  const h = document.getElementById('reviewSection');
+  if(h) h.insertAdjacentHTML('afterbegin', '<div class="notice" style="margin-bottom:12px">Bu tarayıcı çözüm kâğıdını saklamaya izin vermedi (gizli sekme, dosya olarak açılmış sayfa veya dolu hafıza olabilir). Cevaplarını şimdi bu ekrandan incele; sonra “Sonuçlarımı Gör” bölümünde yalnız puan görünebilir.</div>');
+}
+
+// ---- Hamburger menü ----
+(function(){
+  const burger = document.getElementById('hdrBurger'), menu = document.getElementById('hdrMenu');
+  const close = () => { menu.hidden = true; burger.setAttribute('aria-expanded', 'false'); };
+  burger.addEventListener('click', e => { e.stopPropagation(); const open = menu.hidden; menu.hidden = !open; burger.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+  menu.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => { close(); document.getElementById(b.dataset.go).click(); }));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  document.addEventListener('click', e => { if(!menu.hidden && !menu.contains(e.target)) close(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
 })();
 </script>
 </body>
