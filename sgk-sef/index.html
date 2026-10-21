@@ -259,7 +259,10 @@ window.ADALET_QUESTIONS_URL = (window.AA_PANEL_CONFIG && window.AA_PANEL_CONFIG.
     try{
       var master=await loadMaster(clean,input,init);
       var profile=activeProfile();
-      if(clean===MASTER_C) master=aaAdaptSgkContent(master);
+      if(clean===MASTER_C){
+        try{ console.info('[AA MASTER] İçerik JSON: '+clean+' · kayıt (contentItems): '+(master&&master.stats&&master.stats.contentItems)+' · konu: '+(master&&master.stats&&master.stats.topicCount)); }catch(e){}
+        master=aaAdaptSgkContent(master);
+      }
       var allowed=topicIdsFor(master,profile);
       // SGK içerik JSON'unda profil listesi yok; kayıtlı konuların hepsi bu panele aittir.
       if(clean===MASTER_C && !master.profiles && Array.isArray(master.contents)){
