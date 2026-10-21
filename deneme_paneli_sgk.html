@@ -186,6 +186,39 @@ body{background:var(--bg)}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style id="ui2">
+.hero{padding:26px 0 70px}
+.hero h1{margin:10px 0 6px}
+.hero p{font-size:1rem;max-width:560px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hero-chips span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:5px 12px;font-size:.82rem;font-weight:700}
+.landing-pull{margin-top:-46px;max-width:860px;margin-left:auto;margin-right:auto}
+.entry-head{padding:22px 24px 0}
+.entry-head h2{font-size:1.3rem}
+.week-badge{display:none}
+.exam-entry .form-area{padding:14px 24px 24px}
+.m-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:2px 0 18px}
+.m-tab{font:inherit;cursor:pointer;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--ink);display:flex;flex-direction:column;gap:2px;transition:border-color .15s,box-shadow .15s,background .15s}
+.m-tab b{font-size:1.02rem;font-weight:800}
+.m-tab span{font-size:.78rem;color:var(--muted);font-weight:600}
+.m-tab:hover{border-color:var(--purple)}
+.m-tab.on{border-color:var(--purple);background:var(--purple-l);box-shadow:0 0 0 3px rgba(163,15,22,.12)}
+.m-tab.on b{color:var(--bordo)}
+#formArea .form-grid>.field:first-child{display:none}
+.exam-entry .form-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.exam-entry .candidate-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.exam-entry .summary{margin-top:16px;background:var(--bg2)}
+.exam-entry .free-note{background:none;border:0;color:var(--muted);font-weight:500;font-size:.85rem;padding:0 4px;margin-top:10px}
+#showResultsBtn{height:42px!important;border:0;background:none;color:var(--bordo);font-weight:700;margin-top:4px!important}
+#showResultsBtn:hover{text-decoration:underline;background:none}
+.steps{display:none}
+@media(max-width:640px){
+  .hero{padding:20px 0 62px}
+  .m-tabs{grid-template-columns:1fr 1fr}
+  .exam-entry .form-area,.entry-head{padding-left:16px;padding-right:16px}
+  .hero-chips span{font-size:.76rem;padding:4px 10px}
+}
+</style>
 </head>
 <body>
 <div id="landingTop">
@@ -196,13 +229,8 @@ body{background:var(--bg)}
 <section class="hero"><div class="wrap">
   <span class="hero-pill">Ücretsiz · Güncel soru havuzları</span>
   <h1>Deneme Sınavları</h1>
-  <p>İçişleri ara denemesine, Adalet Bakanlığı veya SGK (Şef / Memur) resmî sınav dağılımlı denemesine ya da Gençlik ve Spor Bakanlığı mülakat hazırlık denemesine katıl. Unvanını seç, sınav sonunda çözümlerle eksiklerini gör.</p>
-  <div class="hero-tiles">
-    <div class="hero-tile"><b>Ücretsiz</b><span>Üyelik gerekmez</span></div>
-    <div class="hero-tile"><b>Güncel havuz</b><span>Yeni sorulardan denemeler</span></div>
-    <div class="hero-tile"><b>Unvan sıralaması</b><span>Aynı unvanı çözenler arasında</span></div>
-    <div class="hero-tile"><b>Çözümlü kâğıt</b><span>Her sorunun açıklaması</span></div>
-  </div>
+  <p>Bakanlığını ve unvanını seç, ücretsiz denemeyi çöz; çözümlü kâğıtla eksiklerini gör.</p>
+  <div class="hero-chips"><span>✓ Ücretsiz</span><span>✓ Üyelik gerekmez</span><span>✓ Türkiye sıralaması</span><span>✓ Çözümlü cevap kâğıdı</span></div>
 </div></section>
 </div>
 <main class="main" id="secim">
@@ -217,6 +245,12 @@ body{background:var(--bg)}
         <div class="week-badge" id="weekBadge">2. Hafta Deneme Sınavı<small>1. ve 2. hafta yayında</small></div>
       </div>
       <div class="form-area show" id="formArea">
+        <div class="m-tabs" id="ministryTabs" role="tablist" aria-label="Kurum seç">
+          <button type="button" class="m-tab" data-m="icisleri"><b>İçişleri</b><span>Bakanlığı</span></button>
+          <button type="button" class="m-tab" data-m="adalet"><b>Adalet</b><span>Bakanlığı</span></button>
+          <button type="button" class="m-tab" data-m="sgk"><b>SGK</b><span>Şef · Memur</span></button>
+          <button type="button" class="m-tab" data-m="gsb"><b>GSB</b><span>Mülakat</span></button>
+        </div>
         <div class="form-grid">
           <div class="field">
             <label for="ministrySelect">Bakanlık seç</label>
@@ -295,9 +329,11 @@ body{background:var(--bg)}
       <div class="step"><b>4</b><h4>Eksiklerini kapat</h4><p>Çözümlü cevap kâğıdını incele, unvanına özel hazırlık paketiyle devam et.</p></div>
     </div>
 
+    <div id="offerWrap" style="display:none">
     <h2 class="section-title">Sınavı geçmek için hazırlığını tamamla</h2>
     <p class="section-sub">Denemeler ücretsiz; konu anlatımı, sınırsız test ve video dersleri ise unvanına özel hazırlık paketinde.</p>
     <div id="landingOffer"></div>
+    </div>
 
     <div class="community">
       <div><b>Yeni sınavlardan haberdar ol</b><span>Yeni denemeler ve duyurular akademi WhatsApp grubunda.</span></div>
@@ -2597,7 +2633,7 @@ function fillRoles(ministryId){
   document.getElementById('examEntryNote').textContent=isGsb?'Mülakata hazırlık için 50 soruluk, beş seçenekli bilgi denemesi. Süre 50 dakika. Yanlışlar doğruları götürmez. Puan ve çözümler bu cihazda kaydedilir.':(isAdalet?'Görevde yükselme denemeleri 80, unvan değişikliği denemeleri 60 sorudur; süre soru sayısı kadar dakikadır. Yanlışlar doğruları götürmez.':(isSgk?'Gerçek sınav gibi 100 soru, 135 dakika. Yazılı sınavda başarı sınırı 60 puandır. Yanlışlar doğruları götürmez.':'İçişleri Bakanlığı 1. ve 2. hafta denemeleri açıktır. Haftanı seçerek katıl; aynı unvanda iki haftanın soruları birbirinden farklıdır.'));
   const invite=document.getElementById('landingWhatsAppInvite');
   invite.closest('.community').style.display=isGsb?'none':'';
-  invite.href=isAdalet?WHATSAPP_INVITE_URLS.adalet:WHATSAPP_INVITE_URLS.icisleri;
+  invite.href=WHATSAPP_INVITE_URLS[ministryId]||WHATSAPP_INVITE_URLS.icisleri;
   document.getElementById('resMinistry').value=ministryId;
   updateWeekAvailability();renderWeekBadge();updateSummary();fillResultsForm();
 }
@@ -3303,7 +3339,8 @@ const ADALET_AREA_SAMPLES = {
 const ADALET_UNVAN_DEGISIKLIGI = new Set(Object.keys(ADALET_AREA_SAMPLES));
 const WHATSAPP_INVITE_URLS = {
   icisleri: "https://chat.whatsapp.com/CUDhvfNZGMTAj7LwpZlpkd",
-  adalet: "https://chat.whatsapp.com/EXDKxa6ctMAE0Rr8uo6tMK"
+  adalet: "https://chat.whatsapp.com/EXDKxa6ctMAE0Rr8uo6tMK",
+  sgk: "https://chat.whatsapp.com/ItUBCNA6apqCk56owBKIrd"
 };
 function whatsappInviteBlock(roleOrMinistry){
   const ministry = EXAM_CONFIG[roleOrMinistry]?.ministry || roleOrMinistry || selectedMinistry;
@@ -3653,6 +3690,21 @@ document.getElementById('backToSelectBtn').addEventListener('click', () => {
 document.getElementById('newExamBtn').addEventListener('click', () => { activeExam = null; showSection("choice"); });
 
 
+
+// ---- Ana sayfa sadeleştirme: kurum kartları, tanıtım yalnız unvan seçilince ----
+function syncMinistryTabs(){ document.querySelectorAll('#ministryTabs .m-tab').forEach(b => b.classList.toggle('on', b.dataset.m === selectedMinistry)); }
+document.querySelectorAll('#ministryTabs .m-tab').forEach(b => b.addEventListener('click', () => { ministrySelect.value = b.dataset.m; ministrySelect.dispatchEvent(new Event('change')); }));
+const _fillRolesBase = fillRoles;
+fillRoles = function(m){ _fillRolesBase(m); syncMinistryTabs(); };
+const _renderLandingOfferBase = renderLandingOffer;
+renderLandingOffer = function(){
+  _renderLandingOfferBase();
+  const has = !!roleSelect.value;
+  const wrap = document.getElementById('offerWrap'); if(wrap) wrap.style.display = has ? '' : 'none';
+  const com = document.getElementById('landingWhatsAppInvite')?.closest('.community');
+  if(com) com.style.display = (has || selectedMinistry === 'gsb') ? 'none' : '';
+};
+syncMinistryTabs(); renderLandingOffer();
 </script>
 </body>
 </html>
